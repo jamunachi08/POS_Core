@@ -1,0 +1,211 @@
+/* AlphaX POS — Cashier UI design system
+ *
+ * Built on CSS logical properties (margin-inline-start, padding-inline-end,
+ * inset-inline-end, etc.) so a single stylesheet flips correctly under
+ * dir="rtl" — no separate Arabic CSS, no per-component RTL overrides.
+ */
+
+:root {
+  /* color palette — calm, professional, warm */
+  --bg:           #F7F7F5;
+  --surface:      #FFFFFF;
+  --surface-2:    #F1F0EC;
+  --border:       #E5E4DF;
+  --border-strong:#D5D3CB;
+  --text:         #1A1A1A;
+  --text-muted:   #6B6A65;
+  --text-dim:     #9A9893;
+
+  --accent:       #0F6E56;
+  --accent-soft:  #E1F5EE;
+  --accent-text:  #0F6E56;
+  --accent-hover: #0A5A47;
+
+  --warn:         #BA7517;
+  --warn-soft:    #FAEEDA;
+  --danger:       #A32D2D;
+  --danger-soft:  #FCEBEB;
+  --info:         #185FA5;
+  --info-soft:    #E6F1FB;
+
+  --tier-bronze:  #B05335;
+  --tier-silver:  #757575;
+  --tier-gold:    #B68A1D;
+  --tier-platinum:#3D5566;
+
+  /* typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui,
+               'Helvetica Neue', 'Noto Sans Arabic', 'IBM Plex Sans Arabic',
+               'Geeza Pro', Tahoma, sans-serif;
+  --font-mono: 'SF Mono', Menlo, Consolas, monospace;
+
+  /* radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* shadows — used very sparingly */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg:  0 12px 40px rgba(0, 0, 0, 0.14);
+  --shadow-overlay: 0 24px 80px rgba(0, 0, 0, 0.25);
+
+  /* timing */
+  --t-fast:   100ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-normal: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #alphax-cashier-app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#alphax-cashier-app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* When mounted inside Frappe desk, the desk's own padding gets in the way.
+   Force fullbleed for the cashier surface. */
+.layout-main, .layout-main-section, .page-body {
+  padding: 0 !important;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Numbers — keep tabular figures everywhere they appear in the UI */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Scrollbars — subtle, modern */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: rgba(0, 0, 0, 0.24); background-clip: padding-box; }
+
+/* Reusable button class */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.btn:hover:not(:disabled) { background: var(--surface-2); border-color: var(--border-strong); }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+.btn-ghost:hover:not(:disabled) { background: var(--surface-2); border-color: transparent; }
+
+.btn-danger {
+  background: var(--danger-soft);
+  border-color: transparent;
+  color: var(--danger);
+}
+
+/* Form input baseline */
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-block-end: 4px;
+  font-weight: 500;
+  display: block;
+}
+
+/* Pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.pill-accent { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.pill-warn   { background: var(--warn-soft);   color: var(--warn);   border-color: transparent; }
+.pill-danger { background: var(--danger-soft); color: var(--danger); border-color: transparent; }
+.pill-info   { background: var(--info-soft);   color: var(--info);   border-color: transparent; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+/* Visually hidden (a11y) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* RTL-specific tweaks: nothing should be needed if we stick to logical
+ * properties, but a couple of common gotchas: */
+[dir="rtl"] .flip-on-rtl { transform: scaleX(-1); }

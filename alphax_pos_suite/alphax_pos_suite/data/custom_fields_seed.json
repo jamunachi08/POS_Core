@@ -1,0 +1,216 @@
+[
+  {
+    "doctype": "Custom Field",
+    "dt": "Mode of Payment",
+    "fieldname": "alphax_capture_terminal_data",
+    "label": "Capture Terminal Data",
+    "fieldtype": "Check",
+    "insert_after": "type",
+    "default": 0
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Mode of Payment",
+    "fieldname": "alphax_terminal_settings",
+    "label": "Terminal Settings",
+    "fieldtype": "Link",
+    "options": "AlphaX POS Payment Terminal Settings",
+    "insert_after": "alphax_capture_terminal_data"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Mode of Payment",
+    "fieldname": "alphax_require_terminal_approval",
+    "label": "Require Terminal Approval",
+    "fieldtype": "Check",
+    "insert_after": "alphax_terminal_settings",
+    "default": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Mode of Payment",
+    "fieldname": "alphax_allow_manual_ref",
+    "label": "Allow Manual Reference (Fallback)",
+    "fieldtype": "Check",
+    "insert_after": "alphax_require_terminal_approval",
+    "default": 0
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Item",
+    "fieldname": "alphax_is_weighing_item",
+    "label": "Is Weighing Item",
+    "fieldtype": "Check",
+    "insert_after": "barcode",
+    "default": 0
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Item",
+    "fieldname": "alphax_scale_item_code",
+    "label": "Scale Item Code",
+    "fieldtype": "Data",
+    "insert_after": "alphax_is_weighing_item"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "AlphaX POS Terminal",
+    "fieldname": "alphax_close_report_source",
+    "label": "Close Report Source",
+    "fieldtype": "Select",
+    "options": "AlphaX POS Order\nSales Invoice",
+    "default": "AlphaX POS Order",
+    "insert_after": "pos_profile"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_capture_terminal",
+    "label": "Capture",
+    "fieldtype": "Button",
+    "insert_after": "mode_of_payment",
+    "depends_on": "eval:doc.mode_of_payment"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_txn_status",
+    "label": "Terminal Status",
+    "fieldtype": "Select",
+    "options": "PENDING\nApproved\nDeclined\nError",
+    "insert_after": "aps_capture_terminal",
+    "read_only": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_captured_on",
+    "label": "Captured On",
+    "fieldtype": "Datetime",
+    "insert_after": "aps_txn_status",
+    "read_only": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_rrn",
+    "label": "RRN",
+    "fieldtype": "Data",
+    "insert_after": "aps_captured_on"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_auth_code",
+    "label": "Auth Code",
+    "fieldtype": "Data",
+    "insert_after": "aps_rrn"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_terminal_id",
+    "label": "Terminal ID (TID)",
+    "fieldtype": "Data",
+    "insert_after": "aps_auth_code"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_merchant_id",
+    "label": "Merchant ID (MID)",
+    "fieldtype": "Data",
+    "insert_after": "aps_terminal_id"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_card_brand",
+    "label": "Card/Tender Brand",
+    "fieldtype": "Data",
+    "insert_after": "aps_merchant_id"
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice Payment",
+    "fieldname": "aps_card_transaction",
+    "label": "Card Transaction",
+    "fieldtype": "Link",
+    "options": "AlphaX POS Card Transaction",
+    "insert_after": "aps_card_brand",
+    "read_only": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "POS Profile",
+    "fieldname": "alphax_outlet",
+    "label": "AlphaX Outlet",
+    "fieldtype": "Link",
+    "options": "AlphaX POS Outlet",
+    "insert_after": "currency",
+    "description": "Link this POS Profile to an AlphaX POS Outlet to enable cashier UI features (domain pack, multi-outlet routing, modifiers, loyalty).",
+    "reqd": 0,
+    "in_list_view": 1,
+    "in_standard_filter": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "POS Profile",
+    "fieldname": "aps_require_rrn_before_submit",
+    "label": "Require Terminal Reference (RRN) Before Submit",
+    "fieldtype": "Check",
+    "default": 0,
+    "insert_after": "payments",
+    "description": "If enabled: POS invoices cannot be submitted unless captured RRN exists for card/terminal MoPs (Capture Terminal Data)."
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "POS Profile",
+    "fieldname": "aps_require_approved_status_before_submit",
+    "label": "Require Approved Terminal Status Before Submit",
+    "fieldtype": "Check",
+    "default": 0,
+    "insert_after": "aps_require_rrn_before_submit",
+    "description": "If enabled: POS invoices cannot be submitted unless terminal status is Approved for card/terminal MoPs (Capture Terminal Data)."
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "Sales Invoice",
+    "fieldname": "aps_consumption_stock_entry",
+    "label": "Bonanza Consumption Stock Entry",
+    "fieldtype": "Link",
+    "options": "Stock Entry",
+    "insert_after": "is_pos",
+    "read_only": 1
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "User",
+    "fieldname": "alphax_pos_section",
+    "label": "AlphaX POS",
+    "fieldtype": "Section Break",
+    "insert_after": "bypass_restrict_ip_check_if_2fa_enabled",
+    "collapsible": 1,
+    "description": "Default cashier station assignment for this user."
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "User",
+    "fieldname": "default_alphax_terminal",
+    "label": "Default POS Terminal",
+    "fieldtype": "Link",
+    "options": "AlphaX POS Terminal",
+    "insert_after": "alphax_pos_section",
+    "description": "DEPRECATED in v15.5.13. Was used for auto-selecting a terminal at login. Station binding is now per-PC via localStorage + bridge daemon, so this field is unused but kept for backward compatibility. Do not rely on it."
+  },
+  {
+    "doctype": "Custom Field",
+    "dt": "User",
+    "fieldname": "allowed_pos_profiles",
+    "label": "Allowed POS Profiles",
+    "fieldtype": "Table",
+    "options": "AlphaX POS Profile Allowed",
+    "insert_after": "default_alphax_terminal",
+    "description": "Which POS Profiles this user is allowed to operate. Set the 'Default' flag on one row to mark it as the user's preferred profile. When the cashier loads, the active profile is the intersection of this list with the terminal's allowed list. If empty, this user can use any profile (legacy behavior)."
+  }
+]

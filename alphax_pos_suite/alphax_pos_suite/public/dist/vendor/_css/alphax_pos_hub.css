@@ -1,0 +1,175 @@
+/*
+ * AlphaX POS Hub — workspace styling
+ *
+ * Every selector is scoped to body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"]
+ * so this stylesheet only touches our workspace. It will not affect:
+ *   - Other AlphaX workspaces
+ *   - ERPNext workspaces
+ *   - Workspaces shipped by other apps (alphax_grc, etc.)
+ *   - Frappe core UI anywhere else
+ *
+ * Toggleable via AlphaX POS Settings -> "Use polished workspace theme".
+ * When off, our hooks.py simply doesn't queue this CSS, and the
+ * workspace falls back to stock Frappe styling.
+ *
+ * Palette (per customer brand):
+ *   #714B67  primary mauve   - headings, accents, borders, brand
+ *   #DBCED9  light mauve     - subtle accents, hover, icon backgrounds
+ *   #EAE5E9  warm off-white  - card borders, dividers, subtle surfaces
+ *   #FAF7F9  page tint       - page background (computed slightly lighter)
+ *   #4B5563  body text       - normal copy
+ *   #9088A0  muted text      - secondary copy, hints
+ *
+ * Color-coded "alert" tiles (low stock amber, ZATCA OK green) are not
+ * rewritten here. Status colors stay status colors so the cashier can
+ * spot them at a glance.
+ */
+
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] {
+    --alphax-mauve:       #714B67;
+    --alphax-mauve-light: #DBCED9;
+    --alphax-border:      #EAE5E9;
+    --alphax-bg:          #FAF7F9;
+    --alphax-text:        #4B5563;
+    --alphax-muted:       #9088A0;
+
+    background-color: var(--alphax-bg);
+}
+
+/* ---------------------------------------------------------------------- *
+ * Sidebar item — keep our row visually distinct when active
+ * ---------------------------------------------------------------------- */
+body.alphax-pos-themed .standard-sidebar-item.selected[data-name="AlphaX POS Hub"],
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"]
+    .standard-sidebar-item.selected {
+    background-color: var(--alphax-mauve) !important;
+    color: #fff !important;
+}
+body.alphax-pos-themed .standard-sidebar-item.selected[data-name="AlphaX POS Hub"] .sidebar-item-label,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"]
+    .standard-sidebar-item.selected .sidebar-item-label {
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Workspace title block
+ * ---------------------------------------------------------------------- */
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .workspace-title,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .codex-editor h1,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .codex-editor h2,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .codex-editor h3 {
+    color: var(--alphax-mauve);
+    letter-spacing: 0.2px;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .codex-editor h2 {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--alphax-mauve);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Shortcut tiles (top row of 4)
+ * Frappe wraps each shortcut in .widget.shortcut-widget-box
+ * ---------------------------------------------------------------------- */
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box {
+    background-color: #fff !important;
+    border: 0.5px solid var(--alphax-border) !important;
+    border-radius: 12px !important;
+    padding: 14px 16px !important;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.15s ease, transform 0.05s ease;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--alphax-mauve);
+    border-radius: 0;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box:hover {
+    box-shadow: 0 2px 8px rgba(113, 75, 103, 0.08);
+    transform: translateY(-1px);
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box .indicator-pill {
+    background: var(--alphax-mauve-light) !important;
+    color: var(--alphax-mauve) !important;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box .widget-title,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box .widget-label {
+    color: var(--alphax-text) !important;
+    font-weight: 500;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box .widget-subtitle,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.shortcut-widget-box .widget-stats {
+    color: var(--alphax-muted) !important;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Module cards (Card Break + their links)
+ * Frappe renders each as .widget.links-widget-box
+ * ---------------------------------------------------------------------- */
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box {
+    background-color: #fff !important;
+    border: 0.5px solid var(--alphax-border) !important;
+    border-radius: 12px !important;
+    border-top: 3px solid var(--alphax-mauve) !important;
+    padding: 16px !important;
+    transition: box-shadow 0.15s ease;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box:hover {
+    box-shadow: 0 2px 10px rgba(113, 75, 103, 0.06);
+}
+
+/* Card title (the "Operations", "Setup & Configuration" etc. heading) */
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box .widget-head .widget-title,
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box .widget-head .widget-label {
+    color: var(--alphax-text) !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+}
+
+/* Each link row inside the card */
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box .link-item {
+    color: var(--alphax-text) !important;
+    font-size: 12.5px !important;
+    padding: 6px 0 !important;
+    border-bottom: 0.5px solid var(--alphax-border);
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box .link-item:last-child {
+    border-bottom: 0;
+}
+body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] .widget.links-widget-box .link-item:hover {
+    color: var(--alphax-mauve) !important;
+    background: var(--alphax-mauve-light);
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    margin-left: -6px;
+    margin-right: -6px;
+    border-radius: 4px;
+    border-bottom-color: transparent;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Color exceptions — keep these as their semantic color
+ * ---------------------------------------------------------------------- */
+/* (Reserved for future use. If we ever want a single shortcut tile to
+   stay amber/green based on a doctype filter, we can target by
+   data-shortcut-name attribute here.) */
+
+/* ---------------------------------------------------------------------- *
+ * Print: revert to stock so reports print clean
+ * ---------------------------------------------------------------------- */
+@media print {
+    body.alphax-pos-themed[data-page-route^="Workspaces/AlphaX POS Hub"] * {
+        background: transparent !important;
+        color: #000 !important;
+        border-color: #ccc !important;
+        box-shadow: none !important;
+    }
+}

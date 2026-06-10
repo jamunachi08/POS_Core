@@ -1,0 +1,52 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Day Close Payment",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 1,
+  "editable_grid": 1,
+  "autoname": "",
+  "fields": [
+    {
+      "fieldname": "mode_of_payment",
+      "label": "Mode of Payment",
+      "fieldtype": "Link",
+      "options": "Mode of Payment",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "system_amount",
+      "label": "System Amount",
+      "fieldtype": "Currency",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "counter_amount",
+      "label": "Counter Amount",
+      "fieldtype": "Currency",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "difference",
+      "label": "Difference",
+      "fieldtype": "Currency",
+      "in_list_view": 1,
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

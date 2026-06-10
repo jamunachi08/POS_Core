@@ -1,0 +1,34 @@
+# Normalise text line endings (helps Windows/Git Bash <-> Linux Frappe Cloud)
+* text=auto eol=lf
+
+# Keep shell scripts LF
+*.sh        text eol=lf
+
+# Python / JS / config stay text
+*.py        text
+*.js        text
+*.json      text
+*.css       text
+*.html      text
+*.md        text
+*.toml      text
+*.cfg       text
+
+# Treat these as binary (never diff / never EOL-convert)
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.ico       binary
+*.svg       binary
+*.woff      binary
+*.woff2     binary
+*.ttf       binary
+*.eot       binary
+*.otf       binary
+*.pdf       binary
+*.zip       binary
+*.gz        binary
+*.docx      binary
+*.xlsx      binary
+*.pptx      binary

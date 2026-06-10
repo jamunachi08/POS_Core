@@ -1,0 +1,3 @@
+include README.md
+include license.txt
+recursive-include alphax_pos_suite *.json *.py *.js *.css *.html *.md *.txt

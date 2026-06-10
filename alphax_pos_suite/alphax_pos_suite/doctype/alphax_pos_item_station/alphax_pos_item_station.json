@@ -1,0 +1,44 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Item Station",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "hash",
+  "fields": [
+    {
+      "fieldname": "item_code",
+      "label": "Item",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Item"
+    },
+    {
+      "fieldname": "station",
+      "label": "Station",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "AlphaX POS Kitchen Station"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Map items to kitchen stations."
+}

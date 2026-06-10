@@ -1,0 +1,15 @@
+frontend/node_modules/
+frontend/dist/
+alphax_pos_suite/alphax_pos_suite/public/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store

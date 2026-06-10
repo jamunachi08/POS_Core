@@ -1,0 +1,147 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Outlet",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "autoname": "field:outlet_name",
+  "engine": "InnoDB",
+  "allow_rename": 1,
+  "fields": [
+    {
+      "fieldname": "outlet_name",
+      "label": "Outlet Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "options": "Company"
+    },
+    {
+      "fieldname": "branch",
+      "label": "Branch",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "options": "Branch"
+    },
+    {
+      "fieldname": "warehouse",
+      "label": "Default Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "cost_center",
+      "label": "Default Cost Center",
+      "fieldtype": "Link",
+      "options": "Cost Center"
+    },
+    {
+      "fieldname": "domains_section",
+      "label": "Active Business Domains",
+      "fieldtype": "Section Break",
+      "description": "An outlet can run any combination of these domains simultaneously. The cashier UI will load only the modules for active domains."
+    },
+    {
+      "fieldname": "domains",
+      "label": "Active Domains",
+      "fieldtype": "Table MultiSelect",
+      "options": "AlphaX POS Outlet Domain"
+    },
+    {
+      "fieldname": "primary_domain",
+      "label": "Primary Domain",
+      "fieldtype": "Select",
+      "options": "\nRestaurant\nCafe\nRetail\nGrocery\nPharmacy\nSalon\nService\nGeneric",
+      "default": "Generic",
+      "description": "Default landing module on the cashier terminal."
+    },
+    {
+      "fieldname": "fiscal_section",
+      "label": "Fiscal & Stock",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "update_stock",
+      "label": "Update Stock on POS Posting",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "sales_taxes_and_charges_template",
+      "label": "Sales Taxes and Charges Template",
+      "fieldtype": "Link",
+      "options": "Sales Taxes and Charges Template"
+    },
+    {
+      "fieldname": "default_price_list",
+      "label": "Default Selling Price List",
+      "fieldtype": "Link",
+      "options": "Price List"
+    },
+    {
+      "fieldname": "fiscal_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "pos_type",
+      "label": "POS Type (Legacy)",
+      "fieldtype": "Select",
+      "options": "Use Global\nRestaurant\nRetail\nPharmacy\nElectronics\nGeneric",
+      "default": "Use Global",
+      "description": "Kept for backwards compatibility. Active Domains above is the source of truth."
+    },
+    {
+      "fieldname": "enable_kds",
+      "label": "Enable KDS (Override)",
+      "fieldtype": "Select",
+      "options": "Use Global\nYes\nNo",
+      "default": "Use Global"
+    },
+    {
+      "fieldname": "loyalty_section",
+      "label": "Loyalty",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "default_loyalty_program",
+      "label": "Default Loyalty Program",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Loyalty Program",
+      "description": "If set, walk-in customers default to this program."
+    },
+    {
+      "fieldname": "extras_section",
+      "label": "Restaurant Extras",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "service_charge_item",
+      "label": "Service Charge Item",
+      "fieldtype": "Link",
+      "options": "Item"
+    },
+    {
+      "fieldname": "tips_item",
+      "label": "Tips Item",
+      "fieldtype": "Link",
+      "options": "Item"
+    }
+  ],
+  "permissions": [
+    {"role": "AlphaX POS Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "AlphaX POS Supervisor", "read": 1, "write": 1, "create": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "description": "Outlet configuration. One outlet can run multiple business domains simultaneously.",
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

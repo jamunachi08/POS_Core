@@ -1,0 +1,357 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Settings",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 0,
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "allow_rename": 0,
+ "fields": [
+  {
+   "fieldname": "auto_create_sales_invoice",
+   "label": "Auto Create Sales Invoice",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "enable_kds",
+   "label": "Enable KDS (Restaurant)",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "require_shift_open",
+   "label": "Require Shift Open/Close",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "allow_negative_stock_pos",
+   "label": "Allow Negative Stock in POS",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "require_manager_for_void",
+   "label": "Manager Approval for Void/Refund",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "default_customer",
+   "label": "Default Walk-in Customer",
+   "fieldtype": "Link",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "options": "Customer"
+  },
+  {
+   "fieldname": "pos_type",
+   "label": "POS Type",
+   "fieldtype": "Select",
+   "reqd": 0,
+   "in_list_view": 1,
+   "read_only": 0,
+   "options": "Restaurant\nRetail\nPharmacy\nElectronics\nGeneric",
+   "default": "Generic"
+  },
+  {
+   "fieldname": "enable_batch_expiry",
+   "label": "Enable Batch/Expiry Capture (Pharma)",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "enable_serial_scan",
+   "label": "Enable Serial Scanning (Electronics)",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "enable_service_charge",
+   "label": "Enable Service Charge (F&B)",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "enable_tips",
+   "label": "Enable Tips",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "rounding_method",
+   "label": "Rounding Method",
+   "fieldtype": "Select",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "options": "ERPNext Default\nRound To Nearest 0.05\nRound To Nearest 0.10",
+   "default": "ERPNext Default"
+  },
+  {
+   "fieldname": "discount_threshold_percent",
+   "label": "Discount Threshold (%) for Approval",
+   "fieldtype": "Float",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 10
+  },
+  {
+   "fieldname": "price_override_requires_approval",
+   "label": "Price Override Requires Approval",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "allow_returns",
+   "label": "Allow Returns",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "return_settlement_modes",
+   "label": "Return Settlement Modes",
+   "fieldtype": "Select",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "options": "Cash Refund Only\nCredit Note Only\nCash Refund or Credit Note",
+   "default": "Cash Refund or Credit Note"
+  },
+  {
+   "fieldname": "enable_credit_note_redemption",
+   "label": "Enable Credit Note Redemption",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "allow_edit_credit_note_amount",
+   "label": "Allow Edit Credit Note Amount",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 0
+  },
+  {
+   "fieldname": "return_approval_days",
+   "label": "Return Approval After (Days)",
+   "fieldtype": "Int",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 7
+  },
+  {
+   "fieldname": "cash_mode_of_payment",
+   "label": "Cash Mode of Payment",
+   "fieldtype": "Link",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "options": "Mode of Payment",
+   "default": "Cash"
+  },
+  {
+   "fieldname": "enable_mop_dropdown",
+   "label": "Use ERPNext Mode of Payment List",
+   "fieldtype": "Check",
+   "reqd": 0,
+   "in_list_view": 0,
+   "read_only": 0,
+   "default": 1
+  },
+  {
+   "fieldname": "section_boosters",
+   "label": "Bonanza Boosters",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "enable_recipe_consumption",
+   "label": "Enable Recipe Consumption (Auto Material Issue)",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "consumption_warehouse",
+   "label": "Default Consumption Warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "consumption_cost_center",
+   "label": "Default Cost Center",
+   "fieldtype": "Link",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "use_invoice_set_warehouse",
+   "label": "Use Invoice Set Warehouse if present",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "enable_setup_wizard",
+   "label": "Enable Setup Wizard shortcuts",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "section_security",
+   "label": "Security & Approvals",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "require_manager_for_discount",
+   "label": "Manager Approval for Discount Override",
+   "fieldtype": "Check",
+   "default": 0
+  },
+  {
+   "fieldname": "section_zatca",
+   "label": "KSA / ZATCA Helper",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "warn_inclusive_vat_item_tax_template",
+   "label": "Warn if Item Tax Template is set on Inclusive VAT invoices",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "central_kitchen_section_break",
+   "label": "Central Kitchen Integration (ERPNext)",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "enable_central_kitchen_integration",
+   "label": "Enable Central Kitchen Integration",
+   "fieldtype": "Check",
+   "default": 0
+  },
+  {
+   "fieldname": "central_kitchen_company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "options": "Company"
+  },
+  {
+   "fieldname": "central_kitchen_default_from_warehouse",
+   "label": "Default From Warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "central_kitchen_default_to_warehouse",
+   "label": "Default To Warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "central_kitchen_auto_create_material_request",
+   "label": "Auto Create Material Request",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "central_kitchen_material_request_type",
+   "label": "Material Request Type",
+   "fieldtype": "Select",
+   "options": "Material Transfer\nMaterial Issue\nPurchase\nManufacture\nCustomer Provided",
+   "default": "Material Transfer"
+  },
+  {
+   "fieldname": "central_kitchen_auto_create_stock_entry_on_fulfill",
+   "label": "Auto Create Stock Entry on Fulfill",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "central_kitchen_stock_entry_purpose",
+   "label": "Stock Entry Purpose",
+   "fieldtype": "Select",
+   "options": "Material Transfer\nMaterial Issue",
+   "default": "Material Transfer"
+  },
+  {
+   "fieldname": "central_kitchen_column_break1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "central_kitchen_require_mapping",
+   "label": "Require Warehouse Mapping (Block if missing)",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "section_appearance",
+   "label": "Appearance",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "enable_polished_workspace_theme",
+   "label": "Use polished workspace theme",
+   "fieldtype": "Check",
+   "default": 1,
+   "description": "When on, the AlphaX POS Hub workspace uses the branded mauve styling. Turn off to fall back to stock Frappe workspace styling. This affects only the AlphaX POS Hub workspace; nothing else changes."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1
+  }
+ ],
+ "description": "Global settings for AlphaX POS Suite.",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "issingle": 1
+}

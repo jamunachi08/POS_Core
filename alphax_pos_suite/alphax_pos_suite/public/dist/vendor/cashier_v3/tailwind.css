@@ -1,0 +1,436 @@
+/*
+ * AlphaX POS v3 — Tailwind-style utility CSS (precompiled, committed)
+ *
+ * Why a hand-crafted utility CSS instead of a real Tailwind compile?
+ * ─────────────────────────────────────────────────────────────────
+ * Frappe Cloud's deploy pipeline cannot run `npm install && npx tailwindcss`
+ * reliably (the same constraint that drove our vendor bundles strategy
+ * in v15.5.7). So instead of running Tailwind CLI at deploy, we:
+ *
+ *   1. Maintain this file by hand, adding utilities as components need them
+ *   2. Commit the CSS directly to the repo
+ *   3. Frappe Cloud serves it as a static asset
+ *
+ * The vocabulary follows Tailwind's naming exactly (p-4, text-xl,
+ * bg-mauve-500, etc.) so components can use familiar syntax. If we ever
+ * migrate to a real Tailwind compile, the components don't change.
+ *
+ * Updates: when a phase adds a new component that needs a new utility,
+ * add it here AND in `tailwind-classes-used.md` (the audit log).
+ *
+ * Conventions used here:
+ *   - Spacing scale: 0, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24
+ *     (multiply by 4 for px: p-4 = 16px padding)
+ *   - Mauve replaces Tailwind's "indigo" or "purple" as our brand color
+ *   - We keep the rest of the palette (gray, amber, red, green, blue) standard
+ */
+
+/* ============================================================
+   CSS Custom Properties (theme tokens)
+   ============================================================ */
+
+:root {
+    /* Mauve (brand) */
+    --mauve-50:  #FAF7F9;
+    --mauve-100: #EAE5E9;
+    --mauve-200: #DBCED9;
+    --mauve-300: #C5AFC0;
+    --mauve-400: #9F7B96;
+    --mauve-500: #714B67;
+    --mauve-600: #5C3D54;
+    --mauve-700: #4A3142;
+    --mauve-800: #382533;
+    --mauve-900: #271823;
+
+    /* Gray */
+    --gray-50:  #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-800: #1F2937;
+    --gray-900: #111827;
+
+    /* Status colors */
+    --green-50:  #ECFDF5;
+    --green-100: #D1FAE5;
+    --green-500: #22C55E;
+    --green-600: #16A34A;
+    --green-700: #15803D;
+
+    --red-50:  #FEF2F2;
+    --red-100: #FEE2E2;
+    --red-500: #EF4444;
+    --red-600: #DC2626;
+    --red-700: #B91C1C;
+
+    --amber-50:  #FFFBEB;
+    --amber-100: #FEF3C7;
+    --amber-500: #F59E0B;
+    --amber-600: #D97706;
+    --amber-700: #B45309;
+
+    --blue-50:  #EFF6FF;
+    --blue-500: #3B82F6;
+    --blue-600: #2563EB;
+}
+
+/* ============================================================
+   Base / reset
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+#alphax-pos-v3-app {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+#alphax-pos-v3-app button {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#alphax-pos-v3-app input,
+#alphax-pos-v3-app textarea,
+#alphax-pos-v3-app select {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+#alphax-pos-v3-app input:focus,
+#alphax-pos-v3-app textarea:focus,
+#alphax-pos-v3-app button:focus {
+    outline: none;
+}
+
+/* All utility classes are scoped to the SPA mount point so they can't
+ * leak into Frappe Desk pages.
+ */
+
+/* ============================================================
+   Layout primitives
+   ============================================================ */
+
+#alphax-pos-v3-app .flex { display: flex; }
+#alphax-pos-v3-app .inline-flex { display: inline-flex; }
+#alphax-pos-v3-app .grid { display: grid; }
+#alphax-pos-v3-app .block { display: block; }
+#alphax-pos-v3-app .inline-block { display: inline-block; }
+#alphax-pos-v3-app .hidden { display: none; }
+
+#alphax-pos-v3-app .flex-1 { flex: 1; }
+#alphax-pos-v3-app .flex-col { flex-direction: column; }
+#alphax-pos-v3-app .flex-row { flex-direction: row; }
+#alphax-pos-v3-app .flex-shrink-0 { flex-shrink: 0; }
+#alphax-pos-v3-app .flex-grow { flex-grow: 1; }
+#alphax-pos-v3-app .flex-wrap { flex-wrap: wrap; }
+
+#alphax-pos-v3-app .items-start { align-items: flex-start; }
+#alphax-pos-v3-app .items-center { align-items: center; }
+#alphax-pos-v3-app .items-end { align-items: flex-end; }
+#alphax-pos-v3-app .items-baseline { align-items: baseline; }
+#alphax-pos-v3-app .items-stretch { align-items: stretch; }
+
+#alphax-pos-v3-app .justify-start { justify-content: flex-start; }
+#alphax-pos-v3-app .justify-center { justify-content: center; }
+#alphax-pos-v3-app .justify-end { justify-content: flex-end; }
+#alphax-pos-v3-app .justify-between { justify-content: space-between; }
+#alphax-pos-v3-app .justify-around { justify-content: space-around; }
+
+#alphax-pos-v3-app .gap-1 { gap: 4px; }
+#alphax-pos-v3-app .gap-2 { gap: 8px; }
+#alphax-pos-v3-app .gap-3 { gap: 12px; }
+#alphax-pos-v3-app .gap-4 { gap: 16px; }
+#alphax-pos-v3-app .gap-5 { gap: 20px; }
+#alphax-pos-v3-app .gap-6 { gap: 24px; }
+#alphax-pos-v3-app .gap-8 { gap: 32px; }
+
+/* Grid utilities */
+#alphax-pos-v3-app .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+#alphax-pos-v3-app .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#alphax-pos-v3-app .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#alphax-pos-v3-app .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#alphax-pos-v3-app .grid-cashier { grid-template-columns: 64px 1fr 400px; }
+
+#alphax-pos-v3-app .grid-flow-auto {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+/* ============================================================
+   Sizing
+   ============================================================ */
+
+#alphax-pos-v3-app .w-full { width: 100%; }
+#alphax-pos-v3-app .w-auto { width: auto; }
+#alphax-pos-v3-app .w-6 { width: 24px; }
+#alphax-pos-v3-app .w-8 { width: 32px; }
+#alphax-pos-v3-app .w-10 { width: 40px; }
+#alphax-pos-v3-app .w-12 { width: 48px; }
+#alphax-pos-v3-app .w-14 { width: 56px; }
+#alphax-pos-v3-app .w-16 { width: 64px; }
+
+#alphax-pos-v3-app .h-full { height: 100%; }
+#alphax-pos-v3-app .h-screen { height: 100vh; }
+#alphax-pos-v3-app .h-6 { height: 24px; }
+#alphax-pos-v3-app .h-8 { height: 32px; }
+#alphax-pos-v3-app .h-9 { height: 36px; }
+#alphax-pos-v3-app .h-10 { height: 40px; }
+#alphax-pos-v3-app .h-12 { height: 48px; }
+#alphax-pos-v3-app .h-14 { height: 56px; }
+#alphax-pos-v3-app .h-16 { height: 64px; }
+#alphax-pos-v3-app .h-auto { height: auto; }
+
+#alphax-pos-v3-app .min-h-0 { min-height: 0; }
+#alphax-pos-v3-app .min-w-0 { min-width: 0; }
+
+#alphax-pos-v3-app .max-w-md { max-width: 28rem; }
+#alphax-pos-v3-app .max-w-lg { max-width: 32rem; }
+#alphax-pos-v3-app .max-w-xl { max-width: 36rem; }
+
+/* ============================================================
+   Spacing (padding & margin)
+   ============================================================ */
+
+#alphax-pos-v3-app .p-0 { padding: 0; }
+#alphax-pos-v3-app .p-1 { padding: 4px; }
+#alphax-pos-v3-app .p-2 { padding: 8px; }
+#alphax-pos-v3-app .p-3 { padding: 12px; }
+#alphax-pos-v3-app .p-4 { padding: 16px; }
+#alphax-pos-v3-app .p-5 { padding: 20px; }
+#alphax-pos-v3-app .p-6 { padding: 24px; }
+#alphax-pos-v3-app .p-8 { padding: 32px; }
+
+#alphax-pos-v3-app .px-2 { padding-left: 8px; padding-right: 8px; }
+#alphax-pos-v3-app .px-3 { padding-left: 12px; padding-right: 12px; }
+#alphax-pos-v3-app .px-4 { padding-left: 16px; padding-right: 16px; }
+#alphax-pos-v3-app .px-5 { padding-left: 20px; padding-right: 20px; }
+#alphax-pos-v3-app .px-6 { padding-left: 24px; padding-right: 24px; }
+
+#alphax-pos-v3-app .py-1 { padding-top: 4px; padding-bottom: 4px; }
+#alphax-pos-v3-app .py-2 { padding-top: 8px; padding-bottom: 8px; }
+#alphax-pos-v3-app .py-3 { padding-top: 12px; padding-bottom: 12px; }
+#alphax-pos-v3-app .py-4 { padding-top: 16px; padding-bottom: 16px; }
+#alphax-pos-v3-app .py-5 { padding-top: 20px; padding-bottom: 20px; }
+#alphax-pos-v3-app .py-6 { padding-top: 24px; padding-bottom: 24px; }
+
+#alphax-pos-v3-app .m-0 { margin: 0; }
+#alphax-pos-v3-app .m-2 { margin: 8px; }
+#alphax-pos-v3-app .m-4 { margin: 16px; }
+#alphax-pos-v3-app .mb-2 { margin-bottom: 8px; }
+#alphax-pos-v3-app .mb-3 { margin-bottom: 12px; }
+#alphax-pos-v3-app .mb-4 { margin-bottom: 16px; }
+#alphax-pos-v3-app .mt-2 { margin-top: 8px; }
+#alphax-pos-v3-app .mt-3 { margin-top: 12px; }
+#alphax-pos-v3-app .mt-4 { margin-top: 16px; }
+#alphax-pos-v3-app .mt-auto { margin-top: auto; }
+#alphax-pos-v3-app .ml-auto { margin-left: auto; }
+
+/* ============================================================
+   Typography
+   ============================================================ */
+
+#alphax-pos-v3-app .text-xs { font-size: 11px; line-height: 1.4; }
+#alphax-pos-v3-app .text-sm { font-size: 12px; line-height: 1.5; }
+#alphax-pos-v3-app .text-base { font-size: 14px; line-height: 1.5; }
+#alphax-pos-v3-app .text-md { font-size: 15px; line-height: 1.5; }
+#alphax-pos-v3-app .text-lg { font-size: 16px; line-height: 1.5; }
+#alphax-pos-v3-app .text-xl { font-size: 18px; line-height: 1.4; }
+#alphax-pos-v3-app .text-2xl { font-size: 22px; line-height: 1.35; }
+#alphax-pos-v3-app .text-3xl { font-size: 28px; line-height: 1.3; }
+
+#alphax-pos-v3-app .font-normal { font-weight: 400; }
+#alphax-pos-v3-app .font-medium { font-weight: 500; }
+#alphax-pos-v3-app .font-semibold { font-weight: 600; }
+#alphax-pos-v3-app .font-bold { font-weight: 700; }
+
+#alphax-pos-v3-app .text-left { text-align: left; }
+#alphax-pos-v3-app .text-center { text-align: center; }
+#alphax-pos-v3-app .text-right { text-align: right; }
+
+#alphax-pos-v3-app .uppercase { text-transform: uppercase; }
+#alphax-pos-v3-app .tracking-wide { letter-spacing: 0.025em; }
+#alphax-pos-v3-app .tracking-wider { letter-spacing: 0.05em; }
+#alphax-pos-v3-app .leading-tight { line-height: 1.25; }
+
+#alphax-pos-v3-app .font-mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+#alphax-pos-v3-app .whitespace-nowrap { white-space: nowrap; }
+#alphax-pos-v3-app .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Text colors */
+#alphax-pos-v3-app .text-white { color: white; }
+#alphax-pos-v3-app .text-gray-300 { color: var(--gray-300); }
+#alphax-pos-v3-app .text-gray-500 { color: var(--gray-500); }
+#alphax-pos-v3-app .text-gray-600 { color: var(--gray-600); }
+#alphax-pos-v3-app .text-gray-700 { color: var(--gray-700); }
+#alphax-pos-v3-app .text-gray-900 { color: var(--gray-900); }
+#alphax-pos-v3-app .text-mauve-400 { color: var(--mauve-400); }
+#alphax-pos-v3-app .text-mauve-500 { color: var(--mauve-500); }
+#alphax-pos-v3-app .text-mauve-600 { color: var(--mauve-600); }
+#alphax-pos-v3-app .text-mauve-700 { color: var(--mauve-700); }
+#alphax-pos-v3-app .text-green-600 { color: var(--green-600); }
+#alphax-pos-v3-app .text-green-700 { color: var(--green-700); }
+#alphax-pos-v3-app .text-red-600 { color: var(--red-600); }
+#alphax-pos-v3-app .text-amber-700 { color: var(--amber-700); }
+
+/* ============================================================
+   Backgrounds
+   ============================================================ */
+
+#alphax-pos-v3-app .bg-white { background-color: white; }
+#alphax-pos-v3-app .bg-transparent { background-color: transparent; }
+#alphax-pos-v3-app .bg-mauve-50 { background-color: var(--mauve-50); }
+#alphax-pos-v3-app .bg-mauve-100 { background-color: var(--mauve-100); }
+#alphax-pos-v3-app .bg-mauve-200 { background-color: var(--mauve-200); }
+#alphax-pos-v3-app .bg-mauve-500 { background-color: var(--mauve-500); }
+#alphax-pos-v3-app .bg-mauve-600 { background-color: var(--mauve-600); }
+#alphax-pos-v3-app .bg-gray-50 { background-color: var(--gray-50); }
+#alphax-pos-v3-app .bg-gray-100 { background-color: var(--gray-100); }
+#alphax-pos-v3-app .bg-gray-700 { background-color: var(--gray-700); }
+#alphax-pos-v3-app .bg-gray-900 { background-color: var(--gray-900); }
+#alphax-pos-v3-app .bg-green-50 { background-color: var(--green-50); }
+#alphax-pos-v3-app .bg-green-600 { background-color: var(--green-600); }
+#alphax-pos-v3-app .bg-amber-50 { background-color: var(--amber-50); }
+#alphax-pos-v3-app .bg-amber-500 { background-color: var(--amber-500); }
+#alphax-pos-v3-app .bg-red-50 { background-color: var(--red-50); }
+#alphax-pos-v3-app .bg-red-600 { background-color: var(--red-600); }
+
+/* ============================================================
+   Borders
+   ============================================================ */
+
+#alphax-pos-v3-app .border { border: 1px solid var(--mauve-100); }
+#alphax-pos-v3-app .border-0 { border: none; }
+#alphax-pos-v3-app .border-t { border-top: 1px solid var(--mauve-100); }
+#alphax-pos-v3-app .border-b { border-bottom: 1px solid var(--mauve-100); }
+#alphax-pos-v3-app .border-l { border-left: 1px solid var(--mauve-100); }
+#alphax-pos-v3-app .border-r { border-right: 1px solid var(--mauve-100); }
+
+#alphax-pos-v3-app .border-mauve-100 { border-color: var(--mauve-100); }
+#alphax-pos-v3-app .border-mauve-200 { border-color: var(--mauve-200); }
+#alphax-pos-v3-app .border-mauve-500 { border-color: var(--mauve-500); }
+#alphax-pos-v3-app .border-amber-500 { border-color: var(--amber-500); }
+#alphax-pos-v3-app .border-green-600 { border-color: var(--green-600); }
+
+#alphax-pos-v3-app .rounded-sm { border-radius: 4px; }
+#alphax-pos-v3-app .rounded { border-radius: 6px; }
+#alphax-pos-v3-app .rounded-md { border-radius: 8px; }
+#alphax-pos-v3-app .rounded-lg { border-radius: 10px; }
+#alphax-pos-v3-app .rounded-xl { border-radius: 12px; }
+#alphax-pos-v3-app .rounded-2xl { border-radius: 16px; }
+#alphax-pos-v3-app .rounded-full { border-radius: 9999px; }
+
+/* ============================================================
+   Effects
+   ============================================================ */
+
+#alphax-pos-v3-app .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+#alphax-pos-v3-app .shadow { box-shadow: 0 2px 4px rgba(113,75,103,0.06); }
+#alphax-pos-v3-app .shadow-md { box-shadow: 0 4px 12px rgba(113,75,103,0.08); }
+#alphax-pos-v3-app .shadow-lg { box-shadow: 0 8px 24px rgba(113,75,103,0.10); }
+#alphax-pos-v3-app .shadow-mauve { box-shadow: 0 2px 8px rgba(113,75,103,0.25); }
+
+#alphax-pos-v3-app .opacity-50 { opacity: 0.5; }
+#alphax-pos-v3-app .opacity-70 { opacity: 0.7; }
+#alphax-pos-v3-app .opacity-80 { opacity: 0.8; }
+
+/* ============================================================
+   Interactivity
+   ============================================================ */
+
+#alphax-pos-v3-app .cursor-pointer { cursor: pointer; }
+#alphax-pos-v3-app .cursor-not-allowed { cursor: not-allowed; }
+
+#alphax-pos-v3-app .transition { transition: all 0.15s ease; }
+#alphax-pos-v3-app .transition-fast { transition: all 0.1s ease; }
+
+#alphax-pos-v3-app .hover\:bg-mauve-50:hover { background-color: var(--mauve-50); }
+#alphax-pos-v3-app .hover\:bg-mauve-100:hover { background-color: var(--mauve-100); }
+#alphax-pos-v3-app .hover\:bg-mauve-600:hover { background-color: var(--mauve-600); }
+#alphax-pos-v3-app .hover\:bg-white:hover { background-color: white; }
+#alphax-pos-v3-app .hover\:text-mauve-500:hover { color: var(--mauve-500); }
+#alphax-pos-v3-app .hover\:border-mauve-200:hover { border-color: var(--mauve-200); }
+#alphax-pos-v3-app .hover\:border-mauve-500:hover { border-color: var(--mauve-500); }
+#alphax-pos-v3-app .hover\:shadow-md:hover { box-shadow: 0 4px 12px rgba(113,75,103,0.08); }
+#alphax-pos-v3-app .hover\:translate-y-\[-1px\]:hover { transform: translateY(-1px); }
+
+#alphax-pos-v3-app .focus\:border-mauve-500:focus { border-color: var(--mauve-500); }
+#alphax-pos-v3-app .focus\:ring:focus { box-shadow: 0 0 0 3px rgba(113,75,103,0.10); }
+
+/* ============================================================
+   Position & overflow
+   ============================================================ */
+
+#alphax-pos-v3-app .relative { position: relative; }
+#alphax-pos-v3-app .absolute { position: absolute; }
+#alphax-pos-v3-app .fixed { position: fixed; }
+#alphax-pos-v3-app .inset-0 { inset: 0; }
+#alphax-pos-v3-app .top-0 { top: 0; }
+#alphax-pos-v3-app .left-0 { left: 0; }
+#alphax-pos-v3-app .right-0 { right: 0; }
+#alphax-pos-v3-app .bottom-0 { bottom: 0; }
+#alphax-pos-v3-app .z-10 { z-index: 10; }
+#alphax-pos-v3-app .z-20 { z-index: 20; }
+#alphax-pos-v3-app .z-50 { z-index: 50; }
+
+#alphax-pos-v3-app .overflow-hidden { overflow: hidden; }
+#alphax-pos-v3-app .overflow-auto { overflow: auto; }
+#alphax-pos-v3-app .overflow-x-auto { overflow-x: auto; overflow-y: hidden; }
+#alphax-pos-v3-app .overflow-y-auto { overflow-y: auto; }
+
+/* ============================================================
+   Misc
+   ============================================================ */
+
+#alphax-pos-v3-app .select-none { user-select: none; }
+#alphax-pos-v3-app .pointer-events-none { pointer-events: none; }
+
+/* ============================================================
+   Saudi Riyal font (mounted at app level — uses font shipped in v15.5.16)
+   ============================================================ */
+
+#alphax-pos-v3-app .sar-symbol {
+    font-family: 'AlphaXSaudiRiyal', sans-serif;
+    font-weight: 700;
+}
+
+/* ============================================================
+   Animation
+   ============================================================ */
+
+@keyframes alphax-v3-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#alphax-pos-v3-app .animate-fade-in {
+    animation: alphax-v3-fade-in 0.2s ease-out;
+}
+
+@keyframes alphax-v3-slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#alphax-pos-v3-app .animate-slide-up {
+    animation: alphax-v3-slide-up 0.25s ease-out;
+}

@@ -1,0 +1,8 @@
+{
+  "doctype": "Page",
+  "name": "alphax_apos",
+  "module": "AlphaX POS Suite",
+  "title": "AlphaX \u03b1POS",
+  "icon": "octicon octicon-device-desktop",
+  "standard": "Yes"
+}

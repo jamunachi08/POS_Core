@@ -1,0 +1,50 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="container" style="max-width:720px; padding: 24px 12px;">
+  <h2>Bonanza Table Order</h2>
+  <p style="opacity:.8">Table Token: <b>{{ token }}</b></p>
+
+  <div class="card" style="padding:16px;">
+    <label>Customer Name</label>
+    <input class="form-control" id="cust_name" placeholder="Name (optional)"/>
+
+    <label style="margin-top:12px;">Items (JSON)</label>
+    <textarea class="form-control" id="items_json" rows="6" placeholder='[{"item_code":"ITEM-001","qty":1}]'></textarea>
+
+    <button class="btn btn-primary" style="margin-top:12px;" id="btn_submit">Send to POS Queue</button>
+    <div id="msg" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const token = "{{ token }}";
+  const msg = document.getElementById("msg");
+  document.getElementById("btn_submit").addEventListener("click", async () => {
+    msg.innerHTML = "Submitting...";
+    let items;
+    try { items = JSON.parse(document.getElementById("items_json").value || "[]"); }
+    catch(e){ msg.innerHTML = "<span style='color:red'>Invalid JSON</span>"; return; }
+
+    const customer_name = document.getElementById("cust_name").value || "";
+
+    try{
+      const r = await fetch("/api/method/alphax_pos_suite.alphax_pos_suite.api.submit_qr_order", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({token, customer_name, items})
+      });
+      const data = await r.json();
+      if(data.message && data.message.ok){
+        msg.innerHTML = "<span style='color:green'>Queued ✔ Order: "+data.message.order+"</span>";
+        document.getElementById("items_json").value = "";
+      } else {
+        msg.innerHTML = "<span style='color:red'>"+(data.message && data.message.message ? data.message.message : "Failed")+"</span>";
+      }
+    } catch(e){
+      msg.innerHTML = "<span style='color:red'>"+e+"</span>";
+    }
+  });
+})();
+</script>
+{% endblock %}

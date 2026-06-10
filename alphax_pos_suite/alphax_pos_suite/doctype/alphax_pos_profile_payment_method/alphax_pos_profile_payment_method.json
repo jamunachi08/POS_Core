@@ -1,0 +1,52 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Profile Payment Method",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 1,
+  "editable_grid": 1,
+  "autoname": "",
+  "fields": [
+    {
+      "fieldname": "mode_of_payment",
+      "label": "Mode of Payment",
+      "fieldtype": "Link",
+      "options": "Mode of Payment",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_default",
+      "label": "Default",
+      "fieldtype": "Check",
+      "default": 0,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "button_color",
+      "label": "Button Color",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "sort_order",
+      "label": "Sort Order",
+      "fieldtype": "Int",
+      "default": 0,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

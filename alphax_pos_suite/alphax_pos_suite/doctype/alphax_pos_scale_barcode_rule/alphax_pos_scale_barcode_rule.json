@@ -1,0 +1,59 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Scale Barcode Rule",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 1,
+  "editable_grid": 1,
+  "autoname": "",
+  "fields": [
+    {
+      "fieldname": "priority",
+      "label": "Priority",
+      "fieldtype": "Int",
+      "default": 10,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "applies_to",
+      "label": "Applies To",
+      "fieldtype": "Select",
+      "options": "Barcode Prefix\nItem\nItem Group\nDepartment\nDefault",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "reference",
+      "label": "Reference",
+      "fieldtype": "Data",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "barcode_prefix",
+      "label": "Barcode Prefix",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "definition",
+      "label": "Definition",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Scale Barcode Definition",
+      "reqd": 1,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

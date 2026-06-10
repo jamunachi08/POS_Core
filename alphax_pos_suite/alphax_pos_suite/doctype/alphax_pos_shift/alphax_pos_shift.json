@@ -1,0 +1,132 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Shift",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "hash",
+  "fields": [
+    {
+      "fieldname": "pos_terminal",
+      "label": "POS Terminal",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "AlphaX POS Terminal"
+    },
+    {
+      "fieldname": "user",
+      "label": "User",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "User"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Open\nClosed",
+      "default": "Open"
+    },
+    {
+      "fieldname": "opened_on",
+      "label": "Opened On",
+      "fieldtype": "Datetime",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "opening_cash",
+      "label": "Opening Cash",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "closing_cash",
+      "label": "Closing Cash",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "expected_cash",
+      "label": "Expected Cash",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "variance",
+      "label": "Variance",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "closed_on",
+      "label": "Closed On",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "day_close_id",
+      "label": "Day Close",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Day Close",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Shift register for POS cash control."
+}

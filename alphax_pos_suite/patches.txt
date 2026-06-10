@@ -1,0 +1,4 @@
+alphax_pos_suite.alphax_pos_suite.patches.v15_0.fix_child_tables_parent_columns
+alphax_pos_suite.alphax_pos_suite.patches.v15_0.upgrade_to_vertical_platform
+alphax_pos_suite.alphax_pos_suite.patches.v15_0.add_alphax_outlet_to_pos_profile
+alphax_pos_suite.alphax_pos_suite.patches.v15_0.remove_obsolete_alphax_pos_page

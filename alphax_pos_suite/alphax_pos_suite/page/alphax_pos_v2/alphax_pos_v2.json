@@ -1,0 +1,15 @@
+{
+  "doctype": "Page",
+  "name": "alphax-pos-v2",
+  "module": "AlphaX POS Suite",
+  "page_name": "alphax-pos-v2",
+  "title": "AlphaX POS",
+  "standard": "Yes",
+  "system_page": 0,
+  "roles": [
+    {"role": "AlphaX POS Cashier"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "AlphaX POS Manager"},
+    {"role": "System Manager"}
+  ]
+}

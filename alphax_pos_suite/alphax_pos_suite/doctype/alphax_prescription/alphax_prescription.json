@@ -1,0 +1,265 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:RX-{####}",
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_patient",
+  "patient_name",
+  "patient_id",
+  "patient_age",
+  "column_break_1",
+  "patient_phone",
+  "patient_gender",
+  "is_pregnant",
+  "section_prescriber",
+  "prescriber_name",
+  "prescriber_license",
+  "column_break_2",
+  "prescription_date",
+  "expiry_date",
+  "section_outlet",
+  "outlet",
+  "company",
+  "column_break_3",
+  "status",
+  "section_drugs",
+  "lines",
+  "section_dispensing",
+  "fully_dispensed",
+  "fills_count",
+  "last_fill_date",
+  "section_validation",
+  "validator_messages",
+  "section_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_patient",
+   "fieldtype": "Section Break",
+   "label": "Patient"
+  },
+  {
+   "fieldname": "patient_name",
+   "fieldtype": "Data",
+   "label": "Patient Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "patient_id",
+   "fieldtype": "Data",
+   "label": "Patient ID / National ID",
+   "description": "Required for controlled-substance dispensing."
+  },
+  {
+   "fieldname": "patient_age",
+   "fieldtype": "Int",
+   "label": "Age (years)",
+   "description": "Used to validate age-restricted drugs."
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "patient_phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "patient_gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "\nMale\nFemale\nOther"
+  },
+  {
+   "fieldname": "is_pregnant",
+   "fieldtype": "Check",
+   "label": "Is Pregnant",
+   "default": "0",
+   "depends_on": "eval:doc.patient_gender == 'Female'",
+   "description": "Validator warns if any prescribed drug has a category C/D/X pregnancy risk."
+  },
+  {
+   "fieldname": "section_prescriber",
+   "fieldtype": "Section Break",
+   "label": "Prescriber"
+  },
+  {
+   "fieldname": "prescriber_name",
+   "fieldtype": "Data",
+   "label": "Prescriber Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "prescriber_license",
+   "fieldtype": "Data",
+   "label": "Prescriber License #",
+   "description": "Required for controlled-substance dispensing."
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "prescription_date",
+   "fieldtype": "Date",
+   "label": "Prescription Date",
+   "reqd": 1,
+   "default": "Today",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expires On",
+   "description": "Default 90 days from prescription date for non-controlled, 30 days for controlled."
+  },
+  {
+   "fieldname": "section_outlet",
+   "fieldtype": "Section Break",
+   "label": "Outlet"
+  },
+  {
+   "fieldname": "outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "label": "Outlet",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "label": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Draft\nActive\nPartially Dispensed\nFully Dispensed\nExpired\nCancelled",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_drugs",
+   "fieldtype": "Section Break",
+   "label": "Prescribed Drugs"
+  },
+  {
+   "fieldname": "lines",
+   "fieldtype": "Table",
+   "options": "AlphaX Prescription Line",
+   "label": "Lines",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_dispensing",
+   "fieldtype": "Section Break",
+   "label": "Dispensing History",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "fully_dispensed",
+   "fieldtype": "Check",
+   "label": "Fully Dispensed",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fills_count",
+   "fieldtype": "Int",
+   "label": "Fills Count",
+   "read_only": 1,
+   "description": "Number of times this prescription has been dispensed (counts initial fill + each refill)."
+  },
+  {
+   "fieldname": "last_fill_date",
+   "fieldtype": "Datetime",
+   "label": "Last Fill Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_validation",
+   "fieldtype": "Section Break",
+   "label": "Clinical Validation",
+   "collapsible": 1,
+   "collapsible_depends_on": "validator_messages"
+  },
+  {
+   "fieldname": "validator_messages",
+   "fieldtype": "Long Text",
+   "label": "Validator Messages",
+   "read_only": 1,
+   "description": "Drug-interaction warnings, dose limits, age warnings, pregnancy alerts. Recomputed on save."
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-04-27 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AlphaX POS Suite",
+ "name": "AlphaX Prescription",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "submit": 1,
+   "cancel": 1,
+   "amend": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Pharmacist",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "submit": 1,
+   "cancel": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "AlphaX POS User",
+   "read": 1,
+   "report": 1
+  }
+ ],
+ "search_fields": "patient_name,patient_id,patient_phone,prescriber_name",
+ "sort_field": "prescription_date",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "patient_name",
+ "track_changes": 1
+}

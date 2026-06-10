@@ -1,0 +1,154 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Terminal",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "autoname": "hash",
+  "engine": "InnoDB",
+  "allow_rename": 0,
+  "track_changes": 1,
+  "fields": [
+    {
+      "fieldname": "section_location",
+      "label": "Location",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "pos_outlet",
+      "label": "POS Outlet",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "options": "AlphaX POS Outlet",
+      "description": "The business unit this terminal belongs to. Branch is derived from the outlet."
+    },
+    {
+      "fieldname": "branch",
+      "label": "Branch",
+      "fieldtype": "Link",
+      "options": "Branch",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "fetch_from": "pos_outlet.branch",
+      "read_only": 1,
+      "description": "Auto-fetched from the outlet. Read-only: change the outlet's branch instead of editing here directly."
+    },
+
+    {
+      "fieldname": "section_pc_identity",
+      "label": "PC Identity",
+      "fieldtype": "Section Break",
+      "description": "Captured during PC binding. Lets you see at a glance which physical machine corresponds to which terminal record. The bridge daemon (when installed) auto-populates these. Without the bridge, a manager can fill them in by hand during station setup."
+    },
+    {
+      "fieldname": "pc_hostname",
+      "label": "PC Hostname",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "description": "e.g. 'WIN-A4F2-COFFEE01'. Visible to admins for troubleshooting (not used for security)."
+    },
+    {
+      "fieldname": "pc_mac_address",
+      "label": "PC MAC Address",
+      "fieldtype": "Data",
+      "description": "Captured by the AlphaX bridge daemon if installed. Optional; useful for inventory tracking."
+    },
+    {
+      "fieldname": "col_break_pc_identity",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "pc_uuid",
+      "label": "PC UUID",
+      "fieldtype": "Data",
+      "description": "Hardware UUID captured by the bridge. Most stable identifier across OS reinstalls."
+    },
+    {
+      "fieldname": "last_bound_at",
+      "label": "Last Bound At",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "description": "When this terminal was last bound to a PC."
+    },
+    {
+      "fieldname": "last_bound_by",
+      "label": "Last Bound By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1,
+      "description": "The manager who last performed the binding."
+    },
+
+    {
+      "fieldname": "section_pos_setup",
+      "label": "POS Setup",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "naming_series",
+      "label": "Order Naming Series",
+      "fieldtype": "Data",
+      "default": "APOS-ORD-.YYYY.-"
+    },
+    {
+      "fieldname": "default_mode_of_payment",
+      "label": "Default Mode of Payment",
+      "fieldtype": "Link",
+      "options": "Mode of Payment"
+    },
+    {
+      "fieldname": "default_customer",
+      "label": "Default Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "pos_profile",
+      "label": "Default POS Profile",
+      "fieldtype": "Link",
+      "options": "POS Profile",
+      "in_list_view": 1,
+      "description": "If only one profile is allowed at this terminal, this is preselected. If multiple are allowed (see table below), this is the default for the picker."
+    },
+
+    {
+      "fieldname": "section_allowed_profiles",
+      "label": "Allowed POS Profiles",
+      "fieldtype": "Section Break",
+      "description": "Which POS Profiles can be used at this terminal. Leave empty to allow any profile (legacy behavior; not recommended for new setups). When the cashier loads, the active profile is the intersection of this list with the user's allowed list."
+    },
+    {
+      "fieldname": "allowed_pos_profiles",
+      "label": "Allowed POS Profiles",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Profile Allowed"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Cashier station within an outlet. One physical PC binds to one terminal. The terminal record carries PC identity, the outlet/branch context, and which POS profiles can be used here.",
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

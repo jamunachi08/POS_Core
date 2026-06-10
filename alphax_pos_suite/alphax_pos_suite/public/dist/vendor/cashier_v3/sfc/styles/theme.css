@@ -1,0 +1,56 @@
+/*
+ * AlphaX POS v3 — Theme stylesheet
+ *
+ * Custom-property-based theming and global element styles that
+ * apply across all v3 components. Distinct from tailwind.css
+ * (utilities) and from scoped component styles.
+ *
+ * Phase 2: light theme only. Dark theme support is planned for
+ * v15.6.1 by toggling a `data-theme="dark"` attribute on the root
+ * element which overrides the custom properties.
+ */
+
+/* Mount point base styles */
+#alphax-pos-v3-app {
+    position: fixed;
+    inset: 0;
+    background: var(--mauve-50, #FAF7F9);
+    color: var(--gray-900, #111827);
+    overflow: hidden;
+    z-index: 5;
+}
+
+#alphax-pos-v3-app * {
+    box-sizing: border-box;
+}
+
+/* Saudi Riyal font face (load relative to the vendor folder; the
+ * /assets/.../_fonts/saudiriyalsymbol.ttf was shipped in v15.5.16).
+ * Re-declared here scoped to v3 so the v3 SPA works even if the
+ * cashier_classic CSS is not loaded. */
+@font-face {
+    font-family: 'AlphaXSaudiRiyal';
+    src: url('/assets/alphax_pos_suite/dist/vendor/_fonts/saudiriyalsymbol.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Default scrollbar styling — subtle, modern */
+#alphax-pos-v3-app ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#alphax-pos-v3-app ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#alphax-pos-v3-app ::-webkit-scrollbar-thumb {
+    background: var(--mauve-200);
+    border-radius: 4px;
+}
+
+#alphax-pos-v3-app ::-webkit-scrollbar-thumb:hover {
+    background: var(--mauve-300);
+}

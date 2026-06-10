@@ -1,0 +1,45 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Email Recipient",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 1,
+  "editable_grid": 1,
+  "autoname": "",
+  "fields": [
+    {
+      "fieldname": "email",
+      "label": "Email",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "full_name",
+      "label": "Name",
+      "fieldtype": "Data",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "active",
+      "label": "Active",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

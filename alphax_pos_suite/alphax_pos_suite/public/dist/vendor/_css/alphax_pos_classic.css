@@ -1,0 +1,818 @@
+/*
+ * AlphaX POS Classic — polished cashier styling
+ *
+ * Every selector is scoped to body.alphax-pos-classic-page so this CSS
+ * only styles the cashier page. It will not affect:
+ *   - Other AlphaX pages (workspace, KDS, Floor Designer, etc.)
+ *   - ERPNext / Frappe core UI anywhere else
+ *   - Other apps' UIs (alphax_grc, alphax_ai_platform, etc.)
+ *
+ * Palette (matches AlphaX brand):
+ *   #714B67  primary mauve     - brand, accents, primary buttons
+ *   #5C3D54  primary mauve dark - hover state for primary
+ *   #DBCED9  light mauve       - subtle highlights, hover backgrounds
+ *   #EAE5E9  warm border       - card borders, dividers
+ *   #FAF7F9  page tint         - page background
+ *   #4B5563  body text         - normal copy
+ *   #9088A0  muted text        - secondary copy, hints
+ *   #E11D48  danger            - destructive actions (Return, Remove, Clear)
+ *   #15803D  success           - confirmation states
+ *
+ * The body class is added by alphax_pos_classic.js on page load and
+ * removed on route change, so the theme is page-local and reversible.
+ */
+
+body.alphax-pos-classic-page {
+    --alphax-mauve:        #714B67;
+    --alphax-mauve-dark:   #5C3D54;
+    --alphax-mauve-light:  #DBCED9;
+    --alphax-border:       #EAE5E9;
+    --alphax-bg:           #FAF7F9;
+    --alphax-surface:      #FFFFFF;
+    --alphax-text:         #4B5563;
+    --alphax-text-strong:  #1F2937;
+    --alphax-muted:        #9088A0;
+    --alphax-danger:       #E11D48;
+    --alphax-success:      #15803D;
+
+    background-color: var(--alphax-bg);
+}
+
+body.alphax-pos-classic-page .layout-main-section {
+    background-color: var(--alphax-bg) !important;
+    padding: 0 !important;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Shell + top bar
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-pos-shell {
+    padding: 24px 28px;
+    color: var(--alphax-text);
+    font-size: 13.5px;
+}
+
+body.alphax-pos-classic-page .alphax-pos-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+body.alphax-pos-classic-page .alphax-pos-eyebrow {
+    font-size: 11.5px;
+    color: var(--alphax-muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+
+body.alphax-pos-classic-page .alphax-pos-title h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+body.alphax-pos-classic-page .alphax-pos-toolbar {
+    display: flex;
+    gap: 8px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Cards
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-card {
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.15s ease;
+}
+
+body.alphax-pos-classic-page .alphax-card:hover {
+    box-shadow: 0 1px 4px rgba(113, 75, 103, 0.04);
+}
+
+body.alphax-pos-classic-page .alphax-card-entry {
+    border-top: 3px solid var(--alphax-mauve);
+}
+
+body.alphax-pos-classic-page .alphax-card-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--alphax-border);
+    background: linear-gradient(180deg, var(--alphax-bg) 0%, var(--alphax-surface) 100%);
+}
+
+body.alphax-pos-classic-page .alphax-card-header h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--alphax-mauve);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+body.alphax-pos-classic-page .alphax-card-body {
+    padding: 18px;
+}
+
+body.alphax-pos-classic-page .alphax-card-footer {
+    padding: 14px 18px;
+    border-top: 0.5px solid var(--alphax-border);
+    background: var(--alphax-bg);
+}
+
+/* ---------------------------------------------------------------------- *
+ * Form fields
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-field-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+body.alphax-pos-classic-page .alphax-payment-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+@media (max-width: 1100px) {
+    body.alphax-pos-classic-page .alphax-field-grid,
+    body.alphax-pos-classic-page .alphax-payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 700px) {
+    body.alphax-pos-classic-page .alphax-field-grid,
+    body.alphax-pos-classic-page .alphax-payment-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+body.alphax-pos-classic-page .alphax-field {
+    display: flex;
+    flex-direction: column;
+}
+
+body.alphax-pos-classic-page .alphax-field label {
+    font-size: 11.5px;
+    color: var(--alphax-muted);
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body.alphax-pos-classic-page .alphax-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 8px;
+    background: var(--alphax-surface);
+    font-size: 13.5px;
+    color: var(--alphax-text-strong);
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+body.alphax-pos-classic-page .alphax-input:hover {
+    border-color: var(--alphax-mauve-light);
+}
+
+body.alphax-pos-classic-page .alphax-input:focus {
+    outline: none;
+    border-color: var(--alphax-mauve);
+    box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.12);
+}
+
+body.alphax-pos-classic-page .alphax-input::placeholder {
+    color: var(--alphax-muted);
+}
+
+body.alphax-pos-classic-page .alphax-hint {
+    font-size: 11px;
+    color: var(--alphax-muted);
+    margin-top: 4px;
+}
+
+body.alphax-pos-classic-page .alphax-action-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+body.alphax-pos-classic-page .alphax-field-qty {
+    width: 90px;
+    flex-shrink: 0;
+}
+
+body.alphax-pos-classic-page .alphax-action-buttons {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Buttons
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    border: 0.5px solid var(--alphax-border);
+    background: var(--alphax-surface);
+    color: var(--alphax-text-strong);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+body.alphax-pos-classic-page .alphax-btn:hover {
+    background: var(--alphax-mauve-light);
+    border-color: var(--alphax-mauve-light);
+}
+
+body.alphax-pos-classic-page .alphax-btn:active {
+    transform: translateY(1px);
+}
+
+body.alphax-pos-classic-page .alphax-btn-icon {
+    font-size: 13px;
+    line-height: 1;
+}
+
+body.alphax-pos-classic-page .alphax-btn-primary {
+    background: var(--alphax-mauve);
+    border-color: var(--alphax-mauve);
+    color: #fff;
+}
+
+body.alphax-pos-classic-page .alphax-btn-primary:hover {
+    background: var(--alphax-mauve-dark);
+    border-color: var(--alphax-mauve-dark);
+    color: #fff;
+}
+
+body.alphax-pos-classic-page .alphax-btn-pay {
+    padding: 9px 22px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(113, 75, 103, 0.25);
+}
+
+body.alphax-pos-classic-page .alphax-btn-danger {
+    background: var(--alphax-surface);
+    border-color: var(--alphax-danger);
+    color: var(--alphax-danger);
+}
+
+body.alphax-pos-classic-page .alphax-btn-danger:hover {
+    background: var(--alphax-danger);
+    color: #fff;
+}
+
+body.alphax-pos-classic-page .alphax-btn-ghost {
+    /* same as default */
+}
+
+body.alphax-pos-classic-page .alphax-btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+body.alphax-pos-classic-page .alphax-btn-block {
+    width: 100%;
+}
+
+body.alphax-pos-classic-page .alphax-button-pair {
+    display: flex;
+    gap: 6px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Two-column main layout
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-pos-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 16px;
+}
+@media (max-width: 1100px) {
+    body.alphax-pos-classic-page .alphax-pos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------------------------------------------------------------------- *
+ * Cart lines
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-cart-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--alphax-border);
+    gap: 12px;
+}
+
+body.alphax-pos-classic-page .alphax-cart-line:last-child {
+    border-bottom: 0;
+}
+
+body.alphax-pos-classic-page .alphax-cart-line-info {
+    flex: 1;
+    min-width: 0;
+}
+
+body.alphax-pos-classic-page .alphax-cart-line-name {
+    font-weight: 600;
+    color: var(--alphax-text-strong);
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+body.alphax-pos-classic-page .alphax-cart-line-meta {
+    font-size: 12px;
+    color: var(--alphax-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+body.alphax-pos-classic-page .alphax-cart-line-meta b {
+    color: var(--alphax-text);
+    font-weight: 500;
+}
+
+body.alphax-pos-classic-page .alphax-dot {
+    color: var(--alphax-border);
+}
+
+body.alphax-pos-classic-page .alphax-cart-line-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+body.alphax-pos-classic-page .alphax-qty-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 6px;
+    background: var(--alphax-surface);
+    color: var(--alphax-text-strong);
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.alphax-pos-classic-page .alphax-qty-btn:hover {
+    background: var(--alphax-mauve-light);
+    border-color: var(--alphax-mauve-light);
+}
+
+body.alphax-pos-classic-page .alphax-qty-btn.alphax-qty-remove {
+    color: var(--alphax-danger);
+}
+
+body.alphax-pos-classic-page .alphax-qty-btn.alphax-qty-remove:hover {
+    background: var(--alphax-danger);
+    border-color: var(--alphax-danger);
+    color: #fff;
+}
+
+body.alphax-pos-classic-page .alphax-qty-display {
+    min-width: 26px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--alphax-text-strong);
+}
+
+/* ---------------------------------------------------------------------- *
+ * Total row (footer of cart card)
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-total-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+body.alphax-pos-classic-page .alphax-total-label {
+    font-size: 13px;
+    color: var(--alphax-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+body.alphax-pos-classic-page .alphax-total-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--alphax-mauve);
+    letter-spacing: -0.5px;
+}
+
+body.alphax-pos-classic-page .alphax-total-currency {
+    font-size: 14px;
+    color: var(--alphax-muted);
+    font-weight: 500;
+    margin-left: 6px;
+    letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Payment lines
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-payment-list {
+    margin-top: 16px;
+}
+
+body.alphax-pos-classic-page .alphax-payment-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--alphax-bg);
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+
+body.alphax-pos-classic-page .alphax-payment-info {
+    flex: 1;
+    min-width: 0;
+}
+
+body.alphax-pos-classic-page .alphax-payment-title {
+    font-weight: 500;
+    color: var(--alphax-text-strong);
+    font-size: 13px;
+}
+
+body.alphax-pos-classic-page .alphax-payment-subtitle {
+    font-size: 11.5px;
+    color: var(--alphax-muted);
+    margin-top: 1px;
+}
+
+body.alphax-pos-classic-page .alphax-payment-amount {
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    font-size: 14px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * List items (held orders, queue)
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-list-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--alphax-border);
+}
+
+body.alphax-pos-classic-page .alphax-list-item:last-child {
+    border-bottom: 0;
+}
+
+body.alphax-pos-classic-page .alphax-list-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+body.alphax-pos-classic-page .alphax-list-item-title {
+    font-weight: 500;
+    color: var(--alphax-text-strong);
+    font-size: 13px;
+}
+
+body.alphax-pos-classic-page .alphax-list-item-subtitle {
+    font-size: 11.5px;
+    color: var(--alphax-muted);
+    margin-top: 2px;
+}
+
+body.alphax-pos-classic-page .alphax-list-item-detail {
+    font-size: 11px;
+    color: var(--alphax-muted);
+    margin-top: 4px;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Empty states
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-empty-state {
+    padding: 24px 12px;
+    text-align: center;
+    color: var(--alphax-muted);
+    font-size: 13px;
+    background: var(--alphax-bg);
+    border: 1px dashed var(--alphax-border);
+    border-radius: 8px;
+}
+
+body.alphax-pos-classic-page .alphax-empty-small {
+    padding: 14px 12px;
+    font-size: 12.5px;
+    background: transparent;
+    border: 0;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Station banner (shows active branch/outlet/terminal)
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-station-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg,
+        rgba(113, 75, 103, 0.06) 0%,
+        rgba(219, 206, 217, 0.16) 100%);
+    border: 0.5px solid var(--alphax-mauve-light);
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+
+body.alphax-pos-classic-page .alphax-station-info {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+body.alphax-pos-classic-page .alphax-station-label {
+    font-size: 11px;
+    color: var(--alphax-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+body.alphax-pos-classic-page .alphax-station-value {
+    font-size: 13.5px;
+    color: var(--alphax-mauve);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.alphax-pos-classic-page .alphax-station-value b {
+    color: var(--alphax-mauve-dark);
+    font-weight: 600;
+}
+
+body.alphax-pos-classic-page .alphax-station-sep {
+    color: var(--alphax-mauve-light);
+    margin: 0 2px;
+    font-weight: 400;
+}
+
+body.alphax-pos-classic-page .alphax-station-empty {
+    color: var(--alphax-muted);
+    font-style: italic;
+}
+
+/* Locked terminal input — when cashier can't change it */
+body.alphax-pos-classic-page .alphax-input-locked {
+    background: var(--alphax-bg) !important;
+    color: var(--alphax-muted) !important;
+    cursor: not-allowed;
+    border-style: dashed;
+}
+
+body.alphax-pos-classic-page .alphax-input-locked:hover,
+body.alphax-pos-classic-page .alphax-input-locked:focus {
+    border-color: var(--alphax-border) !important;
+    box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Station-Not-Configured card (v15.5.13 — shown when localStorage empty)
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-station-not-configured {
+    max-width: 560px;
+    margin: 60px auto;
+    padding: 48px 40px;
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-top: 4px solid var(--alphax-mauve);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(113, 75, 103, 0.06);
+}
+
+body.alphax-pos-classic-page .alphax-not-configured-icon {
+    font-size: 56px;
+    margin-bottom: 14px;
+    opacity: 0.55;
+}
+
+body.alphax-pos-classic-page .alphax-station-not-configured h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 14px;
+    letter-spacing: -0.3px;
+}
+
+body.alphax-pos-classic-page .alphax-station-not-configured p {
+    color: var(--alphax-text);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 24px;
+}
+
+body.alphax-pos-classic-page .alphax-not-configured-hint {
+    font-size: 12px !important;
+    color: var(--alphax-muted) !important;
+    margin: 18px 0 0 !important;
+    font-style: italic;
+}
+
+body.alphax-pos-classic-page .alphax-station-not-configured .alphax-btn-pay {
+    padding: 12px 28px;
+    font-size: 14px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Gear / icon-only button in toolbar
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page .alphax-btn-icon-only {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.alphax-pos-classic-page .alphax-btn-icon-only .alphax-btn-icon {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Manager PIN dialog: error/info/success/menu blocks
+ * ---------------------------------------------------------------------- */
+
+body.alphax-pos-classic-page ~ .modal .alphax-dialog-header,
+.modal .alphax-dialog-header {
+    background: var(--alphax-bg, #FAF7F9);
+    color: var(--alphax-text, #4B5563);
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 0.5px solid var(--alphax-border, #EAE5E9);
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.modal .alphax-dialog-error {
+    background: #FEF2F2;
+    color: #991B1B;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0.5px solid #FECACA;
+    font-size: 13px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.modal .alphax-dialog-info {
+    background: #EFF6FF;
+    color: #1E3A8A;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0.5px solid #BFDBFE;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.modal .alphax-dialog-success {
+    background: #F0FDF4;
+    color: #14532D;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 0.5px solid #BBF7D0;
+    font-size: 13px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.modal .alphax-dialog-menu {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Saudi Riyal symbol font (v15.5.16)
+ *
+ * The new official Saudi Riyal currency symbol introduced by SAMA in
+ * 2024 is not yet in standard system fonts. We bundle the TTF from
+ * @abdulrysr/saudi-riyal-new-symbol-font (MIT-licensed via the npm
+ * package metadata) and expose two ways to render the glyph:
+ *
+ *   1. Use class="sar-symbol" + the character &#xea; in HTML:
+ *        <span class="sar-symbol">&#xea;</span>
+ *      The class swaps the font; the &#xea; codepoint resolves to the
+ *      Saudi Riyal glyph.
+ *
+ *   2. Use class="sar-amount" on a wrapper to render the glyph
+ *      automatically before the amount number via CSS ::before:
+ *        <span class="sar-amount">123.45</span>
+ *
+ * Both render globally — not scoped to the cashier page — because we
+ * may want SAR symbols in the workspace, receipts, and reports too.
+ * The font file is small (1.7 KB) so the cost of loading it everywhere
+ * is negligible.
+ * ---------------------------------------------------------------------- */
+
+@font-face {
+    font-family: 'AlphaXSaudiRiyal';
+    src: url('/assets/alphax_pos_suite/dist/vendor/_fonts/saudiriyalsymbol.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.sar-symbol {
+    font-family: 'AlphaXSaudiRiyal', sans-serif;
+    font-weight: 700;
+}
+
+.sar-amount::before {
+    content: '\00EA';
+    font-family: 'AlphaXSaudiRiyal', sans-serif;
+    font-weight: 700;
+    margin-right: 0.25em;
+    opacity: 0.85;
+}
+
+/* Use the SAR symbol in the cashier's total-currency badge instead of
+ * the literal "SAR" letters. The CSS-content fallback means a browser
+ * that fails to load the font still shows the literal text via :empty
+ * sibling — but typically the font loads fine.
+ */
+body.alphax-pos-classic-page .alphax-total-currency {
+    font-family: 'AlphaXSaudiRiyal', sans-serif;
+    font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Print: revert everything to plain so receipts print clean
+ * ---------------------------------------------------------------------- */
+
+@media print {
+    body.alphax-pos-classic-page .alphax-pos-shell *,
+    body.alphax-pos-classic-page .alphax-card,
+    body.alphax-pos-classic-page .alphax-btn {
+        background: transparent !important;
+        color: #000 !important;
+        border-color: #ccc !important;
+        box-shadow: none !important;
+    }
+}

@@ -1,0 +1,51 @@
+# ---- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+
+# ---- Node (frontend DEV only) ----------------------------------------------
+# NOTE: the cashier's runtime assets live in
+#   alphax_pos_suite/alphax_pos_suite/public/dist/
+# and are INTENTIONALLY committed (this app has no build step).
+# Do NOT add a bare "dist/" rule here or you will drop them.
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ---- Frappe / bench ---------------------------------------------------------
+*.log
+sites/
+.bench/
+
+# ---- Editors / OS -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+
+# ---- Local secrets / env ----------------------------------------------------
+.env
+.env.*
+!.env.example
