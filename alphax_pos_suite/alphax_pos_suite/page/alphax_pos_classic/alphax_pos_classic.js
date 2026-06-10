@@ -2,7 +2,7 @@ frappe.pages['alphax-pos-classic'].on_page_load = function(wrapper) {
   frappe.ui.make_app_page({ parent: wrapper, title: 'AlphaX POS Classic', single_column: true });
 
   const LS_KEY = 'alphax_pos_offline_queue_v1';
-  const state = { cart: [], payments: [], settings: null };
+  const state = { cart: [], payments: [], settings: null, currency: 'SAR' };
 
   const $root = $(wrapper).find('.layout-main-section');
   // Add a body class so our scoped CSS only styles this page
@@ -109,7 +109,7 @@ frappe.pages['alphax-pos-classic'].on_page_load = function(wrapper) {
               <div class="alphax-total-label">Total</div>
               <div class="alphax-total-value">
                 <span data-area="total">0.00</span>
-                <span class="alphax-total-currency" title="Saudi Riyal">&#xea;</span>
+                <span class="alphax-total-currency" data-area="currency">SAR</span>
               </div>
             </div>
           </div>
@@ -474,7 +474,7 @@ async function load_settings(){
         args: {
           transaction_uuid: uuid,
           amount: amount,
-          currency: 'SAR',
+          currency: state.currency || 'SAR',
           alphax_terminal: terminal,
         }
       });
@@ -775,6 +775,10 @@ async function load_settings(){
         const r = await frappe.call({method:'alphax_pos_suite.alphax_pos_suite.api.get_pos_boot', args:{terminal}});
         const boot = r.message || {};
         state.boot = boot;
+        // Currency from the outlet's company (multi-currency aware). Shown as
+        // the code (e.g. SAR / AED) — unambiguous and renders everywhere.
+        state.currency = (boot.currency && boot.currency.currency) || 'SAR';
+        $(wrapper).find('[data-area="currency"]').text(state.currency);
         state.profile = boot.profile || {};
         state.theme = boot.theme || null;
         state.allowed_mops = boot.payment_methods || [];
