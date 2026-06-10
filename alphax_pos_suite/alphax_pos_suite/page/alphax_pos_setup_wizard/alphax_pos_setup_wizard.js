@@ -32,12 +32,16 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
   // at the end. Nothing is persisted server-side until step 5's submit.
   const state = {
     step: 1,
-    company: { name: '', vat: '', currency: 'SAR', country: 'Saudi Arabia' },
-    branch: { name: '', address: '' },
+    company: { name: '', vat: '', currency: 'SAR', country: 'Saudi Arabia', existing: '', mode: '' },
+    branch: { name: '', address: '', existing: '', mode: '' },
     outlet: { name: '', domain: 'Generic' },
     terminal: { name: 'Terminal 1', pc_hostname: '' },
     admin: { full_name: '', email: '', pin: '' },
   };
+
+  // Existing site data (companies / branches) loaded at mount so the user
+  // can SELECT what already exists instead of creating duplicates.
+  let ctx = { companies: [], branches: [] };
 
   // The 10 business types presented to the user. Each maps to a
   // Domain Pack. The "tagline" appears under the radio button.
@@ -183,11 +187,31 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
     const $form = $(wrapper).find('[data-area="form"]');
     let html = '';
     if (state.step === 1){
+      const companies = (ctx.companies || []);
+      const hasCompanies = companies.length > 0;
+      const mode = state.company.mode || (hasCompanies ? 'existing' : 'new');
+      const showNew = (mode === 'new') || !hasCompanies;
+      let pick = '';
+      if (hasCompanies){
+        pick = `
+        <div class="alphax-wiz-field">
+          <label>Company <span class="alphax-req">*</span></label>
+          <select class="alphax-input" data-field="company_select">
+            ${companies.map(c =>
+              `<option value="${esc(c.name)}" ${(mode==='existing' && state.company.existing===c.name)?'selected':''}>${esc(c.name)}${c.default_currency?(' · '+esc(c.default_currency)):''}</option>`
+            ).join('')}
+            <option value="__new__" ${mode==='new'?'selected':''}>➕ Create a new company…</option>
+          </select>
+          <small>Pick the company you already use, or create a new one.</small>
+        </div>`;
+      }
       html = `
         <h2>Tell us about your company</h2>
+        ${pick}
+        <div data-area="new_company" style="${showNew?'':'display:none'}">
         <div class="alphax-wiz-field">
           <label>Company Name <span class="alphax-req">*</span></label>
-          <input class="alphax-input" data-field="company_name" value="${esc(state.company.name)}" placeholder="e.g. Neotec Trading Co." autofocus/>
+          <input class="alphax-input" data-field="company_name" value="${esc(state.company.name)}" placeholder="e.g. Neotec Trading Co." ${showNew?'autofocus':''}/>
           <small>The legal name on your tax returns and receipts.</small>
         </div>
         <div class="alphax-wiz-field">
@@ -212,20 +236,42 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
               ).join('')}
             </select>
           </div>
+        </div>
         </div>`;
     }
     else if (state.step === 2){
+      const branches = (ctx.branches || []);
+      const hasBranches = branches.length > 0;
+      const mode = state.branch.mode || (hasBranches ? 'existing' : 'new');
+      const showNew = (mode === 'new') || !hasBranches;
+      let pick = '';
+      if (hasBranches){
+        pick = `
+        <div class="alphax-wiz-field">
+          <label>Branch <span class="alphax-req">*</span></label>
+          <select class="alphax-input" data-field="branch_select">
+            ${branches.map(b =>
+              `<option value="${esc(b)}" ${(mode==='existing' && state.branch.existing===b)?'selected':''}>${esc(b)}</option>`
+            ).join('')}
+            <option value="__new__" ${mode==='new'?'selected':''}>➕ Create a new branch…</option>
+          </select>
+          <small>Choose an existing ERPNext branch, or create a new one.</small>
+        </div>`;
+      }
       html = `
-        <h2>Your first branch</h2>
+        <h2>Your branch</h2>
+        ${pick}
+        <div data-area="new_branch" style="${showNew?'':'display:none'}">
         <div class="alphax-wiz-field">
           <label>Branch Name <span class="alphax-req">*</span></label>
-          <input class="alphax-input" data-field="branch_name" value="${esc(state.branch.name)}" placeholder="e.g. Riyadh Mall - Main" autofocus/>
+          <input class="alphax-input" data-field="branch_name" value="${esc(state.branch.name)}" placeholder="e.g. Riyadh Mall - Main" ${showNew?'autofocus':''}/>
           <small>A short label your staff will recognize.</small>
         </div>
         <div class="alphax-wiz-field">
           <label>Address</label>
           <textarea class="alphax-input" data-field="branch_address" rows="3" placeholder="Street, district, city, postal code">${esc(state.branch.address)}</textarea>
           <small>Appears on receipts and is required for ZATCA e-invoicing.</small>
+        </div>
         </div>`;
     }
     else if (state.step === 3){
@@ -314,13 +360,38 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
   function capture(){
     const $f = $(wrapper).find('[data-area="form"]');
     if (state.step === 1){
-      state.company.name     = ($f.find('[data-field="company_name"]').val() || '').trim();
-      state.company.vat      = ($f.find('[data-field="company_vat"]').val() || '').trim();
-      state.company.currency = $f.find('[data-field="company_currency"]').val();
-      state.company.country  = $f.find('[data-field="company_country"]').val();
+      const $sel = $f.find('[data-field="company_select"]');
+      if ($sel.length){
+        const v = $sel.val();
+        if (v === '__new__'){ state.company.mode = 'new'; state.company.existing = ''; }
+        else { state.company.mode = 'existing'; state.company.existing = v; }
+      } else {
+        state.company.mode = 'new';
+      }
+      if (state.company.mode === 'new'){
+        state.company.name     = ($f.find('[data-field="company_name"]').val() || '').trim();
+        state.company.vat      = ($f.find('[data-field="company_vat"]').val() || '').trim();
+        state.company.currency = $f.find('[data-field="company_currency"]').val() || state.company.currency;
+        state.company.country  = $f.find('[data-field="company_country"]').val() || state.company.country;
+      } else {
+        // Reuse the selected existing company; its name IS the company name.
+        state.company.name = state.company.existing;
+      }
     } else if (state.step === 2){
-      state.branch.name    = ($f.find('[data-field="branch_name"]').val() || '').trim();
-      state.branch.address = ($f.find('[data-field="branch_address"]').val() || '').trim();
+      const $sel = $f.find('[data-field="branch_select"]');
+      if ($sel.length){
+        const v = $sel.val();
+        if (v === '__new__'){ state.branch.mode = 'new'; state.branch.existing = ''; }
+        else { state.branch.mode = 'existing'; state.branch.existing = v; }
+      } else {
+        state.branch.mode = 'new';
+      }
+      if (state.branch.mode === 'new'){
+        state.branch.name    = ($f.find('[data-field="branch_name"]').val() || '').trim();
+        state.branch.address = ($f.find('[data-field="branch_address"]').val() || '').trim();
+      } else {
+        state.branch.name = state.branch.existing;
+      }
     } else if (state.step === 3){
       state.outlet.name   = ($f.find('[data-field="outlet_name"]').val() || '').trim();
       state.outlet.domain = $f.find('input[name="domain"]:checked').val() || 'Generic';
@@ -395,6 +466,13 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
     $(this).closest('.alphax-wiz-type').addClass('selected');
   });
 
+  // Switching between an existing record and "create new" re-renders the
+  // step so the create-form shows/hides appropriately.
+  $(wrapper).on('change', '[data-field="company_select"], [data-field="branch_select"]', function(){
+    capture();
+    render_step();
+  });
+
   async function finish_setup(){
     const $next = $(wrapper).find('[data-action="next"]');
     $next.attr('disabled', true).html('Setting up...');
@@ -440,6 +518,30 @@ frappe.pages['alphax-pos-setup-wizard'].on_page_load = function(wrapper) {
       frappe.router.off('change', cleanup);
     }
   });
+
+  // Load existing companies/branches so the user can select rather than
+  // create duplicates, then (re)render. A clean/new site simply gets the
+  // create-new form.
+  frappe.call({ method: 'alphax_pos_suite.alphax_pos_suite.boot.api.get_setup_wizard_context' })
+    .then(r => {
+      ctx = (r && r.message) ? r.message : ctx;
+      if ((ctx.companies || []).length){
+        state.company.mode = 'existing';
+        state.company.existing = ctx.companies[0].name;
+        if (ctx.companies[0].default_currency) state.company.currency = ctx.companies[0].default_currency;
+        if (ctx.companies[0].country) state.company.country = ctx.companies[0].country;
+      } else {
+        state.company.mode = 'new';
+      }
+      if ((ctx.branches || []).length){
+        state.branch.mode = 'existing';
+        state.branch.existing = ctx.branches[0];
+      } else {
+        state.branch.mode = 'new';
+      }
+      render_step();
+    })
+    .catch(() => render_step());
 
   render_step();
 };

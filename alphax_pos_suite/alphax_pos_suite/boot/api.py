@@ -572,6 +572,40 @@ def resolve_session_pos_profile(terminal: str | None = None) -> dict:
 
 
 @frappe.whitelist()
+def get_setup_wizard_context() -> dict:
+    """Existing data the wizard should let the user pick from instead of
+    blindly creating new records — important when installing onto a site
+    that already has a Company and Branches.
+    """
+    companies = []
+    try:
+        companies = frappe.get_all(
+            "Company",
+            fields=["name", "default_currency", "country", "abbr"],
+            order_by="creation asc",
+        )
+    except Exception:
+        pass
+
+    branches = []
+    try:
+        if frappe.db.exists("DocType", "Branch"):
+            branches = frappe.get_all(
+                "Branch", fields=["name"], order_by="creation asc", pluck="name"
+            )
+    except Exception:
+        pass
+
+    return {
+        "companies": companies,
+        "branches": branches,
+        "has_company": bool(companies),
+        "has_branch": bool(branches),
+        "default_currency": frappe.db.get_default("currency") or "SAR",
+    }
+
+
+@frappe.whitelist()
 def run_setup_wizard(payload) -> dict:
     """Execute the Setup Wizard's create-everything action.
 
@@ -711,7 +745,13 @@ def run_setup_wizard(payload) -> dict:
                     "doctype": "POS Profile",
                     "name": profile_name,
                     "company": created["company"],
-                    "currency": company_data.get("currency") or "SAR",
+                    "currency": (
+                        frappe.get_cached_value(
+                            "Company", created["company"], "default_currency"
+                        )
+                        or company_data.get("currency")
+                        or "SAR"
+                    ),
                     "write_off_account": _default_account(created["company"], "Round Off"),
                     "write_off_cost_center": _default_cost_center(created["company"]),
                     "warehouse": _default_warehouse(created["company"]),
