@@ -5,8 +5,24 @@ frappe.pages['alphax-pos-setup'].on_page_load = function(wrapper) {
     single_column: true
   });
 
+  // Frappe v15 uses path-based desk routes (/app/<doctype-slug>[/<name>]),
+  // NOT the old hash routes (#List/... , #Form/...). Build correct hrefs so
+  // the desk router handles the click natively.
+  const slug = (dt) => (frappe.router && frappe.router.slug)
+    ? frappe.router.slug(dt)
+    : (dt || '').toLowerCase().replace(/ /g, '-');
+
+  const routeHref = (l) => {
+    const base = '/app/' + slug(l.doctype);
+    return l.view === 'form'
+      ? base + '/' + encodeURIComponent(l.name || l.doctype)
+      : base;  // list view
+  };
+
   const step = (num, title, body, links) => {
-    const buttons = (links || []).map(l => `<a class="btn btn-${l.primary ? 'primary' : 'default'} btn-sm mr-2" href="${l.href}">${l.label}</a>`).join('');
+    const buttons = (links || []).map(l =>
+      `<a class="btn btn-${l.primary ? 'primary' : 'default'} btn-sm mr-2" href="${routeHref(l)}">${l.label}</a>`
+    ).join('');
     return `
       <div class="card mb-3">
         <div class="card-body">
@@ -23,6 +39,7 @@ frappe.pages['alphax-pos-setup'].on_page_load = function(wrapper) {
       <div class="alert alert-success">
         <b>AlphaX Bonanza POS Pack</b> is installed ✅
         <div class="mt-2">This wizard helps you configure <b>Outlet → Terminal → POS Profile</b> plus Restaurant boosters (Floors, Tables, KDS, Recipes, Offers).</div>
+        <div class="mt-2"><a class="btn btn-primary btn-sm" href="/app/alphax-pos-setup-wizard">Run the guided 5-step setup wizard</a></div>
       </div>
 
       <div class="alert alert-warning">
@@ -33,57 +50,58 @@ frappe.pages['alphax-pos-setup'].on_page_load = function(wrapper) {
       ${step(1, 'POS Settings',
         'Enable/disable boosters: Recipe Consumption, KDS, approvals, inclusive VAT warnings, and more.',
         [
-          {label: 'Open Settings', href: '#Form/AlphaX POS Settings/AlphaX POS Settings', primary: true}
+          {label: 'Open Settings', view: 'form', doctype: 'AlphaX POS Settings', name: 'AlphaX POS Settings', primary: true}
         ])}
 
       ${step(2, 'Outlet (Branch + Warehouse)',
         'Create outlets with default warehouse and company/branch mapping.',
         [
-          {label: 'Open Outlets', href: '#List/AlphaX POS Outlet/List', primary: true}
+          {label: 'Open Outlets', view: 'list', doctype: 'AlphaX POS Outlet', primary: true}
         ])}
 
       ${step(3, 'Terminal + POS Profile',
         'Create terminals and link them to POS Profile + Outlet. Configure payment modes and terminal capture if required.',
         [
-          {label: 'Open Terminals', href: '#List/AlphaX POS Terminal/List', primary: true},
-          {label: 'Open POS Profiles', href: '#List/POS Profile/List'}
+          {label: 'Open Terminals', view: 'list', doctype: 'AlphaX POS Terminal', primary: true},
+          {label: 'Open POS Profiles', view: 'list', doctype: 'POS Profile'}
         ])}
 
       ${step(4, 'Restaurant Setup (Floors, Tables, Sessions)',
         'Enable Table Management and create floors/tables. Use table sessions for dine-in flow.',
         [
-          {label: 'Floors', href: '#List/AlphaX POS Floor/List', primary: true},
-          {label: 'Tables', href: '#List/AlphaX POS Table/List'}
+          {label: 'Floors', view: 'list', doctype: 'AlphaX POS Floor', primary: true},
+          {label: 'Tables', view: 'list', doctype: 'AlphaX POS Table'}
         ])}
 
       ${step(5, 'Kitchen Display System (KDS)',
         'Create Kitchen Stations, map items to stations, and start KDS ticket flow.',
         [
-          {label: 'Kitchen Stations', href: '#List/AlphaX POS Kitchen Station/List', primary: true},
-          {label: 'Item → Station', href: '#List/AlphaX POS Item Station/List'}
+          {label: 'Kitchen Stations', view: 'list', doctype: 'AlphaX POS Kitchen Station', primary: true},
+          {label: 'Item → Station', view: 'list', doctype: 'AlphaX POS Item Station'}
         ])}
 
       ${step(6, 'Recipes → Auto Stock Consumption',
         'Create recipes for sold items to automatically create Material Issue Stock Entry when POS Sales Invoice submits.',
         [
-          {label: 'Recipes', href: '#List/AlphaX POS Recipe/List', primary: true},
-          {label: 'Processing Log', href: '#List/AlphaX POS Processing Log/List'}
+          {label: 'Recipes', view: 'list', doctype: 'AlphaX POS Recipe', primary: true},
+          {label: 'Processing Log', view: 'list', doctype: 'AlphaX POS Processing Log'}
         ])}
 
       ${step(7, 'Offers / Combos',
         'Create offer definitions and attach offer items / alternate items.',
         [
-          {label: 'Offers', href: '#List/AlphaX POS Offer/List', primary: true}
+          {label: 'Offers', view: 'list', doctype: 'AlphaX POS Offer', primary: true}
         ])}
 
       ${step(8, 'Start POS',
         'Create orders and submit to generate Sales Invoice + payments + (optional) Stock Consumption.',
         [
-          {label: 'POS Orders', href: '#List/AlphaX POS Order/List', primary: true}
+          {label: 'POS Orders', view: 'list', doctype: 'AlphaX POS Order', primary: true},
+          {label: 'Open Cashier', view: 'page', doctype: 'alphax-pos-classic'}
         ])}
 
       <hr/>
-      <small class="text-muted">AlphaX Bonanza POS Pack • Booster build (v0.3.0)</small>
+      <small class="text-muted">AlphaX Bonanza POS Pack • Booster build</small>
     </div>
   `;
 

@@ -310,7 +310,7 @@ async function load_settings(){
           <div class="alphax-list-item-title">${frappe.utils.escape_html(d.name)}</div>
           <div class="alphax-list-item-subtitle">${frappe.utils.escape_html(d.customer || 'No customer')}</div>
         </div>
-        <a class="alphax-btn alphax-btn-ghost alphax-btn-sm" href="#Form/AlphaX POS Order/${frappe.utils.escape_html(d.name)}">Open</a>
+        <a class="alphax-btn alphax-btn-ghost alphax-btn-sm" href="/app/alphax-pos-order/${encodeURIComponent(d.name)}">Open</a>
       </div>
     `).join('');
     $h.html(rows || '<div class="alphax-empty-state alphax-empty-small">No held invoices.</div>');

@@ -42,7 +42,7 @@ frappe.pages['alphax-pos-central-kitchen-dashboard'].on_page_load = function(wra
 			<div class="list-row" style="padding:8px 0; border-bottom:1px solid var(--border-color);">
 				<div style="display:flex; justify-content:space-between; align-items:center;">
 					<div>
-						<a href="#Form/AlphaX POS Central Kitchen Request/${r.name}"><b>${r.name}</b></a>
+						<a href="/app/alphax-pos-central-kitchen-request/${encodeURIComponent(r.name)}"><b>${r.name}</b></a>
 						<div class="text-muted" style="font-size:12px;">${r.outlet || ''}</div>
 					</div>
 					<span class="indicator ${r.indicator || 'gray'}">${__(r.status || '')}</span>
