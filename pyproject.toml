@@ -1,0 +1,6 @@
+# Single, predictable build backend. setuptools + setup.py + MANIFEST.in
+# guarantees the app's static assets under public/ and www/ ship in both the
+# sdist and the wheel, regardless of how the platform installs the app.
+[build-system]
+requires = ["setuptools>=62.0", "wheel"]
+build-backend = "setuptools.build_meta"

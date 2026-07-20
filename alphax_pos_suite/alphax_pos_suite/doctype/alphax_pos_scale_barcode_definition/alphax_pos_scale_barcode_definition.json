@@ -1,0 +1,132 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Scale Barcode Definition",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:definition_name",
+  "fields": [
+    {
+      "fieldname": "definition_name",
+      "label": "Definition Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_break_1",
+      "label": "Pattern",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "prefix",
+      "label": "Prefix (optional)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "total_length",
+      "label": "Total Length",
+      "fieldtype": "Int",
+      "default": 12
+    },
+    {
+      "fieldname": "mapping_type",
+      "label": "Mapping Type",
+      "fieldtype": "Select",
+      "options": "Fixed Segments\nPrefix Based",
+      "default": "Fixed Segments"
+    },
+    {
+      "fieldname": "column_break_1",
+      "label": "",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "qty_divider",
+      "label": "Qty Divider",
+      "fieldtype": "Float",
+      "default": 1000
+    },
+    {
+      "fieldname": "rate_divider",
+      "label": "Rate Divider",
+      "fieldtype": "Float",
+      "default": 100
+    },
+    {
+      "fieldname": "use_qty_from_barcode",
+      "label": "Use Qty from Barcode",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "use_rate_from_barcode",
+      "label": "Use Rate from Barcode",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "section_break_2",
+      "label": "Segments (Fixed)",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "item_start",
+      "label": "Item Start (1-based)",
+      "fieldtype": "Int",
+      "default": 1
+    },
+    {
+      "fieldname": "item_length",
+      "label": "Item Length",
+      "fieldtype": "Int",
+      "default": 4
+    },
+    {
+      "fieldname": "qty_start",
+      "label": "Qty Start (1-based)",
+      "fieldtype": "Int",
+      "default": 5
+    },
+    {
+      "fieldname": "qty_length",
+      "label": "Qty Length",
+      "fieldtype": "Int",
+      "default": 4
+    },
+    {
+      "fieldname": "rate_start",
+      "label": "Rate Start (1-based)",
+      "fieldtype": "Int",
+      "default": 9
+    },
+    {
+      "fieldname": "rate_length",
+      "label": "Rate Length",
+      "fieldtype": "Int",
+      "default": 4
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

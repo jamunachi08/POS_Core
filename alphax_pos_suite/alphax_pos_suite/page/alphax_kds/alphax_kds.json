@@ -1,0 +1,15 @@
+{
+  "doctype": "Page",
+  "name": "alphax-kds",
+  "module": "AlphaX POS Suite",
+  "page_name": "alphax-kds",
+  "title": "AlphaX KDS",
+  "standard": "Yes",
+  "system_page": 0,
+  "roles": [
+    {"role": "AlphaX POS Cashier"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "AlphaX POS Manager"},
+    {"role": "System Manager"}
+  ]
+}

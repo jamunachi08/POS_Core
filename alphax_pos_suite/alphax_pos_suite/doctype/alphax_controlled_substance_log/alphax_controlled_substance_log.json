@@ -1,0 +1,194 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:CSL-{####}",
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_dispense",
+  "dispensed_at",
+  "drug",
+  "drug_name",
+  "column_break_1",
+  "quantity",
+  "outlet",
+  "section_patient",
+  "patient_name",
+  "patient_id",
+  "column_break_2",
+  "prescriber_name",
+  "prescriber_license",
+  "section_links",
+  "prescription",
+  "prescription_line",
+  "column_break_3",
+  "sales_invoice",
+  "section_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_dispense",
+   "fieldtype": "Section Break",
+   "label": "Dispensing Event"
+  },
+  {
+   "fieldname": "dispensed_at",
+   "fieldtype": "Datetime",
+   "label": "Dispensed At",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "default": "now"
+  },
+  {
+   "fieldname": "drug",
+   "fieldtype": "Link",
+   "options": "AlphaX Drug Master",
+   "label": "Drug",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "drug_name",
+   "fieldtype": "Data",
+   "label": "Drug Name",
+   "fetch_from": "drug.drug_name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity Dispensed",
+   "reqd": 1,
+   "precision": "3",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "label": "Outlet",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "section_patient",
+   "fieldtype": "Section Break",
+   "label": "Patient"
+  },
+  {
+   "fieldname": "patient_name",
+   "fieldtype": "Data",
+   "label": "Patient Name",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "patient_id",
+   "fieldtype": "Data",
+   "label": "Patient ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "prescriber_name",
+   "fieldtype": "Data",
+   "label": "Prescriber",
+   "reqd": 1
+  },
+  {
+   "fieldname": "prescriber_license",
+   "fieldtype": "Data",
+   "label": "Prescriber License #",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_links",
+   "fieldtype": "Section Break",
+   "label": "Source Records"
+  },
+  {
+   "fieldname": "prescription",
+   "fieldtype": "Link",
+   "options": "AlphaX Prescription",
+   "label": "Prescription",
+   "reqd": 1
+  },
+  {
+   "fieldname": "prescription_line",
+   "fieldtype": "Data",
+   "label": "Prescription Line",
+   "description": "Internal child-row name in the Prescription's lines table."
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "options": "Sales Invoice",
+   "label": "Sales Invoice",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-27 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AlphaX POS Suite",
+ "name": "AlphaX Controlled Substance Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Pharmacist",
+   "read": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "AlphaX POS User",
+   "read": 1,
+   "create": 1
+  }
+ ],
+ "search_fields": "patient_name,patient_id,prescriber_name,drug_name",
+ "sort_field": "dispensed_at",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

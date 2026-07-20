@@ -1,0 +1,235 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Card Reader",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "autoname": "field:reader_name",
+  "track_changes": 1,
+  "title_field": "reader_name",
+  "fields": [
+    {
+      "fieldname": "section_identity",
+      "label": "Identity",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "reader_name",
+      "label": "Reader Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "A short label, e.g. 'Geidea Counter 1' or 'Network Intl Booth A'. Used as the unique key."
+    },
+    {
+      "fieldname": "is_active",
+      "label": "Active",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "vendor",
+      "label": "Vendor",
+      "fieldtype": "Select",
+      "options": "Geidea\nNetwork International\nPayTabs\nTap\nCheckout.com\nOther",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "transport",
+      "label": "Transport",
+      "fieldtype": "Select",
+      "options": "MQTT\nHTTP Webhook\nSerial / USB\nDirect TCP",
+      "reqd": 1,
+      "description": "How the cashier talks to the reader. MQTT is most common for Geidea-style Android-app terminals; HTTP for cloud-based reader APIs; Serial/USB for legacy countertop readers; Direct TCP for a few high-end vendors."
+    },
+
+    {
+      "fieldname": "section_mapping",
+      "label": "Terminal & User Mapping",
+      "fieldtype": "Section Break",
+      "description": "Which AlphaX terminal and/or user is this reader associated with. Either field can be set; both together makes the mapping more specific."
+    },
+    {
+      "fieldname": "alphax_terminal",
+      "label": "AlphaX Terminal",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Terminal",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "user",
+      "label": "User",
+      "fieldtype": "Link",
+      "options": "User",
+      "description": "Optional: bind this reader to a specific user. Useful for mobile cashiers."
+    },
+
+    {
+      "fieldname": "section_mqtt",
+      "label": "MQTT Settings",
+      "fieldtype": "Section Break",
+      "depends_on": "eval:doc.transport===\"MQTT\""
+    },
+    {
+      "fieldname": "mqtt_broker_url",
+      "label": "Broker URL",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"MQTT\"",
+      "description": "e.g. tcp://mqtt.example.com:1883 or ssl://mqtt.example.com:8883"
+    },
+    {
+      "fieldname": "mqtt_topic",
+      "label": "Device Topic",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"MQTT\"",
+      "description": "The MQTT topic the card reader subscribes to. Each reader has its own unique topic."
+    },
+    {
+      "fieldname": "col_mqtt_break",
+      "fieldtype": "Column Break",
+      "depends_on": "eval:doc.transport===\"MQTT\""
+    },
+    {
+      "fieldname": "mqtt_username",
+      "label": "MQTT Username",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"MQTT\""
+    },
+    {
+      "fieldname": "mqtt_password",
+      "label": "MQTT Password",
+      "fieldtype": "Password",
+      "depends_on": "eval:doc.transport===\"MQTT\""
+    },
+    {
+      "fieldname": "mqtt_use_tls",
+      "label": "Use TLS",
+      "fieldtype": "Check",
+      "default": 0,
+      "depends_on": "eval:doc.transport===\"MQTT\""
+    },
+
+    {
+      "fieldname": "section_http",
+      "label": "HTTP Settings",
+      "fieldtype": "Section Break",
+      "depends_on": "eval:doc.transport===\"HTTP Webhook\""
+    },
+    {
+      "fieldname": "http_endpoint",
+      "label": "HTTP Endpoint URL",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"HTTP Webhook\"",
+      "description": "Card reader's REST endpoint to POST transactions to."
+    },
+    {
+      "fieldname": "http_api_key",
+      "label": "API Key",
+      "fieldtype": "Password",
+      "depends_on": "eval:doc.transport===\"HTTP Webhook\""
+    },
+
+    {
+      "fieldname": "section_serial",
+      "label": "Serial / USB Settings",
+      "fieldtype": "Section Break",
+      "depends_on": "eval:doc.transport===\"Serial / USB\""
+    },
+    {
+      "fieldname": "serial_port",
+      "label": "Serial Port",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"Serial / USB\"",
+      "description": "e.g. COM3 on Windows, /dev/ttyUSB0 on Linux. Handled by the AlphaX bridge daemon (not Frappe directly)."
+    },
+    {
+      "fieldname": "serial_baud",
+      "label": "Baud Rate",
+      "fieldtype": "Int",
+      "default": 9600,
+      "depends_on": "eval:doc.transport===\"Serial / USB\""
+    },
+
+    {
+      "fieldname": "section_vendor",
+      "label": "Vendor-Specific",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "merchant_id",
+      "label": "Merchant ID (MID)",
+      "fieldtype": "Data",
+      "description": "Assigned by the acquiring bank to the merchant."
+    },
+    {
+      "fieldname": "terminal_id_external",
+      "label": "Terminal ID (TID)",
+      "fieldtype": "Data",
+      "description": "Assigned by the acquiring bank to this specific reader. Different from the AlphaX terminal ID."
+    },
+    {
+      "fieldname": "col_vendor_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "timeout_seconds",
+      "label": "Timeout (seconds)",
+      "fieldtype": "Int",
+      "default": 60,
+      "description": "How long to wait for the cardholder to tap/insert/swipe before timing out the transaction."
+    },
+    {
+      "fieldname": "extra_config_json",
+      "label": "Extra Config (JSON)",
+      "fieldtype": "Code",
+      "options": "JSON",
+      "description": "Free-form vendor-specific settings. Adapter code reads keys from here as needed (e.g. {\"print_receipt_on_terminal\": true})."
+    },
+
+    {
+      "fieldname": "section_health",
+      "label": "Health",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "last_seen_at",
+      "label": "Last Successful Transaction At",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "last_error_at",
+      "label": "Last Error At",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "last_error_message",
+      "label": "Last Error Message",
+      "fieldtype": "Small Text",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "description": "Configuration for a payment card reader attached to a POS terminal. Vendor-agnostic: supports MQTT (Geidea Android-app terminals), HTTP (cloud-based reader APIs), Serial/USB (countertop readers via bridge), and Direct TCP. Adapter code in alphax_pos_suite.integrations.card_reader picks the right transport based on this record."
+}

@@ -1,0 +1,125 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Table",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "field:table_code",
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "table_code",
+      "label": "Table Code",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "floor",
+      "label": "Floor",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Floor",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Outlet",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "seats",
+      "label": "Seats",
+      "fieldtype": "Int",
+      "default": 2,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "shape",
+      "label": "Shape",
+      "fieldtype": "Select",
+      "options": "Rectangle\nCircle\nRounded Rectangle",
+      "default": "Rectangle"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Free\nOccupied\nReserved\nDirty\nDisabled",
+      "default": "Free",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "layout_section",
+      "label": "Layout",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "pos_x",
+      "label": "X (px)",
+      "fieldtype": "Int",
+      "default": 50
+    },
+    {
+      "fieldname": "pos_y",
+      "label": "Y (px)",
+      "fieldtype": "Int",
+      "default": 50
+    },
+    {
+      "fieldname": "width",
+      "label": "Width (px)",
+      "fieldtype": "Int",
+      "default": 80
+    },
+    {
+      "fieldname": "height",
+      "label": "Height (px)",
+      "fieldtype": "Int",
+      "default": 60
+    },
+    {
+      "fieldname": "rotation",
+      "label": "Rotation (deg)",
+      "fieldtype": "Int",
+      "default": 0
+    },
+    {
+      "fieldname": "layout_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "color",
+      "label": "Custom Color",
+      "fieldtype": "Color",
+      "description": "Optional. Leave blank to use the status color."
+    },
+    {
+      "fieldname": "is_mergeable",
+      "label": "Allow Merge",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "min_party_size",
+      "label": "Min Party Size",
+      "fieldtype": "Int",
+      "default": 1
+    },
+    {
+      "fieldname": "max_party_size",
+      "label": "Max Party Size",
+      "fieldtype": "Int"
+    }
+  ],
+  "permissions": [
+    {"role": "AlphaX POS Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "AlphaX POS Supervisor", "read": 1, "write": 1, "create": 1},
+    {"role": "AlphaX POS Cashier", "read": 1, "write": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

@@ -1,0 +1,180 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Manager PIN",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "issingle": 0,
+  "is_submittable": 0,
+  "track_changes": 1,
+  "track_seen": 1,
+  "engine": "InnoDB",
+  "naming_rule": "By fieldname",
+  "autoname": "field:user",
+  "title_field": "user",
+  "search_fields": "user",
+  "fields": [
+    {
+      "fieldname": "section_user",
+      "label": "Manager",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "user",
+      "label": "Manager User",
+      "fieldtype": "Link",
+      "options": "User",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "The Frappe user who owns this PIN. Must have the AlphaX POS Manager or System Manager role to be useful."
+    },
+    {
+      "fieldname": "is_active",
+      "label": "Active",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1,
+      "description": "Uncheck to disable this PIN without deleting the record. Useful when an employee leaves but you want to retain audit history."
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text",
+      "description": "Internal notes (e.g. 'Khalid, Riyadh region', 'reset Apr 26 after vacation'). Not shown to the manager themselves."
+    },
+
+    {
+      "fieldname": "section_pin",
+      "label": "PIN",
+      "fieldtype": "Section Break",
+      "description": "The PIN itself is hashed and never visible. Use the 'Set/Reset PIN' action from the form to issue a new PIN."
+    },
+    {
+      "fieldname": "pin_hash",
+      "label": "PIN Hash",
+      "fieldtype": "Password",
+      "read_only": 1,
+      "hidden": 1,
+      "description": "Bcrypt hash of the manager's PIN. Never stored or transmitted in plaintext."
+    },
+    {
+      "fieldname": "pin_set_on",
+      "label": "PIN Set On",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "pin_set_by",
+      "label": "PIN Set By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_usage",
+      "label": "Usage",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "last_used_on",
+      "label": "Last Used",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "last_used_terminal",
+      "label": "Last Used Terminal",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "col_break_usage",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "last_used_outlet",
+      "label": "Last Used Outlet",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "last_used_ip",
+      "label": "Last Used IP",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_lockout",
+      "label": "Lockout State",
+      "fieldtype": "Section Break",
+      "description": "Updated automatically by the verify endpoint. Cleared on a successful PIN entry."
+    },
+    {
+      "fieldname": "failed_attempts_in_window",
+      "label": "Failed Attempts (current window)",
+      "fieldtype": "Int",
+      "read_only": 1,
+      "default": 0,
+      "description": "Counts toward the next lockout. Resets to 0 on a successful PIN entry, or after a long pause."
+    },
+    {
+      "fieldname": "last_failed_at",
+      "label": "Last Failed Attempt At",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "col_break_lockout",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "lockout_count_today",
+      "label": "Lockouts Today",
+      "fieldtype": "Int",
+      "read_only": 1,
+      "default": 0,
+      "description": "How many times this PIN has hit a 5-fail lockout today. Drives the exponential backoff schedule. Resets at midnight."
+    },
+    {
+      "fieldname": "locked_until",
+      "label": "Locked Until",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "in_list_view": 1,
+      "description": "If set and in the future, the PIN cannot be verified."
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "report": 1,
+      "export": 1,
+      "share": 1,
+      "print": 1,
+      "email": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 0,
+      "create": 0,
+      "delete": 0,
+      "report": 1,
+      "if_owner": 0
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "description": "A 4-6 digit PIN that authorizes a manager to perform privileged actions at a cashier station (bind/change/reset terminal). Each manager has at most one PIN. PINs are bcrypt-hashed and never stored or transmitted in plaintext after they are set. Lockout policy is exponential backoff after 5 wrong attempts (5min, 30min, 4hr, 24hr+admin alert, then admin-reset only).",
+  "icon": "shield"
+}

@@ -1,0 +1,130 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Report Email Setup",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:setup_name",
+  "fields": [
+    {
+      "fieldname": "setup_name",
+      "label": "Setup Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "pos_profile",
+      "label": "POS Profile",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Profile",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "terminal",
+      "label": "Terminal",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Terminal"
+    },
+    {
+      "fieldname": "report_type",
+      "label": "Report Type",
+      "fieldtype": "Select",
+      "options": "Shift Close\nDay Close\nBoth",
+      "default": "Both",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "trigger_on",
+      "label": "Trigger",
+      "fieldtype": "Select",
+      "options": "On Submit\nScheduled Daily",
+      "default": "On Submit"
+    },
+    {
+      "fieldname": "recipients_section",
+      "label": "Recipients",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "recipients",
+      "label": "Recipients",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Email Recipient"
+    },
+    {
+      "fieldname": "templates_section",
+      "label": "Templates",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "subject_template",
+      "label": "Subject Template",
+      "fieldtype": "Data",
+      "default": "{{ company }} - {{ terminal }} - {{ report_type }} - {{ posting_date }}"
+    },
+    {
+      "fieldname": "body_template",
+      "label": "Body Template (HTML)",
+      "fieldtype": "Code",
+      "options": "HTML",
+      "default": "<p>Report: <b>{{ report_type }}</b></p><p>Terminal: {{ terminal }}</p><p>Date: {{ posting_date }}</p><p>Net Sales: {{ net_sales }}</p><p>VAT: {{ vat }}</p><p>Variance: {{ variance }}</p>"
+    },
+    {
+      "fieldname": "cc",
+      "label": "CC",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "bcc",
+      "label": "BCC",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "attach_pdf",
+      "label": "Attach PDF",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "include_inline_summary",
+      "label": "Include Inline Summary",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "send_only_if_variance_gt",
+      "label": "Send only if variance >",
+      "fieldtype": "Currency"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

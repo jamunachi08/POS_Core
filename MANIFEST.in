@@ -1,0 +1,16 @@
+include README.md
+include license.txt
+include requirements.txt
+
+# Ship the ENTIRE app package, including every static asset (js, css, dist
+# vendor bundles, fonts, images, html, json, www pages, templates, fixtures).
+graft alphax_pos_suite
+
+# Never ship dev/build junk
+prune alphax_pos_suite/frontend/node_modules
+prune alphax_pos_suite/frontend/dist
+prune alphax_pos_suite/frontend/.vite
+global-exclude *.py[cod]
+global-exclude __pycache__
+global-exclude *.so
+global-exclude .DS_Store

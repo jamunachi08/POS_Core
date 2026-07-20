@@ -1,0 +1,1 @@
+# AlphaX POS Suite v15.9.12 — Column heal uses frappe.db.sql_ddl (commit-then-DDL, Frappe's own schema-sync path). v15.9.11's diagnostics proved detection perfect (the five flipped tables, three parent columns each) and execution blocked by the implicit-commit guard on plain sql(). Deploy, run the repair URL, expect healed_columns with 15 entries, then day close.
