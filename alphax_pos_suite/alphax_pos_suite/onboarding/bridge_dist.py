@@ -56,7 +56,7 @@ def read_manifest() -> dict:
     if not os.path.exists(path):
         return {}
     try:
-        with open(path, "r", encoding="utf-8") as fh:
+        with open(path, "r", encoding="utf-8-sig") as fh:
             return json.load(fh) or {}
     except Exception:
         frappe.log_error(frappe.get_traceback(), "bridge manifest unreadable")

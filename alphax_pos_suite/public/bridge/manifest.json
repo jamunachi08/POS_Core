@@ -1,9 +1,9 @@
-﻿{
-    "version":  "15.5.3",
-    "kit_file":  "AlphaX-POS-Bridge-Setup-15.5.3.zip",
-    "sha256":  "df13c96a93847bacf0b2703de145371e209a0e3b1f1f4ecef90987eee45ace9b",
-    "size_bytes":  75889,
-    "source_tag":  "v15.5.3",
-    "source_sha":  "0a90c853c9695600832738ff6a21c6fcf41c034b",
-    "built_at":  "2026-07-27T15:43:21.7371917+03:00"
+{
+  "version": "15.5.3",
+  "kit_file": "AlphaX-POS-Bridge-Setup-15.5.3.zip",
+  "sha256": "df13c96a93847bacf0b2703de145371e209a0e3b1f1f4ecef90987eee45ace9b",
+  "size_bytes": 75889,
+  "source_tag": "v15.5.3",
+  "source_sha": "0a90c853c9695600832738ff6a21c6fcf41c034b",
+  "built_at": "2026-07-27T15:43:21.7371917+03:00"
 }

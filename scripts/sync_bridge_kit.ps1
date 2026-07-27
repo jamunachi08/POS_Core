@@ -93,7 +93,17 @@ try {
 
     $kitName = "AlphaX-POS-Bridge-Setup-$version.zip"
     $kitPath = Join-Path $Dest $kitName
-    Compress-Archive -Path (Join-Path $Work '*') -DestinationPath $kitPath -Force
+    # NOT Compress-Archive: on Windows PowerShell 5.1 it writes
+    # backslash path separators inside the zip, which violates the
+    # spec. Windows Expand-Archive copes; unzip on macOS/Linux makes
+    # a file literally named 'installers\windows\install.ps1' instead
+    # of a directory tree, and the posix bootstrap cannot find the
+    # installer. .NET always writes forward slashes.
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    if (Test-Path $kitPath) { Remove-Item $kitPath -Force }
+    [System.IO.Compression.ZipFile]::CreateFromDirectory(
+        $Work, $kitPath,
+        [System.IO.Compression.CompressionLevel]::Optimal, $false)
     $sha = (Get-FileHash $kitPath -Algorithm SHA256).Hash.ToLower()
     $size = (Get-Item $kitPath).Length
 
@@ -106,7 +116,14 @@ try {
         source_tag = $Tag
         source_sha = (git rev-parse HEAD)
         built_at   = (Get-Date -Format 'o')
-    } | ConvertTo-Json -Depth 4 | Set-Content (Join-Path $Dest 'manifest.json') -Encoding UTF8
+    } | ConvertTo-Json -Depth 4 | ForEach-Object {
+        # -Encoding UTF8 in PS 5.1 emits a BOM, which makes Python's
+        # json.load() raise. bridge_dist caught that and returned {},
+        # so the bundled kit silently reported unavailable.
+        [System.IO.File]::WriteAllText(
+            (Join-Path $Dest 'manifest.json'), $_,
+            (New-Object System.Text.UTF8Encoding $false))
+    }
 
     Write-Host ''
     Write-Host '--- Vendored -------------------------------------------------' -ForegroundColor Green
