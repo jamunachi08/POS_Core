@@ -87,6 +87,25 @@ def _domain_pack_summary(domain_code):
         + _FEATURE_FIELDS,
         as_dict=True,
     )
+
+    # v15.10.0 — layout preset drives which cashier screen the SPA
+    # renders. Queried separately and guarded: these are custom
+    # fields, and on a site where onboarding.setup has not migrated
+    # yet the columns are absent. A combined query would raise and
+    # take the entire cashier boot down with it.
+    if pack:
+        try:
+            extra = frappe.db.get_value(
+                "AlphaX POS Domain Pack",
+                domain_code,
+                ["layout_preset", "show_top_movers", "top_movers_count",
+                 "tile_density", "scan_first"],
+                as_dict=True,
+            ) or {}
+            pack.update(extra)
+        except Exception:
+            pass
+
     return pack
 
 

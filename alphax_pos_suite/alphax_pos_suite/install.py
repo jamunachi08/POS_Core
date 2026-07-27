@@ -147,6 +147,17 @@ def after_install():
     fetch_vendor_bundles_silently()
     force_rebuild_assets()
 
+    # v15.10.0 — zero-touch onboarding. Terminal identity and bridge
+    # state fields, plus a layout preset on every existing domain pack
+    # so grocery and pharmacy get their own screen without anyone
+    # opening a form.
+    from alphax_pos_suite.alphax_pos_suite.onboarding.setup import (
+        ensure_onboarding_fields,
+        seed_layout_presets,
+    )
+    ensure_onboarding_fields()
+    seed_layout_presets()
+
 
 def force_rebuild_assets():
     """Rebuild the public asset symlinks so /assets/alphax_pos_suite/...

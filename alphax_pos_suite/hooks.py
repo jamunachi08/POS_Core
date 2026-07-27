@@ -39,6 +39,9 @@ after_migrate = [
     "alphax_pos_suite.alphax_pos_suite.install.fetch_vendor_bundles_silently",
     "alphax_pos_suite.alphax_pos_suite.install.ensure_workspace_visible",
     "alphax_pos_suite.alphax_pos_suite.install.repair_orphaned_modules_silently",
+    # v15.10.0 — terminal identity + bridge state fields, and the
+    # layout preset seeding that adapts the cashier screen per domain.
+    "alphax_pos_suite.alphax_pos_suite.onboarding.setup.after_migrate",
 ]
 
 doc_events = {
@@ -73,6 +76,12 @@ scheduler_events = {
     "cron": {
         "*/5 * * * *": [
             "alphax_pos_suite.alphax_pos_suite.pos.shift_api.enforce_closing_time",
+        ],
+        # A till whose bridge stopped answering cannot print, open its
+        # drawer, or take a card payment. Better to see it on a list
+        # view at 09:00 than when a queue has formed.
+        "0 * * * *": [
+            "alphax_pos_suite.alphax_pos_suite.onboarding.api.flag_stale_bridges",
         ],
     },
     "daily": [

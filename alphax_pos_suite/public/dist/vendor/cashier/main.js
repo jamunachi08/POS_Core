@@ -102,7 +102,7 @@
   // `import { mock } from './mock'`, which the rewriter turns into a
   // destructure of this namespace. bridge and queueDB import nothing
   // from api/, so their position is free.
-  for (const name of ['mock', 'bridge', 'queueDB', 'client']) {
+  for (const name of ['mock', 'bridge', 'queueDB', 'client', 'fingerprint', 'bridgeInstall']) {
     try {
       window.AlphaXApi[name] = await loadESMAsObject(`api/${name}.js`);
     } catch (e) {
@@ -127,7 +127,7 @@
   // gets activated on first use(). So we can collect the factories now
   // and they activate when components call useFooStore().
   window.AlphaXStores = {};
-  for (const name of ['pos', 'hardware', 'sync', 'kiosk']) {
+  for (const name of ['pos', 'hardware', 'sync', 'kiosk', 'onboarding']) {
     try {
       const mod = await loadESMAsObject(`stores/${name}.js`);
       Object.assign(window.AlphaXStores, mod);
@@ -146,7 +146,7 @@
   // imported by CashierView — it must be registered here or Phase E
   // dies with an undefined destructure.
   window.AlphaXComposables = {};
-  for (const name of ['haptics', 'useLongPress', 'useBarcodeScanner', 'useMoney', 'modifiers']) {
+  for (const name of ['haptics', 'useLongPress', 'useBarcodeScanner', 'useMoney', 'modifiers', 'layout']) {
     try {
       const mod = await loadESMAsObject(`composables/${name}.js`);
       Object.assign(window.AlphaXComposables, mod);
@@ -240,6 +240,7 @@
     'components/KioskToggle.vue',
     'components/CartLineActions.vue',
     'components/ContextRibbon.vue',
+    'components/TopMoversPad.vue',
   ];
   const COMPONENTS_MID = [
     'components/HardwareSettings.vue',
@@ -261,6 +262,8 @@
     'components/OrderTypeBar.vue',
     'components/DeliveryPlatformPicker.vue',
     'components/ShiftDialog.vue',
+    'components/SupermarketLayout.vue',
+    'components/OnboardingWizard.vue',
   ];
   const COMPONENTS_TOP = [
     'components/MenuPanel.vue',

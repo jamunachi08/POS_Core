@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { usePOSStore } from '../stores/pos'
+import { resolveLayout } from '../composables/layout'
 import { useSyncStore } from '../stores/sync'
 import { modifiersForItem } from '../composables/modifiers'
 import { useBarcodeScanner } from '../composables/useBarcodeScanner'
@@ -26,6 +27,7 @@ import ConfigPanel from '../components/ConfigPanel.vue'
 import DeliveryPlatformPicker from '../components/DeliveryPlatformPicker.vue'
 import ShiftDialog from '../components/ShiftDialog.vue'
 import Toaster       from '../components/Toaster.vue'
+import SupermarketLayout from '../components/SupermarketLayout.vue'
 
 const { t } = useI18n()
 const store = usePOSStore()
@@ -113,6 +115,9 @@ const modifierItem  = ref(null)
 const modifierGroups = ref([])
 
 const isMockMode = computed(() => store.boot?._mock)
+
+// Domain-adaptive shell. Non scan-first domains keep the existing markup.
+const layout = computed(() => resolveLayout(store.boot))
 
 // ---- shell geometry --------------------------------------------------------
 // v15.7.4 sized the shell with `top: var(--navbar-height, 60px)`, but
@@ -341,7 +346,15 @@ function openFloorPlan() {
       </span>
     </div>
 
-    <div class="three-col" :class="{ 'rail-collapsed': !railPinned }">
+    <SupermarketLayout
+      v-if="layout.id === 'supermarket'"
+      :layout="layout"
+      @pay="startPay"
+      @add-customer="showCustomer = true"
+      @line-actions="(l) => lineActionsLine = l"
+    />
+
+    <div v-else class="three-col" :class="{ 'rail-collapsed': !railPinned }">
       <div class="rail-cell">
       <SidebarPanel
         :collapsed="!railPinned"
