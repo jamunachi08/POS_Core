@@ -1,0 +1,159 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Printer Profile",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "autoname": "field:profile_name",
+  "track_changes": 1,
+  "title_field": "profile_name",
+  "fields": [
+    {
+      "fieldname": "section_identity",
+      "label": "Identity",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "profile_name",
+      "label": "Profile Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "unique": 1,
+      "in_list_view": 1,
+      "description": "e.g. 'Counter 1 Receipt', 'Kitchen Ticket'. Used to look this profile up."
+    },
+    {
+      "fieldname": "is_active",
+      "label": "Active",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "print_type",
+      "label": "Print Type",
+      "fieldtype": "Select",
+      "options": "Receipt\nKitchen Ticket\nLabel\nReport",
+      "default": "Receipt",
+      "in_list_view": 1
+    },
+
+    {
+      "fieldname": "section_target",
+      "label": "Printer Target",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "transport",
+      "label": "Transport",
+      "fieldtype": "Select",
+      "options": "qz-tray\nBrowser Dialog",
+      "default": "qz-tray",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "qz-tray uses a local daemon (https://qz.io/) for direct ESC/POS printing. Browser Dialog falls back to the browser's print preview."
+    },
+    {
+      "fieldname": "qz_printer_name",
+      "label": "QZ Printer Name",
+      "fieldtype": "Data",
+      "depends_on": "eval:doc.transport===\"qz-tray\"",
+      "description": "The OS-level printer name as qz-tray sees it. Use the 'List Printers' button below to discover them."
+    },
+
+    {
+      "fieldname": "section_paper",
+      "label": "Paper",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "paper_width_mm",
+      "label": "Paper Width (mm)",
+      "fieldtype": "Float",
+      "default": 80,
+      "description": "Standard thermal receipt rolls: 58mm or 80mm."
+    },
+    {
+      "fieldname": "characters_per_line",
+      "label": "Characters Per Line",
+      "fieldtype": "Int",
+      "default": 42,
+      "description": "Width in characters for fixed-pitch fonts. 80mm rolls: ~42 chars. 58mm rolls: ~32 chars."
+    },
+    {
+      "fieldname": "col_paper_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "encoding",
+      "label": "Encoding",
+      "fieldtype": "Select",
+      "options": "UTF-8\nCP437\nCP850\nCP858\nCP866\nWindows-1252\nWindows-1256",
+      "default": "UTF-8",
+      "description": "Character encoding for ESC/POS commands. Use Windows-1256 for Arabic printers."
+    },
+    {
+      "fieldname": "auto_cut",
+      "label": "Auto Cut Paper",
+      "fieldtype": "Check",
+      "default": 1,
+      "description": "Send the cut command at the end of each receipt."
+    },
+    {
+      "fieldname": "open_cash_drawer",
+      "label": "Open Cash Drawer After Print",
+      "fieldtype": "Check",
+      "default": 0,
+      "description": "If the cash drawer is wired to the printer's RJ11 port, send the kick command after printing."
+    },
+
+    {
+      "fieldname": "section_content",
+      "label": "Content",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "print_format",
+      "label": "Frappe Print Format",
+      "fieldtype": "Link",
+      "options": "Print Format",
+      "description": "Standard Frappe Print Format to render. Browser-Dialog mode uses this directly. qz-tray mode strips it down to ESC/POS text."
+    },
+    {
+      "fieldname": "letterhead",
+      "label": "Letterhead",
+      "fieldtype": "Link",
+      "options": "Letter Head"
+    },
+
+    {
+      "fieldname": "section_mapping",
+      "label": "Mapping",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "alphax_terminal",
+      "label": "AlphaX Terminal",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Terminal",
+      "description": "Which AlphaX terminal uses this printer. One terminal can have multiple printer profiles (e.g. Receipt + Kitchen Ticket)."
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "description": "Configures how a specific AlphaX terminal prints receipts/tickets. Supports qz-tray (https://qz.io/) for browser-to-thermal-printer ESC/POS direct printing without a print dialog, and falls back to the browser's standard print dialog when qz-tray is not available."
+}

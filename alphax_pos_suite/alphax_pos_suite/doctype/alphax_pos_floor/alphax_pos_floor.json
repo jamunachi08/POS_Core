@@ -1,0 +1,91 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Floor",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "field:floor_name",
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "floor_name",
+      "label": "Floor Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Outlet",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "layout_section",
+      "label": "Visual Layout",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "canvas_width",
+      "label": "Canvas Width (px)",
+      "fieldtype": "Int",
+      "default": 800,
+      "description": "Width of the floor plan canvas. Tables are placed in this coordinate space."
+    },
+    {
+      "fieldname": "canvas_height",
+      "label": "Canvas Height (px)",
+      "fieldtype": "Int",
+      "default": 500
+    },
+    {
+      "fieldname": "grid_size",
+      "label": "Grid Snap (px)",
+      "fieldtype": "Int",
+      "default": 10,
+      "description": "Tables snap to a grid of this size while dragging."
+    },
+    {
+      "fieldname": "background_image",
+      "label": "Background Image",
+      "fieldtype": "Attach Image",
+      "description": "Optional architectural drawing to overlay tables on."
+    },
+    {
+      "fieldname": "layout_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "background_color",
+      "label": "Background Color",
+      "fieldtype": "Color"
+    },
+    {
+      "fieldname": "zones_json",
+      "label": "Zones / Walls (JSON)",
+      "fieldtype": "Long Text",
+      "description": "Optional JSON array of static decoration: walls, zones, labels."
+    },
+    {
+      "fieldname": "display_order",
+      "label": "Display Order",
+      "fieldtype": "Int",
+      "default": 10
+    }
+  ],
+  "permissions": [
+    {"role": "AlphaX POS Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "AlphaX POS Supervisor", "read": 1, "write": 1, "create": 1},
+    {"role": "AlphaX POS Cashier", "read": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "sort_field": "display_order",
+  "sort_order": "ASC"
+}

@@ -1,0 +1,48 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Notify Recipient",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 1,
+ "editable_grid": 1,
+ "fields": [
+  {
+   "fieldname": "person_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "options": "Email\nWhatsApp\nSMS",
+   "default": "Email",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Email / Phone",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "on_shift_close",
+   "fieldtype": "Check",
+   "label": "Shift Close",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "on_day_close",
+   "fieldtype": "Check",
+   "label": "Day Close",
+   "default": "1",
+   "in_list_view": 1
+  }
+ ],
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

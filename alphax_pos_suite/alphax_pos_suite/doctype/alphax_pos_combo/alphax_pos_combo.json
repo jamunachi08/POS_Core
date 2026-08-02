@@ -1,0 +1,83 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Combo",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 0,
+ "editable_grid": 0,
+ "fields": [
+  {
+   "fieldname": "combo_name",
+   "fieldtype": "Data",
+   "label": "Combo Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "billing_item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "label": "Billing Item",
+   "reqd": 1,
+   "description": "Non-stock service Item that carries the combo's price and tax template. The receipt bills THIS item; components print beneath it at zero rate."
+  },
+  {
+   "fieldname": "combo_price",
+   "fieldtype": "Currency",
+   "label": "Combo Price",
+   "reqd": 1
+  },
+  {
+   "fieldname": "combo_type",
+   "fieldtype": "Select",
+   "options": "Customizable\nFixed",
+   "default": "Fixed",
+   "reqd": 1,
+   "label": "Combo Type",
+   "description": "Customizable (Combo A): components marked substitutable can be swapped at the till. Fixed (Combo B): delivered exactly as configured \u2014 the register offers no editing."
+  },
+  {
+   "fieldname": "outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "label": "Outlet",
+   "description": "Empty = available at every outlet."
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1"
+  },
+  {
+   "fieldname": "components",
+   "fieldtype": "Table",
+   "options": "AlphaX POS Combo Component",
+   "label": "Components",
+   "reqd": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "autoname": "field:combo_name"
+}

@@ -1,0 +1,77 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Print Station",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 0,
+ "editable_grid": 0,
+ "fields": [
+  {
+   "fieldname": "station_name",
+   "fieldtype": "Data",
+   "label": "Station Name",
+   "reqd": 1,
+   "unique": 1,
+   "description": "e.g. Juice Bar, Sandwich, Shawarma, Hot Kitchen"
+  },
+  {
+   "fieldname": "outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "label": "Outlet",
+   "description": "Leave empty to make this station available to every outlet."
+  },
+  {
+   "fieldname": "station_type",
+   "fieldtype": "Select",
+   "options": "Printer\nKitchen Display",
+   "default": "Printer",
+   "label": "Station Type",
+   "reqd": 1,
+   "description": "Printer stations receive KOT tickets through the local bridge; Kitchen Display stations show them on the KDS board (filterable per station)."
+  },
+  {
+   "fieldname": "bridge_target",
+   "fieldtype": "Data",
+   "label": "Bridge Device Name",
+   "depends_on": "eval:doc.station_type=='Printer'",
+   "description": "The device name this station's printer is registered under in the local hardware bridge (the bridge holds the printer's LAN IP/port). One bridge serves all stations in a shop."
+  },
+  {
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Default Station",
+   "description": "Items whose item group matches no routing rule fall back here \u2014 nothing ever silently drops."
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "autoname": "field:station_name",
+ "engine": "InnoDB"
+}

@@ -1,0 +1,156 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:DI-{####}",
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_drugs",
+  "drug_a",
+  "drug_a_name",
+  "column_break_1",
+  "drug_b",
+  "drug_b_name",
+  "section_severity",
+  "severity",
+  "active",
+  "section_message",
+  "message",
+  "section_clinical",
+  "mechanism",
+  "management"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_drugs",
+   "fieldtype": "Section Break",
+   "label": "Interacting Drugs"
+  },
+  {
+   "fieldname": "drug_a",
+   "fieldtype": "Link",
+   "options": "AlphaX Drug Master",
+   "label": "Drug A",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "drug_a_name",
+   "fieldtype": "Data",
+   "label": "Drug A Name",
+   "fetch_from": "drug_a.drug_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "drug_b",
+   "fieldtype": "Link",
+   "options": "AlphaX Drug Master",
+   "label": "Drug B",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "drug_b_name",
+   "fieldtype": "Data",
+   "label": "Drug B Name",
+   "fetch_from": "drug_b.drug_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "section_severity",
+   "fieldtype": "Section Break",
+   "label": "Severity"
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "label": "Severity",
+   "options": "Minor\nModerate\nMajor\nContraindicated",
+   "reqd": 1,
+   "default": "Moderate",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1"
+  },
+  {
+   "fieldname": "section_message",
+   "fieldtype": "Section Break",
+   "label": "Warning Message"
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Small Text",
+   "label": "Message",
+   "reqd": 1,
+   "description": "Shown to the cashier and pharmacist when these two drugs appear together on a prescription."
+  },
+  {
+   "fieldname": "section_clinical",
+   "fieldtype": "Section Break",
+   "label": "Clinical Detail",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "mechanism",
+   "fieldtype": "Small Text",
+   "label": "Mechanism",
+   "description": "Pharmacological mechanism of the interaction. For pharmacist reference."
+  },
+  {
+   "fieldname": "management",
+   "fieldtype": "Small Text",
+   "label": "Management",
+   "description": "Recommended action: separate doses, monitor INR, switch drug, etc."
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-27 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AlphaX POS Suite",
+ "name": "AlphaX Drug Interaction Rule",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Pharmacist",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "AlphaX POS User",
+   "read": 1
+  }
+ ],
+ "search_fields": "drug_a_name,drug_b_name,severity",
+ "sort_field": "severity",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

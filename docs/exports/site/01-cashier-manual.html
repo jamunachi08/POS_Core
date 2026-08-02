@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>cashier-manual</title>
+  <link rel="stylesheet" href="alphax-docs.css">
+</head>
+<body>
+<header class="alphax-header">
+  <div class="alphax-header-inner">
+    <a class="alphax-brand" href="index.html">
+      <div class="alphax-brand-mark">A<span>X</span></div>
+      <div class="alphax-brand-text">
+        <div class="alphax-brand-name">AlphaX POS</div>
+        <div class="alphax-brand-tag">Documentation · v15.5.13</div>
+      </div>
+    </a>
+    <a href="index.html" style="color: var(--alphax-mauve); font-size: 14px; font-weight: 500;">← All manuals</a>
+  </div>
+</header>
+
+<header id="title-block-header">
+<h1 class="title">cashier-manual</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#alphax-pos-cashier-manual"
+id="toc-alphax-pos-cashier-manual">AlphaX POS — Cashier Manual</a>
+<ul>
+<li><a href="#whats-in-this-manual" id="toc-whats-in-this-manual">What’s
+in this manual</a></li>
+<li><a href="#before-your-first-shift"
+id="toc-before-your-first-shift">Before your first shift</a></li>
+<li><a href="#logging-in-and-starting-your-day"
+id="toc-logging-in-and-starting-your-day">Logging in and starting your
+day</a></li>
+<li><a href="#selling-from-scan-to-receipt"
+id="toc-selling-from-scan-to-receipt">Selling: from scan to
+receipt</a></li>
+<li><a href="#cart-actions-adjust-void-hold"
+id="toc-cart-actions-adjust-void-hold">Cart actions: adjust, void,
+hold</a></li>
+<li><a href="#taking-payments" id="toc-taking-payments">Taking
+payments</a></li>
+<li><a href="#refunds-and-returns" id="toc-refunds-and-returns">Refunds
+and returns</a></li>
+<li><a href="#held-orders-pause-and-resume-sales"
+id="toc-held-orders-pause-and-resume-sales">Held orders: pause and
+resume sales</a></li>
+<li><a href="#credit-notes-and-customer-credit"
+id="toc-credit-notes-and-customer-credit">Credit notes and customer
+credit</a></li>
+<li><a href="#offline-mode-keeping-the-register-working"
+id="toc-offline-mode-keeping-the-register-working">Offline mode: keeping
+the register working</a></li>
+<li><a href="#end-of-your-shift" id="toc-end-of-your-shift">End of your
+shift</a></li>
+<li><a href="#common-problems-and-quick-fixes"
+id="toc-common-problems-and-quick-fixes">Common problems and quick
+fixes</a></li>
+<li><a href="#glossary" id="toc-glossary">Glossary</a></li>
+<li><a href="#quick-reference-card" id="toc-quick-reference-card">Quick
+reference card</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="alphax-pos-cashier-manual">AlphaX POS — Cashier Manual</h1>
+<p><strong>For:</strong> Cashiers and front-line staff using the POS
+register <strong>Version:</strong> 15.5.13 <strong>Last
+updated:</strong> May 2026</p>
+<hr />
+<h2 id="whats-in-this-manual">What’s in this manual</h2>
+<ol type="1">
+<li><a href="#before-your-first-shift">Before your first shift</a></li>
+<li><a href="#logging-in-and-starting-your-day">Logging in and starting
+your day</a></li>
+<li><a href="#selling-from-scan-to-receipt">Selling: from scan to
+receipt</a></li>
+<li><a href="#cart-actions-adjust-void-hold">Cart actions: adjust, void,
+hold</a></li>
+<li><a href="#taking-payments">Taking payments</a></li>
+<li><a href="#refunds-and-returns">Refunds and returns</a></li>
+<li><a href="#held-orders-pause-and-resume-sales">Held orders: pause and
+resume sales</a></li>
+<li><a href="#credit-notes-and-customer-credit">Credit notes and
+customer credit</a></li>
+<li><a href="#offline-mode-keeping-the-register-working">Offline mode:
+keeping the register working</a></li>
+<li><a href="#end-of-your-shift">End of your shift</a></li>
+<li><a href="#common-problems-and-quick-fixes">Common problems and quick
+fixes</a></li>
+<li><a href="#glossary">Glossary</a></li>
+</ol>
+<hr />
+<h2 id="before-your-first-shift">Before your first shift</h2>
+<p>Welcome to AlphaX POS. This manual teaches you how to use the cashier
+register. You don’t need to know anything about Frappe, ERPNext, or
+software development to follow it.</p>
+<h3 id="what-you-need-from-your-manager-before-your-first-day">What you
+need from your manager before your first day</h3>
+<ul>
+<li>✅ A <strong>user account</strong> (your username is usually your
+work email)</li>
+<li>✅ Your <strong>password</strong> for that account</li>
+<li>✅ The <strong>branch and terminal</strong> you’ll be working
+at</li>
+<li>✅ <strong>One quick walkthrough</strong> of your branch’s specific
+procedures (every shop has small differences in cash counting, returns
+policy, etc.)</li>
+</ul>
+<h3 id="what-you-dont-need">What you don’t need</h3>
+<ul>
+<li>❌ Any technical knowledge</li>
+<li>❌ Your own device — the cashier PC at your station is set up by the
+manager</li>
+<li>❌ A “manager PIN” — that’s for managers only</li>
+</ul>
+<h3 id="status-of-features-in-this-manual">Status of features in this
+manual</h3>
+<blockquote>
+<p>✅ <strong>Working</strong> = ready to use today 🔬
+<strong>Beta</strong> = available but might change soon 🚧 <strong>In
+Development</strong> = coming in a future update; ignore for now</p>
+</blockquote>
+<hr />
+<h2 id="logging-in-and-starting-your-day">Logging in and starting your
+day</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="step-1-open-the-browser-at-your-cashier-station">Step 1: Open
+the browser at your cashier station</h3>
+<p>Your cashier PC’s browser usually opens to the AlphaX POS login page
+automatically. If not, the address looks like:</p>
+<pre><code>https://your-company.k.frappe.cloud</code></pre>
+<p>You’ll see a login screen.</p>
+<h3 id="step-2-enter-your-username-and-password">Step 2: Enter your
+username and password</h3>
+<p>Type your work email as the username, then your password. Click
+<strong>Login</strong>.</p>
+<blockquote>
+<p>💡 <strong>Tip:</strong> If you forgot your password, use the “Forgot
+Password” link on the login page. The system will email you a reset
+link. If you don’t have email access, ask your manager to reset it.</p>
+</blockquote>
+<h3 id="step-3-open-the-cashier-page">Step 3: Open the cashier page</h3>
+<p>After login, you land on the AlphaX POS Hub workspace. Click
+<strong>“Open Cashier”</strong> at the top, or navigate to:</p>
+<pre><code>https://your-company.k.frappe.cloud/app/alphax-pos-classic</code></pre>
+<h3
+id="step-4-first-time-setup-of-your-station-if-you-see-this-screen">Step
+4: First-time setup of your station (if you see this screen)</h3>
+<p>Most days, the cashier opens straight to the register. But on a
+brand-new PC, or if a manager has reset the station, you’ll see a card
+that says:</p>
+<blockquote>
+<p>🔒 <strong>Station Not Configured</strong> This computer hasn’t been
+bound to a POS terminal yet. A manager must complete a one-time setup
+before this station can take orders.</p>
+</blockquote>
+<p><strong>You cannot fix this yourself.</strong> Walk over to your
+manager, who will:</p>
+<ol type="1">
+<li>Click <strong>Manager Setup</strong></li>
+<li>Type their username and PIN</li>
+<li>Pick the right terminal for this PC</li>
+</ol>
+<p>After they’re done, the cashier register will load and stay loaded
+for every future shift on this PC.</p>
+<h3 id="step-5-confirm-the-station-banner">Step 5: Confirm the station
+banner</h3>
+<p>Once the cashier loads, look at the top of the page. You should see a
+banner like:</p>
+<pre><code>STATION   Riyadh ›  Coffee Shop  ›  Terminal A07</code></pre>
+<p>Make sure this matches where you’re physically standing. If it’s
+wrong, <strong>don’t ring up any sales</strong> — get your manager to
+re-bind the PC.</p>
+<hr />
+<h2 id="selling-from-scan-to-receipt">Selling: from scan to receipt</h2>
+<p>✅ <strong>Working</strong></p>
+<p>The basic flow is: scan items → take payment → submit. Let’s break
+that down.</p>
+<h3 id="adding-items-to-the-cart">Adding items to the cart</h3>
+<p>You have two ways to add items:</p>
+<p><strong>Method 1: Barcode scan (fastest)</strong> 1. Click into the
+<strong>Scan / Item Code</strong> field (it should be focused
+automatically when the page loads) 2. Pull the trigger on your barcode
+scanner aimed at the product’s barcode 3. The item appears in the cart
+with quantity 1</p>
+<p><strong>Method 2: Type the item code manually</strong> 1. Click into
+the <strong>Scan / Item Code</strong> field 2. Type the item’s code
+(your manager has a list, or print one) 3. Press <strong>Enter</strong>
+4. The item appears in the cart</p>
+<h3 id="adjusting-quantity-before-adding">Adjusting quantity before
+adding</h3>
+<p>If you need 3 of something: 1. Type the quantity in the
+<strong>Qty</strong> field (it stays at 1 by default) 2. Then scan or
+type the item code 3. The item is added with the quantity you set</p>
+<p>After scanning, the <strong>Qty</strong> field resets to 1 for the
+next item.</p>
+<h3 id="what-youll-see-in-the-cart">What you’ll see in the cart</h3>
+<p>Each line in the cart shows:</p>
+<ul>
+<li>The item code (e.g., <strong>WAT-001</strong>)</li>
+<li>Rate (price per unit)</li>
+<li>Quantity</li>
+<li>Subtotal (rate × quantity)</li>
+<li>Three buttons on the right: <strong>−</strong> (decrease),
+<strong>+</strong> (increase), <strong>×</strong> (remove)</li>
+</ul>
+<p>The cart total updates automatically at the bottom.</p>
+<h3 id="adding-multiple-items-quickly">Adding multiple items
+quickly</h3>
+<p>Just keep scanning. Each scan adds another line (or increments the
+quantity if the item is already in the cart — depends on your branch’s
+settings).</p>
+<hr />
+<h2 id="cart-actions-adjust-void-hold">Cart actions: adjust, void,
+hold</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="increase-or-decrease-quantity">Increase or decrease
+quantity</h3>
+<p>For an existing line: - Click <strong>+</strong> to add one more -
+Click <strong>−</strong> to remove one (if it goes to 0, the line is
+removed)</p>
+<h3 id="remove-an-item-entirely">Remove an item entirely</h3>
+<p>Click the red <strong>×</strong> button on the right of the line.</p>
+<blockquote>
+<p>💡 <strong>Tip:</strong> If you misclick or remove the wrong item,
+just scan it again to add it back. Nothing is permanent until you click
+<strong>Pay &amp; Submit</strong>.</p>
+</blockquote>
+<h3 id="void-cancel-the-entire-sale">Void / cancel the entire sale</h3>
+<p>If the customer changes their mind and walks away with no items:</p>
+<ol type="1">
+<li>Click <strong>×</strong> on each cart line until the cart is
+empty</li>
+<li>The cart is now ready for the next customer</li>
+</ol>
+<blockquote>
+<p>🚧 <strong>In Development:</strong> A “Void Whole Sale” button is
+coming. For now, removing items one at a time is the way.</p>
+</blockquote>
+<h3 id="hold-the-order-customer-is-taking-too-long">Hold the order
+(customer is taking too long)</h3>
+<p>If a customer needs to step away (forgot their wallet, going to grab
+another item):</p>
+<ol type="1">
+<li>Click <strong>Hold</strong></li>
+<li>The current cart is saved as a “held order”</li>
+<li>The cart clears, ready for the next customer</li>
+<li>When they come back, find their order in the <strong>Held
+Invoices</strong> panel on the right and click
+<strong>Open</strong></li>
+</ol>
+<hr />
+<h2 id="taking-payments">Taking payments</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="single-payment-method">Single payment method</h3>
+<p>Most sales:</p>
+<ol type="1">
+<li>After all items are in the cart, click <strong>Pay &amp;
+Submit</strong></li>
+<li>The system asks for a <strong>Mode of Payment</strong> (Cash, Card,
+etc.)</li>
+<li>Type the <strong>Amount</strong> the customer is paying</li>
+<li>Click <strong>Add Payment</strong></li>
+<li>If the amount equals or exceeds the total, the sale completes and
+the receipt prints</li>
+</ol>
+<h3 id="split-payments-cash-card-etc.">Split payments (cash + card,
+etc.)</h3>
+<p>Some customers want to pay part in cash and part on card:</p>
+<ol type="1">
+<li>After items are in the cart, click in the <strong>Payments</strong>
+section</li>
+<li>Pick the first payment method (e.g., <strong>Cash</strong>)</li>
+<li>Type the cash amount</li>
+<li>Click <strong>Add Payment</strong> — the line appears in the payment
+list</li>
+<li>Pick the second method (e.g., <strong>Card</strong>)</li>
+<li>Type the remaining amount</li>
+<li>Click <strong>Add Payment</strong></li>
+<li>When total payment ≥ cart total, click <strong>Pay &amp;
+Submit</strong></li>
+</ol>
+<h3 id="removing-a-payment-line">Removing a payment line</h3>
+<p>If you typed the wrong amount, click the red <strong>×</strong> next
+to the payment line and re-enter it.</p>
+<h3 id="receiving-change">Receiving change</h3>
+<p>The system shows the change due based on payments minus total. Hand
+the difference to the customer and the receipt will print.</p>
+<h3 id="receipt-printing">Receipt printing</h3>
+<p>After <strong>Pay &amp; Submit</strong> succeeds: - The receipt
+prints automatically (if a printer is connected) - The cart clears for
+the next customer - A confirmation message appears briefly at the
+top</p>
+<p>If the receipt didn’t print, see <a
+href="#common-problems-and-quick-fixes">Common problems</a>.</p>
+<hr />
+<h2 id="refunds-and-returns">Refunds and returns</h2>
+<p>✅ <strong>Working</strong> for cash returns 🔬 <strong>Beta</strong>
+for credit-note returns</p>
+<h3 id="step-1-click-return">Step 1: Click “Return”</h3>
+<p>The big red <strong>Return</strong> button starts a return. The
+cashier asks you to find the original sale.</p>
+<h3 id="step-2-find-the-original-invoice">Step 2: Find the original
+invoice</h3>
+<p>You can search by: - Invoice number - Customer name - Date range</p>
+<p>Click on the right invoice. The cart loads with the original items as
+<strong>negative quantities</strong> (e.g., qty = -1 means “give 1
+back”).</p>
+<h3 id="step-3-adjust-if-its-a-partial-return">Step 3: Adjust if it’s a
+partial return</h3>
+<p>If the customer is only returning some items:</p>
+<ol type="1">
+<li>Use the <strong>−</strong> button to bring negative quantities
+closer to 0 (e.g., if they bought 3 and are returning 1, change qty from
+-3 to -1)</li>
+<li>Click <strong>×</strong> to remove items they’re keeping</li>
+</ol>
+<h3 id="step-4-process-the-refund">Step 4: Process the refund</h3>
+<p>Click <strong>Pay &amp; Submit</strong>. The system asks how to
+settle:</p>
+<ul>
+<li><strong>Cash refund:</strong> Hand the customer cash. Mode of
+payment = Cash, Amount = (negative total).</li>
+<li><strong>Credit note:</strong> No cash leaves the till. The customer
+gets a credit note they can use on a future visit.</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Manager approval may be required.</strong> If your store’s
+settings require manager approval for returns over a certain age or
+amount, the system asks for a manager PIN before completing.</p>
+</blockquote>
+<hr />
+<h2 id="held-orders-pause-and-resume-sales">Held orders: pause and
+resume sales</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="when-to-hold-an-order">When to hold an order</h3>
+<ul>
+<li>Customer forgot something and is going to fetch it</li>
+<li>Customer wants to add items but the line is getting long</li>
+<li>You need to help another customer briefly</li>
+</ul>
+<h3 id="how-to-hold">How to hold</h3>
+<p>Click <strong>Hold</strong> on the order entry card. The cart
+clears.</p>
+<h3 id="how-to-resume">How to resume</h3>
+<p>Look at the <strong>Held Invoices</strong> panel on the right side of
+the cashier screen. You’ll see a list of held orders by their reference
+number and customer name.</p>
+<p>Click <strong>Open</strong> next to the right one. The cart fills
+with their items. You can: - Add more items - Adjust quantities - Take
+payment as normal</p>
+<blockquote>
+<p>💡 <strong>Tip:</strong> If a held order has been sitting for too
+long (customer never came back), ask your manager. They can clean up old
+held orders so the list stays manageable.</p>
+</blockquote>
+<hr />
+<h2 id="credit-notes-and-customer-credit">Credit notes and customer
+credit</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="what-is-a-credit-note">What is a credit note?</h3>
+<p>When a customer returns an item but doesn’t want cash back (or your
+shop policy doesn’t allow it), they get a credit note instead. It’s a
+record of credit they have at your store, redeemable on a future
+purchase.</p>
+<h3 id="redeeming-a-credit-note">Redeeming a credit note</h3>
+<ol type="1">
+<li>Customer arrives with their credit note (paper printout, email, or
+just the number)</li>
+<li>Build their cart as normal</li>
+<li>In the <strong>Payments</strong> section, click <strong>Redeem
+Credit Note</strong></li>
+<li>Type or paste the credit note number</li>
+<li>The system shows the available balance</li>
+<li>Type how much to apply</li>
+<li>Click <strong>Add Payment</strong></li>
+</ol>
+<p>The credit note balance reduces by the amount used. If they spent
+less than their credit, the balance stays for next time.</p>
+<h3 id="what-if-the-credit-note-is-expired">What if the credit note is
+expired?</h3>
+<p>The system tells you. Most shops have a 1-year expiry on credit
+notes. If expired, point the customer to your manager for an
+exception.</p>
+<hr />
+<h2 id="offline-mode-keeping-the-register-working">Offline mode: keeping
+the register working</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="what-offline-means">What “offline” means</h3>
+<p>Internet connections drop. When yours does, the cashier doesn’t stop
+working — it queues sales locally and submits them when the connection
+comes back.</p>
+<h3 id="how-youll-notice-youre-offline">How you’ll notice you’re
+offline</h3>
+<ul>
+<li>The <strong>Sync Queue</strong> counter at top-right shows a number
+&gt; 0</li>
+<li>Submitting a sale shows a brief yellow notice: “Saved offline”</li>
+<li>The receipt still prints</li>
+</ul>
+<h3 id="what-still-works-offline">What still works offline</h3>
+<ul>
+<li>✅ Scanning items</li>
+<li>✅ Adding to cart</li>
+<li>✅ Taking payments (cash always; card only if card terminal is also
+connected directly to the PC)</li>
+<li>✅ Printing receipts</li>
+<li>✅ Holding orders (saved locally, will sync)</li>
+</ul>
+<h3 id="what-doesnt-work-offline">What doesn’t work offline</h3>
+<ul>
+<li>❌ Looking up customer balance from old invoices</li>
+<li>❌ Checking if a credit note exists</li>
+<li>❌ Loading new items added by your manager today</li>
+<li>❌ Real-time stock check (“how many of this do we have?”)</li>
+</ul>
+<h3 id="when-connection-returns">When connection returns</h3>
+<p>Click <strong>Sync Queue</strong> at the top. The system pushes all
+your pending sales to the server. The counter goes back to 0.</p>
+<blockquote>
+<p>⚠️ <strong>Important:</strong> At end of shift, make sure Sync Queue
+= 0 before you leave. Otherwise your sales aren’t reflected in the day’s
+totals. If it won’t go to 0, get your manager.</p>
+</blockquote>
+<hr />
+<h2 id="end-of-your-shift">End of your shift</h2>
+<p>🚧 <strong>Some parts in development</strong> — this section reflects
+the intended flow; specific buttons may move slightly.</p>
+<h3 id="step-1-make-sure-all-sales-are-synced">Step 1: Make sure all
+sales are synced</h3>
+<p>Look at the <strong>Sync Queue</strong> count. It should say “Queue
+empty” or show 0 pending sales. If not:</p>
+<ul>
+<li>Click <strong>Show</strong> to see what’s queued</li>
+<li>Click <strong>Sync Queue</strong> at the top to push them</li>
+<li>If sync fails repeatedly, get your manager — don’t leave with
+unsynced sales</li>
+</ul>
+<h3 id="step-2-close-any-held-orders">Step 2: Close any held orders</h3>
+<p>The <strong>Held Invoices</strong> panel should be empty (or only
+have orders that genuinely span shifts, like layaways). Resume and
+complete any that are yours, or get a manager to dispose of them.</p>
+<h3 id="step-3-click-shifts-close-your-shift">Step 3: Click “Shifts” →
+close your shift</h3>
+<blockquote>
+<p>🔬 <strong>Beta</strong> — the shift management UI is being
+polished.</p>
+</blockquote>
+<p>The <strong>Shifts</strong> button opens a panel where you:</p>
+<ol type="1">
+<li>Confirm your start cash (what you started the day with)</li>
+<li>The system shows expected cash (based on cash sales − refunds)</li>
+<li>You count the actual cash in the drawer</li>
+<li>Type the actual amount</li>
+<li>The system shows the difference (over / short)</li>
+<li>Click <strong>Close Shift</strong></li>
+</ol>
+<p>The system records the shift with all this info. Your manager will
+review it.</p>
+<h3 id="step-4-cash-drop-safe-drop">Step 4: Cash drop / safe drop</h3>
+<p>If your branch uses cash drops:</p>
+<ol type="1">
+<li>Click <strong>Cash Moves</strong></li>
+<li>Pick <strong>Safe Drop</strong></li>
+<li>Type the amount being moved to the safe</li>
+<li>The amount leaves your drawer for accounting purposes</li>
+<li>Hand the cash to the manager / put in safe</li>
+</ol>
+<h3 id="step-5-log-out">Step 5: Log out</h3>
+<p>Click your name (top-right) → <strong>Logout</strong>. Done.</p>
+<hr />
+<h2 id="common-problems-and-quick-fixes">Common problems and quick
+fixes</h2>
+<h3 id="something-went-wrong-loading-the-register">“Something went wrong
+loading the register”</h3>
+<p>You see this card after the page loads. The cashier UI hasn’t
+started.</p>
+<p><strong>What to do:</strong> 1. Hard-refresh the page (Ctrl+Shift+R
+on Windows, Cmd+Shift+R on Mac) 2. If that doesn’t fix it, get your
+manager 3. Don’t try to take sales until it loads — they’d just fail</p>
+<h3 id="barcode-scanner-isnt-working">Barcode scanner isn’t working</h3>
+<p><strong>What to check:</strong> 1. Is the Scan field focused? (Click
+into it.) 2. Is the scanner turned on? (Some have a power button.) 3.
+Does scanning anywhere else (like Notepad) produce text? - If yes:
+scanner is fine, the field is the problem (refresh page) - If no:
+scanner hardware issue, get your manager</p>
+<h3 id="receipt-didnt-print">Receipt didn’t print</h3>
+<p><strong>What to check:</strong> 1. Is the printer turned on? 2. Is
+there paper? 3. Click the <strong>Sync Queue</strong> count — was the
+sale saved offline? (If yes, it’ll print when sync completes)</p>
+<h3
+id="manager-approval-required-when-i-try-to-give-a-discount">“Manager
+approval required” when I try to give a discount</h3>
+<p>This is normal. Walk to your manager, they’ll come over and: 1. Look
+at your screen 2. Type their username + PIN in the dialog that appears
+3. The discount applies, you continue</p>
+<h3 id="cart-total-doesnt-match-what-i-expect">Cart total doesn’t match
+what I expect</h3>
+<p>The system applies pricing rules, taxes, and offers automatically.
+Some common reasons the total isn’t what you expected:</p>
+<ul>
+<li><strong>Inclusive VAT:</strong> Many KSA prices include VAT. The
+line shows the inclusive price, but the receipt breaks it out.</li>
+<li><strong>Discount applied:</strong> A pricing rule may have given the
+customer a discount. Check the line for a strikethrough price or a
+discount pill.</li>
+<li><strong>Volume offer:</strong> Buying 3 of the same item triggered a
+“buy 3 get X off” rule.</li>
+</ul>
+<p>If you genuinely think the total is wrong, hold the order, get a
+manager.</p>
+<h3 id="i-scanned-the-wrong-customer-for-a-return">I scanned the wrong
+customer for a return</h3>
+<p>Don’t process the return. Click <strong>×</strong> on each line to
+clear, then start over with <strong>Return</strong> and pick the right
+invoice.</p>
+<h3 id="the-page-is-frozen">The page is frozen</h3>
+<ol type="1">
+<li>Wait 5 seconds — sometimes it’s a slow network call</li>
+<li>Hard-refresh (Ctrl+Shift+R)</li>
+<li>If that doesn’t work, close the browser tab and reopen</li>
+<li>If still frozen, restart the browser</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Don’t restart the PC during a sale.</strong> If you have
+items in the cart and the cart isn’t synced, restarting could lose them.
+Hold the order first, then restart.</p>
+</blockquote>
+<hr />
+<h2 id="glossary">Glossary</h2>
+<p><strong>Branch</strong> — A physical store location (e.g., “Riyadh
+Mall”). One business can have many branches.</p>
+<p><strong>Outlet</strong> — A specific business unit within a branch
+(e.g., “Coffee Shop” at Riyadh Mall). Larger stores can have multiple
+outlets per branch.</p>
+<p><strong>Terminal</strong> — A specific cashier station within an
+outlet (e.g., “Terminal A07”). Each PC running the cashier is bound to
+exactly one terminal.</p>
+<p><strong>POS Profile</strong> — Your cashier’s permission set: which
+payment methods you can accept, which warehouse stock comes from, which
+printer to use. Set by your manager.</p>
+<p><strong>Held Invoice</strong> — An order that was paused mid-sale and
+saved for later. Lives in the Held Invoices panel until resumed or
+canceled.</p>
+<p><strong>Sync Queue</strong> — Pending sales that happened offline and
+haven’t been sent to the server yet. Should be empty at end of
+shift.</p>
+<p><strong>Credit Note</strong> — A record of credit a customer has at
+your store, issued when they return items without taking cash back.
+Redeemable on future purchases.</p>
+<p><strong>ZATCA</strong> — The Saudi tax authority. Every sale must be
+reported to them via the e-invoicing system. The cashier handles this
+automatically — you don’t need to do anything special.</p>
+<p><strong>Manager PIN</strong> — A 4-6 digit number a manager types to
+authorize privileged actions (return approvals, discount overrides,
+station setup). You as a cashier never type a manager PIN.</p>
+<p><strong>Hold</strong> — Pause an order so you can serve another
+customer first. Different from canceling: held orders can be
+resumed.</p>
+<hr />
+<h2 id="quick-reference-card">Quick reference card</h2>
+<blockquote>
+<p>📋 <strong>Print this and keep it at your station.</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>What I want to do</th>
+<th>What I click</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Add an item</td>
+<td>Scan it, or type code + Enter</td>
+</tr>
+<tr class="even">
+<td>Increase quantity</td>
+<td><strong>+</strong> on the cart line</td>
+</tr>
+<tr class="odd">
+<td>Decrease quantity</td>
+<td><strong>−</strong> on the cart line</td>
+</tr>
+<tr class="even">
+<td>Remove item</td>
+<td><strong>×</strong> on the cart line</td>
+</tr>
+<tr class="odd">
+<td>Add a coupon</td>
+<td>Type code in <strong>Offer Code</strong> field</td>
+</tr>
+<tr class="even">
+<td>Take payment</td>
+<td>Pick mode → Amount → <strong>Add Payment</strong></td>
+</tr>
+<tr class="odd">
+<td>Complete sale</td>
+<td><strong>Pay &amp; Submit</strong></td>
+</tr>
+<tr class="even">
+<td>Pause order</td>
+<td><strong>Hold</strong></td>
+</tr>
+<tr class="odd">
+<td>Resume order</td>
+<td><strong>Open</strong> in Held Invoices</td>
+</tr>
+<tr class="even">
+<td>Process return</td>
+<td><strong>Return</strong> → find invoice → <strong>Pay &amp;
+Submit</strong></td>
+</tr>
+<tr class="odd">
+<td>Use credit note</td>
+<td><strong>Redeem Credit Note</strong></td>
+</tr>
+<tr class="even">
+<td>Sync offline sales</td>
+<td><strong>Sync Queue</strong> at top</td>
+</tr>
+<tr class="odd">
+<td>End of shift</td>
+<td><strong>Shifts</strong> → Close Shift</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Manual version 15.5.13 — May 2026. For the latest version, check
+the docs/ folder in your AlphaX POS installation.</em></p>
+</body>
+</html>
