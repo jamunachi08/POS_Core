@@ -1,0 +1,306 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Outlet",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 0,
+ "editable_grid": 0,
+ "autoname": "field:outlet_name",
+ "engine": "InnoDB",
+ "allow_rename": 1,
+ "fields": [
+  {
+   "fieldname": "outlet_name",
+   "label": "Outlet Name",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "reqd": 1,
+   "in_list_view": 1,
+   "options": "Company"
+  },
+  {
+   "fieldname": "branch",
+   "label": "Branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "options": "Branch"
+  },
+  {
+   "fieldname": "warehouse",
+   "label": "Default Warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "cost_center",
+   "label": "Default Cost Center",
+   "fieldtype": "Link",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "domains_section",
+   "label": "Active Business Domains",
+   "fieldtype": "Section Break",
+   "description": "An outlet can run any combination of these domains simultaneously. The cashier UI will load only the modules for active domains."
+  },
+  {
+   "fieldname": "domains",
+   "label": "Active Domains",
+   "fieldtype": "Table MultiSelect",
+   "options": "AlphaX POS Outlet Domain"
+  },
+  {
+   "fieldname": "primary_domain",
+   "label": "Primary Domain",
+   "fieldtype": "Select",
+   "options": "\nRestaurant\nCafe\nRetail\nGrocery\nPharmacy\nSalon\nService\nGeneric",
+   "default": "Generic",
+   "description": "Default landing module on the cashier terminal."
+  },
+  {
+   "fieldname": "fiscal_section",
+   "label": "Fiscal & Stock",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "update_stock",
+   "label": "Update Stock on POS Posting",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "sales_taxes_and_charges_template",
+   "label": "Sales Taxes and Charges Template",
+   "fieldtype": "Link",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "fieldname": "default_price_list",
+   "label": "Default Selling Price List",
+   "fieldtype": "Link",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "fiscal_col_break",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pos_type",
+   "label": "POS Type (Legacy)",
+   "fieldtype": "Select",
+   "options": "Use Global\nRestaurant\nRetail\nPharmacy\nElectronics\nGeneric",
+   "default": "Use Global",
+   "description": "Kept for backwards compatibility. Active Domains above is the source of truth."
+  },
+  {
+   "fieldname": "enable_kds",
+   "label": "Enable KDS (Override)",
+   "fieldtype": "Select",
+   "options": "Use Global\nYes\nNo",
+   "default": "Use Global"
+  },
+  {
+   "fieldname": "sec_kot",
+   "fieldtype": "Section Break",
+   "label": "Kitchen Tickets"
+  },
+  {
+   "fieldname": "kot_mode",
+   "label": "KOT Mode",
+   "fieldtype": "Select",
+   "options": "Station Routing\nSingle Printer\nNo Kitchen Tickets",
+   "default": "Station Routing",
+   "in_list_view": 0,
+   "description": "Station Routing sends each item to its own printer via the routing rules. Single Printer sends everything to one printer, grouped under section headings so the line can still tear the ticket apart — the usual setup for a small kitchen with one machine. No Kitchen Tickets suppresses KOT printing entirely."
+  },
+  {
+   "fieldname": "kot_single_target",
+   "label": "Single KOT Printer",
+   "fieldtype": "Data",
+   "depends_on": "eval:doc.kot_mode=='Single Printer'",
+   "description": "Bridge target (printer name as the hardware bridge reports it). Leave blank to use the station marked Default."
+  },
+  {
+   "fieldname": "col_kot",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kot_group_by_section",
+   "label": "Group Under Section Headings",
+   "fieldtype": "Check",
+   "default": 1,
+   "depends_on": "eval:doc.kot_mode=='Single Printer'",
+   "description": "Print HOT KITCHEN / GRILL / BAR headings above each block on the shared ticket. Turn off for a plain list."
+  },
+  {
+   "fieldname": "kot_copies",
+   "label": "Copies",
+   "fieldtype": "Int",
+   "default": 1,
+   "description": "Number of identical tickets per station. Two is common where one copy goes to the pass."
+  },
+  {
+   "fieldname": "loyalty_section",
+   "label": "Loyalty",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "default_loyalty_program",
+   "label": "Default Loyalty Program",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Loyalty Program",
+   "description": "If set, walk-in customers default to this program."
+  },
+  {
+   "fieldname": "extras_section",
+   "label": "Restaurant Extras",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "service_charge_item",
+   "label": "Service Charge Item",
+   "fieldtype": "Link",
+   "options": "Item"
+  },
+  {
+   "fieldname": "tips_item",
+   "label": "Tips Item",
+   "fieldtype": "Link",
+   "options": "Item"
+  },
+  {
+   "fieldname": "sec_hours",
+   "fieldtype": "Section Break",
+   "label": "Store Hours"
+  },
+  {
+   "fieldname": "opening_time",
+   "fieldtype": "Time",
+   "label": "Opening Time"
+  },
+  {
+   "fieldname": "enforce_opening_time",
+   "fieldtype": "Check",
+   "label": "Enforce Opening Time",
+   "description": "On: shifts cannot be opened before Opening Time."
+  },
+  {
+   "fieldname": "col_hours",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "closing_time",
+   "fieldtype": "Time",
+   "label": "Closing Time"
+  },
+  {
+   "fieldname": "enforce_closing_time",
+   "fieldtype": "Check",
+   "label": "Enforce Closing Time",
+   "description": "On: at Closing Time the register blocks NEW sales (the sale in progress may finish); after the grace period any open shift is auto-closed with its last declared count, flagged for recount."
+  },
+  {
+   "fieldname": "closing_grace_minutes",
+   "fieldtype": "Int",
+   "label": "Grace Minutes",
+   "default": "15"
+  },
+  {
+   "fieldname": "sec_notify",
+   "fieldtype": "Section Break",
+   "label": "Close Notifications"
+  },
+  {
+   "fieldname": "notify_recipients",
+   "fieldtype": "Table",
+   "options": "AlphaX POS Notify Recipient",
+   "label": "Nominated Persons"
+  },
+  {
+   "fieldname": "sec_display",
+   "fieldtype": "Section Break",
+   "label": "Customer Display"
+  },
+  {
+   "fieldname": "display_key",
+   "label": "Display Key",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "description": "Opens the lobby screen without a login: /order_status?outlet=<name>&key=<this>. Generated on first use. Clear the field and save to rotate it — any screen still using the old key stops updating."
+  },
+  {
+   "fieldname": "display_announce",
+   "label": "Announce Ready Orders",
+   "fieldtype": "Check",
+   "default": 1,
+   "description": "Chime plus a spoken call in English and Arabic when an order reaches Ready."
+  },
+  {
+   "fieldname": "display_announce_repeat",
+   "label": "Repeat Each Call",
+   "fieldtype": "Int",
+   "default": 2,
+   "depends_on": "eval:doc.display_announce",
+   "description": "How many times a number is called. Two is the usual choice in a noisy room."
+  },
+  {
+   "fieldname": "col_display",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "display_ticker_en",
+   "label": "Ticker Message (EN)",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "display_ticker_ar",
+   "label": "Ticker Message (AR)",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "display_feedback_url",
+   "label": "Feedback URL",
+   "fieldtype": "Data",
+   "description": "Rendered as a QR code on the screen. Leave blank to hide the panel."
+  },
+  {
+   "fieldname": "display_ready_hold_seconds",
+   "label": "Keep Ready Orders On Screen (sec)",
+   "fieldtype": "Int",
+   "default": 180,
+   "description": "How long a collected-but-not-served order stays visible before it drops off."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ],
+ "description": "Outlet configuration. One outlet can run multiple business domains simultaneously.",
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

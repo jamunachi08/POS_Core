@@ -1,0 +1,447 @@
+/*
+ * AlphaX POS Setup Wizard — polished styling
+ *
+ * Every selector is scoped to body.alphax-pos-wizard-page so this CSS
+ * only styles the wizard. The body class is added on page load and
+ * removed on route change.
+ */
+
+body.alphax-pos-wizard-page {
+    --alphax-mauve:        #714B67;
+    --alphax-mauve-dark:   #5C3D54;
+    --alphax-mauve-light:  #DBCED9;
+    --alphax-border:       #EAE5E9;
+    --alphax-bg:           #FAF7F9;
+    --alphax-surface:      #FFFFFF;
+    --alphax-text:         #4B5563;
+    --alphax-text-strong:  #1F2937;
+    --alphax-muted:        #9088A0;
+    --alphax-success:      #15803D;
+    --alphax-info-bg:      #EFF6FF;
+    --alphax-info-bd:      #BFDBFE;
+    --alphax-info-tx:      #1E3A8A;
+
+    background: var(--alphax-bg);
+}
+
+body.alphax-pos-wizard-page .layout-main-section {
+    background: var(--alphax-bg) !important;
+    padding: 0 !important;
+}
+
+/* ---------------------------------------------------------------- *
+ * Shell
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    color: var(--alphax-text);
+}
+
+/* ---------------------------------------------------------------- *
+ * Header + progress
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 8px;
+    letter-spacing: -0.4px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-subtitle {
+    font-size: 14px;
+    color: var(--alphax-muted);
+    margin-bottom: 32px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--alphax-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--alphax-muted);
+    background: var(--alphax-surface);
+    transition: all 0.2s ease;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step.active .alphax-wiz-step-num {
+    background: var(--alphax-mauve);
+    border-color: var(--alphax-mauve);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step.done .alphax-wiz-step-num {
+    background: var(--alphax-mauve-light);
+    border-color: var(--alphax-mauve-light);
+    color: var(--alphax-mauve-dark);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step-label {
+    font-size: 11.5px;
+    color: var(--alphax-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step.active .alphax-wiz-step-label {
+    color: var(--alphax-mauve);
+    font-weight: 600;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step.done .alphax-wiz-step-label {
+    color: var(--alphax-mauve-dark);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step-line {
+    flex: 1;
+    height: 1.5px;
+    background: var(--alphax-border);
+    margin: 0 8px;
+    margin-bottom: 28px;  /* offset for label below circle */
+    min-width: 40px;
+    max-width: 100px;
+}
+
+/* ---------------------------------------------------------------- *
+ * Body grid: form left, explainer right
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+@media (max-width: 850px) {
+    body.alphax-pos-wizard-page .alphax-wiz-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-form {
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-top: 4px solid var(--alphax-mauve);
+    border-radius: 14px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 12px rgba(113, 75, 103, 0.04);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-form h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 24px;
+    letter-spacing: -0.2px;
+}
+
+/* ---------------------------------------------------------------- *
+ * Form fields
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-field {
+    margin-bottom: 18px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-field label {
+    display: block;
+    font-size: 12px;
+    color: var(--alphax-text-strong);
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+body.alphax-pos-wizard-page .alphax-req {
+    color: #DC2626;
+    margin-left: 2px;
+}
+
+body.alphax-pos-wizard-page .alphax-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 8px;
+    background: var(--alphax-surface);
+    font-size: 14px;
+    color: var(--alphax-text-strong);
+    transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    font-family: inherit;
+}
+
+body.alphax-pos-wizard-page .alphax-input:hover {
+    border-color: var(--alphax-mauve-light);
+}
+
+body.alphax-pos-wizard-page .alphax-input:focus {
+    outline: none;
+    border-color: var(--alphax-mauve);
+    box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.12);
+}
+
+body.alphax-pos-wizard-page .alphax-input::placeholder {
+    color: var(--alphax-muted);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-field small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--alphax-muted);
+    line-height: 1.5;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* ---------------------------------------------------------------- *
+ * Business type radio cards
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-types {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+}
+@media (max-width: 600px) {
+    body.alphax-pos-wizard-page .alphax-wiz-types {
+        grid-template-columns: 1fr;
+    }
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 10px;
+    background: var(--alphax-surface);
+    cursor: pointer;
+    transition: all 0.12s ease;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type:hover {
+    border-color: var(--alphax-mauve-light);
+    background: rgba(219, 206, 217, 0.10);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type.selected {
+    border-color: var(--alphax-mauve);
+    background: rgba(219, 206, 217, 0.20);
+    box-shadow: 0 0 0 2px rgba(113, 75, 103, 0.15);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type input[type="radio"] {
+    display: none;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type-icon {
+    font-size: 24px;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type-info {
+    flex: 1;
+    min-width: 0;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--alphax-text-strong);
+    margin-bottom: 2px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type.selected .alphax-wiz-type-label {
+    color: var(--alphax-mauve-dark);
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-type-tagline {
+    font-size: 12px;
+    color: var(--alphax-muted);
+    line-height: 1.4;
+}
+
+/* ---------------------------------------------------------------- *
+ * Side panel (explainer)
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-side {
+    position: sticky;
+    top: 24px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-explainer {
+    background: linear-gradient(160deg,
+        rgba(219, 206, 217, 0.20) 0%,
+        rgba(234, 229, 233, 0.30) 100%);
+    border: 0.5px solid var(--alphax-mauve-light);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-explainer-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-explainer h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--alphax-mauve-dark);
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-explainer p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--alphax-text);
+    margin: 0;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-explainer p b {
+    color: var(--alphax-mauve-dark);
+    font-weight: 600;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-hint {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--alphax-muted);
+    font-style: italic;
+}
+
+/* ---------------------------------------------------------------- *
+ * Info card (used on steps 4 and 5)
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-info-card {
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: var(--alphax-info-bg);
+    border: 0.5px solid var(--alphax-info-bd);
+    border-radius: 10px;
+    font-size: 13.5px;
+    color: var(--alphax-info-tx);
+    line-height: 1.55;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-info-final {
+    background: rgba(20, 83, 45, 0.06);
+    border-color: rgba(20, 83, 45, 0.20);
+    color: var(--alphax-success);
+}
+
+/* ---------------------------------------------------------------- *
+ * Footer
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-wiz-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding: 16px 0 0;
+}
+
+body.alphax-pos-wizard-page .alphax-wiz-step-indicator {
+    font-size: 12px;
+    color: var(--alphax-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* ---------------------------------------------------------------- *
+ * Buttons (re-uses Classic cashier button styles, scoped here too)
+ * ---------------------------------------------------------------- */
+
+body.alphax-pos-wizard-page .alphax-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 0.5px solid var(--alphax-border);
+    background: var(--alphax-surface);
+    color: var(--alphax-text-strong);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    line-height: 1.2;
+    font-family: inherit;
+}
+
+body.alphax-pos-wizard-page .alphax-btn:hover:not(:disabled) {
+    background: var(--alphax-mauve-light);
+    border-color: var(--alphax-mauve-light);
+}
+
+body.alphax-pos-wizard-page .alphax-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+body.alphax-pos-wizard-page .alphax-btn-primary {
+    background: var(--alphax-mauve);
+    border-color: var(--alphax-mauve);
+    color: #fff;
+}
+
+body.alphax-pos-wizard-page .alphax-btn-primary:hover:not(:disabled) {
+    background: var(--alphax-mauve-dark);
+    border-color: var(--alphax-mauve-dark);
+    color: #fff;
+}
+
+body.alphax-pos-wizard-page .alphax-btn-pay {
+    padding: 10px 26px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(113, 75, 103, 0.25);
+}

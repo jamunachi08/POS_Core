@@ -1,0 +1,89 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Payment",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "autoname": "hash",
+  "engine": "InnoDB",
+  "allow_rename": 0,
+  "fields": [
+    {
+      "fieldname": "mode_of_payment",
+      "label": "Mode of Payment",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Mode of Payment"
+    },
+    {
+      "fieldname": "amount",
+      "label": "Amount",
+      "fieldtype": "Currency",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "reference_no",
+      "label": "Reference No",
+      "fieldtype": "Data",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "payment_type",
+      "label": "Payment Type",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Payment\nCredit Note Redeem",
+      "default": "Payment"
+    },
+    {
+      "fieldname": "credit_note",
+      "label": "Credit Note No (Sales Invoice Return)",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Sales Invoice"
+    },
+    {
+      "fieldname": "credit_available",
+      "label": "Credit Available",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1
+    },
+    {
+      "fieldname": "credit_amount_locked",
+      "label": "Credit Amount Locked",
+      "fieldtype": "Check",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "description": "",
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}
