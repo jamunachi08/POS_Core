@@ -1,0 +1,55 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS User Assignment",
+ "module": "AlphaX POS Suite",
+ "istable": 1,
+ "custom": 0,
+ "description": "Where a person is allowed to sell. One row per branch they work at. A single row means they never see a picker; several means they choose a branch at login.",
+ "fields": [
+  {
+   "fieldname": "branch",
+   "label": "Branch",
+   "fieldtype": "Link",
+   "options": "Branch",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "pos_outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Blank means any outlet in that branch."
+  },
+  {
+   "fieldname": "terminal",
+   "label": "Terminal",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Terminal",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Blank means the machine decides, which is normally what you want — a person is assigned to a branch, not to a till."
+  },
+  {
+   "fieldname": "pos_profile",
+   "label": "POS Profile",
+   "fieldtype": "Link",
+   "options": "POS Profile",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Preferred profile. Only used if the terminal permits it; the terminal's own profile wins, because the profile drives accounts and belongs to the till, not the person."
+  },
+  {
+   "fieldname": "is_default",
+   "label": "Default",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Where this person lands when they have more than one branch."
+  }
+ ],
+ "permissions": []
+}

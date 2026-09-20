@@ -1,0 +1,155 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Central Kitchen Request",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "allow_rename": 0,
+  "autoname": "format:CKREQ-.#####",
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Outlet",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "from_warehouse",
+      "label": "Central Kitchen Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse",
+      "reqd": 0,
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "to_warehouse",
+      "label": "Outlet Warehouse",
+      "fieldtype": "Link",
+      "options": "Warehouse",
+      "reqd": 0
+    },
+    {
+      "fieldname": "requested_for_date",
+      "label": "Requested For Date",
+      "fieldtype": "Date",
+      "reqd": 0
+    },
+    {
+      "fieldname": "reference_sales_invoice",
+      "label": "Sales Invoice",
+      "fieldtype": "Link",
+      "options": "Sales Invoice",
+      "reqd": 0
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Draft\nSubmitted\nDispatched\nFulfilled\nCancelled",
+      "default": "Draft",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "items",
+      "label": "Items",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Central Kitchen Request Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "integration_section",
+      "label": "Integration",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "material_request",
+      "label": "Material Request",
+      "fieldtype": "Link",
+      "options": "Material Request",
+      "read_only": 1
+    },
+    {
+      "fieldname": "stock_entry",
+      "label": "Stock Entry",
+      "fieldtype": "Link",
+      "options": "Stock Entry",
+      "read_only": 1
+    },
+    {
+      "fieldname": "remarks",
+      "label": "Remarks",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "erpnext_section_break",
+      "label": "ERPNext Integration",
+      "fieldtype": "Section Break",
+      "insert_after": "reference_sales_invoice"
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company"
+    },
+    {
+      "fieldname": "erpnext_material_request",
+      "label": "Material Request",
+      "fieldtype": "Link",
+      "options": "Material Request",
+      "read_only": 1
+    },
+    {
+      "fieldname": "erpnext_stock_entry",
+      "label": "Stock Entry",
+      "fieldtype": "Link",
+      "options": "Stock Entry",
+      "read_only": 1
+    },
+    {
+      "fieldname": "requested_on",
+      "label": "Requested On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "dispatched_on",
+      "label": "Dispatched On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "dispatched_by",
+      "label": "Dispatched By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    },
+    {
+      "fieldname": "dispatch_notes",
+      "label": "Dispatch Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "fulfilled_on",
+      "label": "Fulfilled On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ]
+}

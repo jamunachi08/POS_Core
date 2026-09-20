@@ -1,0 +1,20 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Processing Log",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "allow_rename": 0,
+  "autoname": "hash",
+  "engine": "InnoDB",
+  "fields": [
+    {"fieldname": "sales_invoice", "label": "Sales Invoice", "fieldtype": "Link", "options": "Sales Invoice", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "stock_entry", "label": "Stock Entry", "fieldtype": "Link", "options": "Stock Entry", "in_list_view": 1},
+    {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "Queued\nDone\nRetry\nError", "default": "Queued", "in_list_view": 1},
+    {"fieldname": "company", "label": "Company", "fieldtype": "Link", "options": "Company", "reqd": 0},
+    {"fieldname": "error", "label": "Error", "fieldtype": "Small Text", "read_only": 1}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ]
+}
