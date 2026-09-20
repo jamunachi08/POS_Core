@@ -1,0 +1,19 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Menu Link",
+ "module": "AlphaX POS Suite",
+ "istable": 1,
+ "custom": 0,
+ "description": "Attaches a menu to an outlet or a terminal. Several menus stack: a core menu plus a seasonal one plus branch specials.",
+ "fields": [
+  {
+   "fieldname": "menu",
+   "label": "Menu",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Menu",
+   "reqd": 1,
+   "in_list_view": 1
+  }
+ ],
+ "permissions": []
+}

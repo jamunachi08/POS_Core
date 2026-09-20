@@ -1,0 +1,41 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Recipe",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "field:item_code",
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "item_code",
+      "label": "Sold Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "disabled",
+      "label": "Disabled",
+      "fieldtype": "Check",
+      "default": "0"
+    },
+    {
+      "fieldname": "items",
+      "label": "Consumption Items",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Recipe Item"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ]
+}
