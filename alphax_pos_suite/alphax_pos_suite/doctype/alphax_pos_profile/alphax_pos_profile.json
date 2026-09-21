@@ -1,0 +1,110 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Profile",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:profile_name",
+  "fields": [
+    {
+      "fieldname": "profile_name",
+      "label": "Profile Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "pos_type",
+      "label": "POS Type",
+      "fieldtype": "Select",
+      "options": "Restaurant\nRetail\nPharmacy\nGeneric",
+      "default": "Restaurant"
+    },
+    {
+      "fieldname": "theme",
+      "label": "POS Theme",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Theme"
+    },
+    {
+      "fieldname": "section_break_1",
+      "label": "Payments",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "use_profile_payment_methods",
+      "label": "Use Profile Payment Methods",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "payment_methods",
+      "label": "Payment Methods",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Profile Payment Method"
+    },
+    {
+      "fieldname": "section_break_2",
+      "label": "Weighing Scale",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "enable_weighing_scale",
+      "label": "Enable Weighing Scale",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "scale_mode",
+      "label": "Scale Mode",
+      "fieldtype": "Select",
+      "options": "Generic\nRule Based\nBoth",
+      "default": "Both"
+    },
+    {
+      "fieldname": "generic_scale_definition",
+      "label": "Generic Scale Definition",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Scale Barcode Definition"
+    },
+    {
+      "fieldname": "scale_rules",
+      "label": "Scale Rules",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Scale Barcode Rule"
+    },
+    {
+      "fieldname": "section_break_3",
+      "label": "Shortcuts",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "enable_shortcuts",
+      "label": "Enable Keyboard Shortcuts",
+      "fieldtype": "Check",
+      "default": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

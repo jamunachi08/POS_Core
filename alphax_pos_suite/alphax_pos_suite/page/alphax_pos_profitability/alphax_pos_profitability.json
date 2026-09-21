@@ -1,0 +1,8 @@
+{
+  "doctype": "Page",
+  "name": "alphax-pos-profitability",
+  "module": "AlphaX POS Suite",
+  "title": "AlphaX POS Profitability",
+  "icon": "octicon octicon-graph",
+  "standard": "Yes"
+}

@@ -1,0 +1,1 @@
+# AlphaX POS Suite v15.9.6 — Shift close fix: isHandover ref was undeclared and the handover argument was injected inside parseFloat (never reaching the API). Confirm close works for both normal and handover closes. Includes 15.9.5 (gateway URL field) and 15.9.4 (items fix + repair endpoint).

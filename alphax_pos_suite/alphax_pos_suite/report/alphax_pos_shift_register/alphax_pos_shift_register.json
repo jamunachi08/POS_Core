@@ -1,0 +1,15 @@
+{
+ "doctype": "Report",
+ "name": "AlphaX POS Shift Register",
+ "report_name": "AlphaX POS Shift Register",
+ "report_type": "Script Report",
+ "ref_doctype": "AlphaX POS Shift",
+ "module": "AlphaX POS Suite",
+ "is_standard": "Yes",
+ "disabled": 0,
+ "roles": [
+  {"role": "System Manager"},
+  {"role": "AlphaX POS Manager"},
+  {"role": "Accounts Manager"}
+ ]
+}

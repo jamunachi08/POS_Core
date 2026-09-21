@@ -1,0 +1,104 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Loyalty Ledger",
+  "module": "AlphaX POS Suite",
+  "autoname": "naming_series:",
+  "engine": "InnoDB",
+  "is_submittable": 1,
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Select",
+      "options": "LL-.YYYY.-.######",
+      "default": "LL-.YYYY.-.######"
+    },
+    {
+      "fieldname": "wallet",
+      "label": "Wallet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Loyalty Wallet",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer",
+      "fetch_from": "wallet.customer",
+      "in_list_view": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "program",
+      "label": "Program",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Loyalty Program",
+      "fetch_from": "wallet.program",
+      "in_list_view": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "entry_type",
+      "label": "Entry Type",
+      "fieldtype": "Select",
+      "options": "Earn\nRedeem\nExpire\nAdjust\nReverse",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "points",
+      "label": "Points (signed)",
+      "fieldtype": "Float",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Positive for Earn, negative for Redeem/Expire."
+    },
+    {
+      "fieldname": "balance_after",
+      "label": "Balance After",
+      "fieldtype": "Float",
+      "read_only": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "label": "Reference Doctype",
+      "fieldtype": "Link",
+      "options": "DocType"
+    },
+    {
+      "fieldname": "reference_name",
+      "label": "Reference",
+      "fieldtype": "Dynamic Link",
+      "options": "reference_doctype",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "expires_on",
+      "label": "Expires On",
+      "fieldtype": "Date",
+      "description": "For Earn entries only. Used by the daily expiry job."
+    },
+    {
+      "fieldname": "remarks",
+      "label": "Remarks",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "posted_by",
+      "label": "Posted By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {"role": "AlphaX POS Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1},
+    {"role": "AlphaX POS Supervisor", "read": 1, "write": 1, "create": 1, "submit": 1},
+    {"role": "AlphaX POS Cashier", "read": 1, "create": 1, "submit": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "submit": 1, "cancel": 1, "delete": 1}
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC"
+}

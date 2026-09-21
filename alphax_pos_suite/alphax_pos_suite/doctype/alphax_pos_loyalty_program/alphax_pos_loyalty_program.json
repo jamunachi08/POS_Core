@@ -1,0 +1,180 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Loyalty Program",
+  "module": "AlphaX POS Suite",
+  "autoname": "field:program_code",
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "program_code",
+      "label": "Program Code",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "program_name",
+      "label": "Program Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "reqd": 1
+    },
+    {
+      "fieldname": "domain_scope",
+      "label": "Domain Scope",
+      "fieldtype": "Select",
+      "options": "All Domains\nRestaurant\nCafe\nRetail\nGrocery\nPharmacy\nSalon\nService",
+      "default": "All Domains",
+      "description": "If set to a specific domain, this program only earns/redeems on that domain's items. Lets you run a separate program per business."
+    },
+    {
+      "fieldname": "earn_section",
+      "label": "Earning",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "earn_basis",
+      "label": "Earn Basis",
+      "fieldtype": "Select",
+      "options": "Per Currency Spent\nPer Item Quantity\nPer Visit",
+      "default": "Per Currency Spent"
+    },
+    {
+      "fieldname": "default_earn_points",
+      "label": "Default Points Earned",
+      "fieldtype": "Float",
+      "default": 1.0,
+      "description": "Default points granted per unit of the earn basis. Per-item rules below override this."
+    },
+    {
+      "fieldname": "default_earn_per_amount",
+      "label": "Per Amount (when basis is Per Currency Spent)",
+      "fieldtype": "Float",
+      "default": 1.0,
+      "description": "E.g. 1 point per 1 SAR spent."
+    },
+    {
+      "fieldname": "earn_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "earn_on_tax",
+      "label": "Earn Points on Tax Component",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "earn_on_service_charge",
+      "label": "Earn Points on Service Charge",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "earn_on_tips",
+      "label": "Earn Points on Tips",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "min_purchase_to_earn",
+      "label": "Minimum Purchase to Earn",
+      "fieldtype": "Currency",
+      "default": 0
+    },
+    {
+      "fieldname": "redeem_section",
+      "label": "Redemption",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "redemption_value",
+      "label": "Currency Value of 1 Point",
+      "fieldtype": "Float",
+      "default": 0.01,
+      "description": "E.g. 0.01 means 100 points = 1 SAR off."
+    },
+    {
+      "fieldname": "min_points_to_redeem",
+      "label": "Minimum Points to Redeem",
+      "fieldtype": "Float",
+      "default": 100
+    },
+    {
+      "fieldname": "max_redeem_percent",
+      "label": "Max % of Bill Redeemable",
+      "fieldtype": "Percent",
+      "default": 50,
+      "description": "Cap on how much of one bill can be paid via points. Set 100 to allow full payment via points."
+    },
+    {
+      "fieldname": "redeem_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "redemption_account",
+      "label": "Loyalty Liability Account",
+      "fieldtype": "Link",
+      "options": "Account",
+      "description": "GL account for the points liability (optional, for full accounting integration)."
+    },
+    {
+      "fieldname": "expiry_section",
+      "label": "Expiry",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "expiry_days",
+      "label": "Points Expire After (days)",
+      "fieldtype": "Int",
+      "default": 365,
+      "description": "Set 0 for no expiry."
+    },
+    {
+      "fieldname": "rules_section",
+      "label": "Per-Item Earn Rules",
+      "fieldtype": "Section Break",
+      "description": "Override default earn rate for specific items or item groups. The cashier UI will show the actual points to be earned per line."
+    },
+    {
+      "fieldname": "rules",
+      "label": "Earn Rules",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Loyalty Rule"
+    },
+    {
+      "fieldname": "tiers_section",
+      "label": "Tiers (Optional)",
+      "fieldtype": "Section Break",
+      "description": "Customers move between tiers based on lifetime points. Each tier can multiply earn rate."
+    },
+    {
+      "fieldname": "tiers",
+      "label": "Tiers",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Loyalty Tier"
+    }
+  ],
+  "permissions": [
+    {"role": "AlphaX POS Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "AlphaX POS Supervisor", "read": 1},
+    {"role": "AlphaX POS Cashier", "read": 1},
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1}
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

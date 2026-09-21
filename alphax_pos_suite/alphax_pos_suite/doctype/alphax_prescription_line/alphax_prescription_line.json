@@ -1,0 +1,162 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "drug",
+  "drug_name",
+  "form",
+  "column_break_1",
+  "dose",
+  "dose_unit",
+  "frequency_per_day",
+  "duration_days",
+  "column_break_2",
+  "quantity_dispensed",
+  "refills_allowed",
+  "refills_used",
+  "section_dispense",
+  "dispensed_qty",
+  "dispensed_invoice",
+  "dispensed_at",
+  "section_validation",
+  "validation_warnings"
+ ],
+ "fields": [
+  {
+   "fieldname": "drug",
+   "fieldtype": "Link",
+   "options": "AlphaX Drug Master",
+   "label": "Drug",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "drug_name",
+   "fieldtype": "Data",
+   "label": "Drug Name",
+   "fetch_from": "drug.drug_name",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "form",
+   "fieldtype": "Data",
+   "label": "Form",
+   "fetch_from": "drug.form",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dose",
+   "fieldtype": "Float",
+   "label": "Dose per administration",
+   "reqd": 1,
+   "precision": "3",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "dose_unit",
+   "fieldtype": "Select",
+   "label": "Unit",
+   "options": "\nmg\ng\nmcg\nmL\ntablets\ncapsules\ndrops\npuffs",
+   "reqd": 1
+  },
+  {
+   "fieldname": "frequency_per_day",
+   "fieldtype": "Int",
+   "label": "Times per day",
+   "reqd": 1,
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "duration_days",
+   "fieldtype": "Int",
+   "label": "Duration (days)",
+   "reqd": 1,
+   "default": "7"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity_dispensed",
+   "fieldtype": "Float",
+   "label": "Total qty to dispense",
+   "precision": "3",
+   "description": "Auto-computed: dose × frequency × duration. Editable for partial fills."
+  },
+  {
+   "fieldname": "refills_allowed",
+   "fieldtype": "Int",
+   "label": "Refills Allowed",
+   "default": "0",
+   "description": "Number of additional fills the patient can request without a new prescription. 0 = no refills."
+  },
+  {
+   "fieldname": "refills_used",
+   "fieldtype": "Int",
+   "label": "Refills Used",
+   "default": "0",
+   "read_only": 1,
+   "description": "Auto-incremented each time this line is dispensed."
+  },
+  {
+   "fieldname": "section_dispense",
+   "fieldtype": "Section Break",
+   "label": "Last Dispensed",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "dispensed_qty",
+   "fieldtype": "Float",
+   "label": "Last Dispensed Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dispensed_invoice",
+   "fieldtype": "Link",
+   "options": "Sales Invoice",
+   "label": "Last Dispensed Via",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dispensed_at",
+   "fieldtype": "Datetime",
+   "label": "Last Dispensed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_validation",
+   "fieldtype": "Section Break",
+   "label": "Clinical Validation",
+   "collapsible": 1,
+   "collapsible_depends_on": "validation_warnings"
+  },
+  {
+   "fieldname": "validation_warnings",
+   "fieldtype": "Small Text",
+   "label": "Validation Warnings",
+   "read_only": 1,
+   "description": "Set by the validator on save. Drug interactions, dose limits, age warnings, etc."
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-04-27 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AlphaX POS Suite",
+ "name": "AlphaX Prescription Line",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

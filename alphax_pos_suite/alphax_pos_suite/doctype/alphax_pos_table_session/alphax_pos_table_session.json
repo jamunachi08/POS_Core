@@ -1,0 +1,47 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Table Session",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "hash",
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "table",
+      "label": "Table",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Table",
+      "reqd": 1
+    },
+    {
+      "fieldname": "opened_on",
+      "label": "Opened On",
+      "fieldtype": "Datetime"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Open\nClosed",
+      "default": "Open"
+    },
+    {
+      "fieldname": "orders",
+      "label": "Orders",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Table Session Order"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ]
+}

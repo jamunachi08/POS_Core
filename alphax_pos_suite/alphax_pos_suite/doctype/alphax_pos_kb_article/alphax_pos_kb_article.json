@@ -1,0 +1,76 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS KB Article",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:title",
+  "fields": [
+    {
+      "fieldname": "title",
+      "label": "Title",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "role",
+      "label": "Role",
+      "fieldtype": "Select",
+      "options": "Cashier\nSupervisor\nManager\nImplementer",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section",
+      "label": "Section",
+      "fieldtype": "Select",
+      "options": "POS Screen\nButtons\nPayments\nReturns\nShift Close\nDay Close\nHardware\nSettings\nApprovals",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "shortcut",
+      "label": "Shortcut",
+      "fieldtype": "Data",
+      "description": "e.g. F7"
+    },
+    {
+      "fieldname": "content",
+      "label": "Content (HTML)",
+      "fieldtype": "Code",
+      "options": "HTML",
+      "reqd": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "POS Manager",
+      "read": 1
+    },
+    {
+      "role": "POS Supervisor",
+      "read": 1
+    },
+    {
+      "role": "POS Cashier",
+      "read": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}
