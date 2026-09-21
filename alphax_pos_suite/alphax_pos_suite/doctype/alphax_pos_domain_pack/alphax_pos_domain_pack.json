@@ -1,0 +1,153 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Domain Pack",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "field:domain_code",
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "domain_code",
+      "label": "Domain Code",
+      "fieldtype": "Select",
+      "options": "Restaurant\nCafe\nRetail\nGrocery\nPharmacy\nSalon\nService\nGeneric\nSupermarket\nBakery\nClothing\nElectronics\nGarage",
+      "reqd": 1,
+      "in_list_view": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "label",
+      "label": "Display Label",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "icon",
+      "label": "Icon",
+      "fieldtype": "Data",
+      "description": "Lucide icon name (utensils, shopping-cart, pill, scissors, briefcase)"
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "feature_section",
+      "label": "Features Enabled by This Pack",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "uses_floor_plan",
+      "label": "Uses Floor Plan / Tables",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_kds",
+      "label": "Uses Kitchen Display",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_modifiers",
+      "label": "Uses Item Modifiers",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_recipes",
+      "label": "Uses Recipe Consumption",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_scale",
+      "label": "Uses Weighing Scale",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_batch_expiry",
+      "label": "Uses Batch / Expiry",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_serial",
+      "label": "Uses Serial Numbers",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_appointments",
+      "label": "Uses Appointments / Bookings",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "feature_col_break",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "uses_tips",
+      "label": "Uses Tips",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_service_charge",
+      "label": "Uses Service Charge",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_courses",
+      "label": "Uses Course Firing",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_table_qr",
+      "label": "Uses Table QR Ordering",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_split_bill",
+      "label": "Uses Split Bill",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "uses_loyalty",
+      "label": "Uses Loyalty Points",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "uses_prescription",
+      "label": "Uses Prescription Capture",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "default_item_group",
+      "label": "Default Item Group Filter",
+      "fieldtype": "Link",
+      "options": "Item Group",
+      "description": "If set, the cashier menu for this domain shows items from this group + descendants."
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "AlphaX POS Manager", "read": 1}
+  ],
+  "description": "Declarative description of a vertical domain. Capabilities listed here drive cashier UI features.",
+  "sort_field": "domain_code",
+  "sort_order": "ASC"
+}
