@@ -1,0 +1,14 @@
+{
+  "doctype": "Page",
+  "name": "alphax-floor-designer",
+  "module": "AlphaX POS Suite",
+  "page_name": "alphax-floor-designer",
+  "title": "AlphaX Floor Designer",
+  "standard": "Yes",
+  "system_page": 0,
+  "roles": [
+    {"role": "AlphaX POS Manager"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "System Manager"}
+  ]
+}

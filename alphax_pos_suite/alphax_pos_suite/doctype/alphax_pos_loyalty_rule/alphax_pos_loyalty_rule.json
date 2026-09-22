@@ -1,0 +1,104 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Loyalty Rule",
+  "module": "AlphaX POS Suite",
+  "istable": 1,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "scope",
+      "label": "Scope",
+      "fieldtype": "Select",
+      "options": "Item\nItem Group\nBrand\nDomain\nNo Earn",
+      "default": "Item",
+      "in_list_view": 1,
+      "reqd": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "item_code",
+      "label": "Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "in_list_view": 1,
+      "depends_on": "eval:doc.scope=='Item'",
+      "columns": 2
+    },
+    {
+      "fieldname": "item_group",
+      "label": "Item Group",
+      "fieldtype": "Link",
+      "options": "Item Group",
+      "in_list_view": 1,
+      "depends_on": "eval:doc.scope=='Item Group'",
+      "columns": 2
+    },
+    {
+      "fieldname": "brand",
+      "label": "Brand",
+      "fieldtype": "Link",
+      "options": "Brand",
+      "depends_on": "eval:doc.scope=='Brand'"
+    },
+    {
+      "fieldname": "domain",
+      "label": "Domain",
+      "fieldtype": "Select",
+      "options": "Restaurant\nCafe\nRetail\nGrocery\nPharmacy\nSalon\nService",
+      "depends_on": "eval:doc.scope=='Domain'"
+    },
+    {
+      "fieldname": "earn_basis",
+      "label": "Earn Basis",
+      "fieldtype": "Select",
+      "options": "Use Program Default\nPer Currency Spent\nPer Item Quantity\nFixed Per Line",
+      "default": "Use Program Default",
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "points",
+      "label": "Points",
+      "fieldtype": "Float",
+      "in_list_view": 1,
+      "reqd": 1,
+      "default": 1,
+      "columns": 1,
+      "description": "Points per unit of basis (or fixed amount for Fixed Per Line)."
+    },
+    {
+      "fieldname": "per_amount",
+      "label": "Per Amount",
+      "fieldtype": "Float",
+      "default": 1,
+      "depends_on": "eval:doc.earn_basis=='Per Currency Spent'",
+      "description": "E.g. 5 points per 10 SAR spent on this item."
+    },
+    {
+      "fieldname": "multiplier",
+      "label": "Multiplier",
+      "fieldtype": "Float",
+      "default": 1,
+      "description": "Optional flat multiplier (e.g. 2x bonus weekend)."
+    },
+    {
+      "fieldname": "valid_from",
+      "label": "Valid From",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "valid_to",
+      "label": "Valid To",
+      "fieldtype": "Date"
+    },
+    {
+      "fieldname": "priority",
+      "label": "Priority",
+      "fieldtype": "Int",
+      "default": 10,
+      "description": "Lower number wins when multiple rules match. Item beats Item Group beats Brand beats Domain by default."
+    }
+  ],
+  "permissions": []
+}

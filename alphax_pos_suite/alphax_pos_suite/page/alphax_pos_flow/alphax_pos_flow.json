@@ -1,0 +1,17 @@
+{
+  "doctype": "Page",
+  "name": "alphax-pos-flow",
+  "module": "AlphaX POS Suite",
+  "page_name": "alphax-pos-flow",
+  "title": "AlphaX POS Process Flow",
+  "standard": "Yes",
+  "system_page": 0,
+  "roles": [
+    {"role": "AlphaX POS Cashier"},
+    {"role": "AlphaX POS Kitchen"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "AlphaX POS Manager"},
+    {"role": "Accounts Manager"},
+    {"role": "System Manager"}
+  ]
+}

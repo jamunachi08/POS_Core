@@ -1,0 +1,58 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Process Stage",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "description": "One stage of a process flow. Stages group nodes; lanes group stages.",
+  "fields": [
+    {
+      "fieldname": "stage_key",
+      "label": "Stage Key",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Short code referenced by every node in this stage, e.g. C3."
+    },
+    {
+      "fieldname": "stage_label",
+      "label": "Stage",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "stage_label_ar",
+      "label": "Stage (Arabic)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "lane",
+      "label": "Lane",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "actor",
+      "label": "Actor",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "description": "Who drives this stage, in plain language."
+    },
+    {
+      "fieldname": "sequence",
+      "label": "Sequence",
+      "fieldtype": "Int",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "colour",
+      "label": "Colour",
+      "fieldtype": "Data"
+    }
+  ],
+  "permissions": []
+}
