@@ -1,0 +1,143 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Store Credit",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "autoname": "naming_series:",
+ "track_changes": 1,
+ "description": "Money the business owes a customer: refund-to-credit, deposits, gift value. NOT loyalty points — points are a marketing accrual, store credit is a real liability that belongs in the GL and must survive an audit. Balance is always the sum of its entries; the field here is a cache.",
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "label": "Series",
+   "fieldtype": "Select",
+   "options": "APOS-CR-.YYYY.-",
+   "default": "APOS-CR-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "label": "Customer",
+   "fieldtype": "Link",
+   "options": "Customer",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "col_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Active\nOn Hold\nClosed",
+   "default": "Active",
+   "in_list_view": 1,
+   "description": "On Hold blocks redemption but keeps the balance — for a disputed refund. Closed requires a zero balance."
+  },
+  {
+   "fieldname": "card_code",
+   "label": "Card / Voucher Code",
+   "fieldtype": "Data",
+   "unique": 1,
+   "description": "Optional. Printed or scanned code for a physical gift card. Blank means the credit is held against the customer record only."
+  },
+  {
+   "fieldname": "expires_on",
+   "label": "Expires On",
+   "fieldtype": "Date",
+   "description": "Unredeemed value after this date can be written back to income by the expiry job. Leave blank for no expiry — which several jurisdictions require for cash refunds."
+  },
+  {
+   "fieldname": "sec_bal",
+   "fieldtype": "Section Break",
+   "label": "Balance"
+  },
+  {
+   "fieldname": "balance",
+   "label": "Balance",
+   "fieldtype": "Currency",
+   "read_only": 1,
+   "in_list_view": 1,
+   "options": "currency",
+   "description": "Cache. Recomputed from the entries on every movement; never written to directly."
+  },
+  {
+   "fieldname": "currency",
+   "label": "Currency",
+   "fieldtype": "Link",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "col_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_issued",
+   "label": "Total Issued",
+   "fieldtype": "Currency",
+   "read_only": 1,
+   "options": "currency"
+  },
+  {
+   "fieldname": "total_redeemed",
+   "label": "Total Redeemed",
+   "fieldtype": "Currency",
+   "read_only": 1,
+   "options": "currency"
+  },
+  {
+   "fieldname": "sec_acct",
+   "fieldtype": "Section Break",
+   "label": "Accounting"
+  },
+  {
+   "fieldname": "liability_account",
+   "label": "Liability Account",
+   "fieldtype": "Link",
+   "options": "Account",
+   "description": "Where the outstanding balance sits. Money taken now for goods later is a liability, not income — booking it as income overstates revenue and is a standard audit finding. Blank uses the company default set in AlphaX POS Settings."
+  },
+  {
+   "fieldname": "col_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_activity_on",
+   "label": "Last Activity",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ]
+}

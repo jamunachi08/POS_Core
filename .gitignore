@@ -1,0 +1,35 @@
+# --- local tooling (never commit) ---
+.jetro/
+.vscode/
+.idea/
+*.code-workspace
+
+# --- python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+# ROOT-ANCHORED on purpose. A bare `dist/` matches at ANY depth and was
+# silently excluding alphax_pos_suite/public/dist/ — the entire built
+# SPA — from every commit. That one line caused every "vendor tree
+# missing after push" incident in this app's history (the payload
+# self-heal was compensating on each deploy). Never un-anchor these.
+/build/
+/dist/
+.venv/
+venv/
+
+# --- node (frontend/ is source-only; runtime assets are committed under public/) ---
+node_modules/
+alphax_pos_suite/frontend/dist/
+alphax_pos_suite/frontend/.vite/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- secrets: never, under any name ---
+*credentials*.json
+*.pem
+*.key
+.env
+.env.*

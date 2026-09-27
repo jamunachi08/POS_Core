@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>administrator-manual</title>
+  <link rel="stylesheet" href="alphax-docs.css">
+</head>
+<body>
+<header class="alphax-header">
+  <div class="alphax-header-inner">
+    <a class="alphax-brand" href="index.html">
+      <div class="alphax-brand-mark">A<span>X</span></div>
+      <div class="alphax-brand-text">
+        <div class="alphax-brand-name">AlphaX POS</div>
+        <div class="alphax-brand-tag">Documentation · v15.5.13</div>
+      </div>
+    </a>
+    <a href="index.html" style="color: var(--alphax-mauve); font-size: 14px; font-weight: 500;">← All manuals</a>
+  </div>
+</header>
+
+<header id="title-block-header">
+<h1 class="title">administrator-manual</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#alphax-pos-administrator-manual"
+id="toc-alphax-pos-administrator-manual">AlphaX POS — Administrator
+Manual</a>
+<ul>
+<li><a href="#whats-in-this-manual" id="toc-whats-in-this-manual">What’s
+in this manual</a></li>
+<li><a href="#overview-what-alphax-pos-includes"
+id="toc-overview-what-alphax-pos-includes">Overview: what AlphaX POS
+includes</a></li>
+<li><a href="#architecture-three-apps-what-runs-where"
+id="toc-architecture-three-apps-what-runs-where">Architecture: three
+apps, what runs where</a></li>
+<li><a href="#pre-deployment-checklist"
+id="toc-pre-deployment-checklist">Pre-deployment checklist</a></li>
+<li><a href="#day-1-install-the-apps-on-your-bench"
+id="toc-day-1-install-the-apps-on-your-bench">Day 1: install the apps on
+your bench</a></li>
+<li><a href="#day-2-company-branch-outlet-terminal-hierarchy"
+id="toc-day-2-company-branch-outlet-terminal-hierarchy">Day 2: company,
+branch, outlet, terminal hierarchy</a></li>
+<li><a href="#day-3-pos-profile-and-payment-methods"
+id="toc-day-3-pos-profile-and-payment-methods">Day 3: POS Profile and
+payment methods</a></li>
+<li><a href="#day-4-items-taxes-pricing"
+id="toc-day-4-items-taxes-pricing">Day 4: items, taxes, pricing</a></li>
+<li><a href="#day-5-users-roles-manager-pins"
+id="toc-day-5-users-roles-manager-pins">Day 5: users, roles, manager
+PINs</a></li>
+<li><a href="#day-6-zatca-phase-2-setup"
+id="toc-day-6-zatca-phase-2-setup">Day 6: ZATCA Phase 2 setup</a></li>
+<li><a href="#day-7-hardware-bridge-printers-drawers-scanners"
+id="toc-day-7-hardware-bridge-printers-drawers-scanners">Day 7: hardware
+bridge — printers, drawers, scanners</a></li>
+<li><a href="#domain-packs-configuring-per-vertical-features"
+id="toc-domain-packs-configuring-per-vertical-features">Domain packs:
+configuring per-vertical features</a></li>
+<li><a href="#loyalty-offers-pricing-rules"
+id="toc-loyalty-offers-pricing-rules">Loyalty, offers, pricing
+rules</a></li>
+<li><a href="#pharmacy-domain-drugs-prescriptions-controlled-substances"
+id="toc-pharmacy-domain-drugs-prescriptions-controlled-substances">Pharmacy
+domain: drugs, prescriptions, controlled substances</a></li>
+<li><a href="#routine-administration-tasks"
+id="toc-routine-administration-tasks">Routine administration
+tasks</a></li>
+<li><a href="#backup-and-disaster-recovery"
+id="toc-backup-and-disaster-recovery">Backup and disaster
+recovery</a></li>
+<li><a href="#troubleshooting"
+id="toc-troubleshooting">Troubleshooting</a></li>
+<li><a href="#glossary" id="toc-glossary">Glossary</a></li>
+<li><a href="#quick-reference-cheat-sheet"
+id="toc-quick-reference-cheat-sheet">Quick reference: cheat
+sheet</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="alphax-pos-administrator-manual">AlphaX POS — Administrator
+Manual</h1>
+<p><strong>For:</strong> System administrators, IT staff, business
+owners doing setup <strong>Version:</strong> 15.5.13 <strong>Last
+updated:</strong> May 2026</p>
+<hr />
+<h2 id="whats-in-this-manual">What’s in this manual</h2>
+<ol type="1">
+<li><a href="#overview-what-alphax-pos-includes">Overview: what AlphaX
+POS includes</a></li>
+<li><a href="#architecture-three-apps-what-runs-where">Architecture:
+three apps, what runs where</a></li>
+<li><a href="#pre-deployment-checklist">Pre-deployment
+checklist</a></li>
+<li><a href="#day-1-install-the-apps-on-your-bench">Day 1: install the
+apps on your bench</a></li>
+<li><a href="#day-2-company-branch-outlet-terminal-hierarchy">Day 2:
+company, branch, outlet, terminal hierarchy</a></li>
+<li><a href="#day-3-pos-profile-and-payment-methods">Day 3: POS Profile
+and payment methods</a></li>
+<li><a href="#day-4-items-taxes-pricing">Day 4: items, taxes,
+pricing</a></li>
+<li><a href="#day-5-users-roles-manager-pins">Day 5: users, roles,
+manager PINs</a></li>
+<li><a href="#day-6-zatca-phase-2-setup">Day 6: ZATCA Phase 2
+setup</a></li>
+<li><a href="#day-7-hardware-bridge--printers-drawers-scanners">Day 7:
+hardware bridge — printers, drawers, scanners</a></li>
+<li><a href="#domain-packs-configuring-per-vertical-features">Domain
+packs: configuring per-vertical features</a></li>
+<li><a href="#loyalty-offers-pricing-rules">Loyalty, offers, pricing
+rules</a></li>
+<li><a
+href="#pharmacy-domain-drugs-prescriptions-controlled-substances">Pharmacy
+domain: drugs, prescriptions, controlled substances</a></li>
+<li><a href="#routine-administration-tasks">Routine administration
+tasks</a></li>
+<li><a href="#backup-and-disaster-recovery">Backup and disaster
+recovery</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#glossary">Glossary</a></li>
+</ol>
+<hr />
+<h2 id="overview-what-alphax-pos-includes">Overview: what AlphaX POS
+includes</h2>
+<p>✅ <strong>Working</strong> unless marked otherwise.</p>
+<p>AlphaX POS is a Frappe v15 app suite for retail, restaurants, and
+pharmacies. It’s designed for the Saudi Arabian market with built-in
+ZATCA Phase 2 e-invoicing.</p>
+<h3 id="whats-in-the-box">What’s in the box</h3>
+<ul>
+<li><strong>POS register UI</strong> for cashier transactions
+(<code>/app/alphax-pos-classic</code>)</li>
+<li><strong>52 doctypes</strong> covering outlets, terminals, profiles,
+orders, shifts, cash moves, theme settings, drug master, prescriptions,
+controlled substance log, loyalty, central kitchen, ZATCA processing
+log, and more</li>
+<li><strong>Workspace</strong> (<code>/app/alphax-pos-hub</code>) with
+shortcuts to all the major setup and operational areas</li>
+<li><strong>Manager PIN system</strong>
+(<code>AlphaX POS Manager PIN</code>) with bcrypt hashing, exponential
+lockout, full audit log</li>
+<li><strong>POS Profile integration</strong> with standard ERPNext POS
+Profile</li>
+<li><strong>Domain packs</strong> to enable/disable features per
+vertical</li>
+<li><strong>Hardware bridge</strong> (separate Python daemon) for
+thermal printers, cash drawers, scales, card terminals — runs on each
+cashier PC</li>
+<li><strong>ZATCA Phase 2</strong> integration via the
+<code>alphax-zatca</code> companion app (forked from ERPGulf)</li>
+</ul>
+<h3 id="whats-optional">What’s optional</h3>
+<ul>
+<li>🔬 <strong>Vue cashier</strong> at <code>/app/alphax-pos-v2</code> —
+a richer single-page-app cashier (in Beta; the jQuery
+<code>alphax-pos-classic</code> is the production default for
+v15.5.13)</li>
+<li>🔬 <strong>Floor Designer</strong>, <strong>KDS</strong> (Kitchen
+Display System), <strong>Profitability Dashboard</strong>,
+<strong>APOS</strong> (alternative cashier) — beta features useful for
+restaurants</li>
+</ul>
+<h3 id="status-conventions">Status conventions</h3>
+<blockquote>
+<p>✅ <strong>Working</strong> — production-ready 🔬
+<strong>Beta</strong> — works, but the API or UI may shift in a near
+release 🚧 <strong>In Development</strong> — listed for completeness; do
+not deploy yet</p>
+</blockquote>
+<hr />
+<h2 id="architecture-three-apps-what-runs-where">Architecture: three
+apps, what runs where</h2>
+<h3 id="the-three-components">The three components</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    Frappe Cloud (your bench)                    │
+│                                                                 │
+│  ┌──────────────────┐   ┌──────────────────┐                  │
+│  │  alphax_pos_     │   │   alphax_zatca   │                  │
+│  │     suite        │   │  (companion app) │                  │
+│  │                  │   │                  │                  │
+│  │  • Cashier UI    │   │  • Phase 2       │                  │
+│  │  • Doctypes      │   │    e-invoicing   │                  │
+│  │  • Workspace     │   │  • CSID mgmt     │                  │
+│  │  • Manager PIN   │   │  • XML signing   │                  │
+│  │  • Hooks         │   │                  │                  │
+│  └──────────────────┘   └──────────────────┘                  │
+│                                                                 │
+│              Standard ERPNext + Frappe Framework                │
+└─────────────────────────────────────────────────────────────────┘
+                          ▲    HTTPS (REST)
+                          │
+                          ▼
+                    ┌─────────────┐
+                    │ Cashier PC  │
+                    │  (in shop)  │
+                    │             │
+                    │ ┌─────────┐ │
+                    │ │ Browser │ │  ← cashier opens /app/alphax-pos-classic
+                    │ └─────────┘ │
+                    │ ┌─────────┐ │
+                    │ │ Bridge  │ │  ← optional: handles printer/drawer/scale
+                    │ │ daemon  │ │     (separate Python program)
+                    │ └─────────┘ │
+                    │      ▲      │
+                    │      │USB   │
+                    │   Printer   │
+                    │   Drawer    │
+                    │   Scanner   │
+                    │   Card term.│
+                    └─────────────┘</code></pre>
+<h3 id="why-three-apps-and-not-one">Why three apps and not one</h3>
+<ul>
+<li><strong><code>alphax_pos_suite</code></strong> — the main app. Lives
+in the GitHub repo
+<code>https://github.com/jamunachi08/alphax-pos-core-v15.5.1</code>.
+Contains the cashier, doctypes, workspace, security module.</li>
+<li><strong><code>alphax_zatca</code></strong> — a fork of ERPGulf’s
+<code>zatca_erpgulf</code> app. Kept separate because (a) it changes
+independently of the POS, (b) some customers use only the POS without
+ZATCA (non-KSA shops), (c) the upstream fork retains GPL-3
+licensing.</li>
+<li><strong><code>alphax-pos-bridge</code></strong> — a standalone
+Python daemon, NOT a Frappe app. Runs on each cashier PC. Talks to USB
+hardware. Communicates with the browser via WebSocket on
+<code>ws://localhost:9876</code>.</li>
+</ul>
+<h3 id="data-flow-at-a-sale">Data flow at a sale</h3>
+<ol type="1">
+<li>Cashier scans barcode → browser POSTs to Frappe (Sales Invoice)</li>
+<li>Frappe creates the invoice → triggers <code>on_submit</code>
+hooks</li>
+<li><code>alphax_pos_suite</code> hooks update inventory, loyalty, audit
+log</li>
+<li><code>alphax_zatca</code> hook signs the invoice XML and submits to
+ZATCA portal</li>
+<li>Frappe responds to browser</li>
+<li>Browser tells the bridge daemon to print receipt + open drawer</li>
+<li>Bridge daemon talks to printer/drawer over USB</li>
+</ol>
+<hr />
+<h2 id="pre-deployment-checklist">Pre-deployment checklist</h2>
+<p>Before you start, confirm you have:</p>
+<h3 id="frappe-cloud-account">Frappe Cloud account</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />A Frappe Cloud account
+(frappecloud.com)</label></li>
+<li><label><input type="checkbox" />A bench provisioned for this
+customer (Singapore or AWS-Bahrain region recommended for KSA
+latency)</label></li>
+<li><label><input type="checkbox" />Your bench’s URL (e.g.,
+<code>customername.k.frappe.cloud</code>)</label></li>
+<li><label><input type="checkbox" />System Administrator credentials for
+the site</label></li>
+</ul>
+<h3 id="apps-and-source-code">Apps and source code</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Access to the GitHub repository:
+<code>https://github.com/jamunachi08/alphax-pos-core-v15.5.1</code></label></li>
+<li><label><input type="checkbox" />Same for the ZATCA fork (separate
+repo, ask the project owner)</label></li>
+<li><label><input type="checkbox" />If self-hosted, the bench server has
+SSH access</label></li>
+</ul>
+<h3 id="customer-information">Customer information</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Customer’s full legal name (for
+ZATCA registration)</label></li>
+<li><label><input type="checkbox" />VAT number (15 digits)</label></li>
+<li><label><input type="checkbox" />CR (Commercial Registration)
+number</label></li>
+<li><label><input type="checkbox" />Branch addresses (each branch needs
+to be set up)</label></li>
+<li><label><input type="checkbox" />Number of cashier stations per
+branch</label></li>
+<li><label><input type="checkbox" />Hardware list: printer make/model,
+scanner brand, card terminal provider, cash drawer model</label></li>
+</ul>
+<h3 id="zatca-specific-if-ksa-customer">ZATCA-specific (if KSA
+customer)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Customer is registered on the <a
+href="https://fatoora.zatca.gov.sa/">Fatoora portal</a></label></li>
+<li><label><input type="checkbox" />Customer has agreed to provide the
+OTP from Fatoora when needed</label></li>
+<li><label><input type="checkbox" />You know which production
+environment ZATCA uses for them (Phase 2 generation,
+post-2024)</label></li>
+</ul>
+<h3 id="hardware-per-cashier-pc">Hardware (per cashier PC)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Windows 10/11 PC, Linux Ubuntu 20+,
+or macOS 12+</label></li>
+<li><label><input type="checkbox" />Modern browser (Chrome, Edge,
+Firefox)</label></li>
+<li><label><input type="checkbox" />Stable internet
+connection</label></li>
+<li><label><input type="checkbox" />USB ports for hardware</label></li>
+<li><label><input type="checkbox" />Optionally: a label-maker for
+printing PC stickers (so manager knows “this PC = Terminal
+A07”)</label></li>
+</ul>
+<hr />
+<h2 id="day-1-install-the-apps-on-your-bench">Day 1: install the apps on
+your bench</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="add-the-github-repo-to-your-bench">1.1 Add the GitHub repo to
+your bench</h3>
+<p>In Frappe Cloud dashboard:</p>
+<ol type="1">
+<li>Go to <strong>Bench → Apps → Add App</strong></li>
+<li>Source: <strong>From GitHub Repository</strong></li>
+<li>URL:
+<code>https://github.com/jamunachi08/alphax-pos-core-v15.5.1</code></li>
+<li>Branch: <code>main</code> (or whichever your team uses)</li>
+<li>Click <strong>Add</strong></li>
+</ol>
+<p>Frappe Cloud’s deploy pipeline will pull, build, and prepare the
+app.</p>
+<h3 id="install-on-your-site">1.2 Install on your site</h3>
+<p>After the deploy succeeds:</p>
+<ol type="1">
+<li>Go to <strong>Site → Apps</strong></li>
+<li>Click <strong>Install</strong> next to
+<code>alphax_pos_suite</code></li>
+<li>Wait for the green check (~1-2 minutes)</li>
+</ol>
+<h3 id="optional-install-the-zatca-companion-app">1.3 (Optional) Install
+the ZATCA companion app</h3>
+<p>If your customer is in KSA and needs Phase 2 e-invoicing:</p>
+<ol type="1">
+<li>Repeat 1.1 with the ZATCA repo URL</li>
+<li>Install on the same site</li>
+</ol>
+<h3 id="verify-installation">1.4 Verify installation</h3>
+<p>Open <code>/app/alphax-pos-hub</code> in a browser. You should see
+the workspace with 9 module cards: Operations, Setup &amp;
+Configuration, Catalog &amp; Pricing, Sales &amp; Customers, Pharmacy,
+Compliance &amp; Tax, Reports &amp; Analysis, Loyalty &amp; Offers, Data
+Import &amp; Settings.</p>
+<p>If you see “Not Found” or the workspace is empty, see the
+troubleshooting section.</p>
+<h3 id="verify-versions">1.5 Verify versions</h3>
+<p>Click anywhere → <strong>Help → About</strong> in the desk. The
+Installed Apps list should show:</p>
+<ul>
+<li>✅ <strong>alphax_pos_suite: v15.5.13</strong> (or latest)</li>
+<li>✅ <strong>alphax_zatca: v3.0.x</strong> (if installed)</li>
+</ul>
+<hr />
+<h2 id="day-2-company-branch-outlet-terminal-hierarchy">Day 2: company,
+branch, outlet, terminal hierarchy</h2>
+<p>✅ <strong>Working</strong></p>
+<p>This is the core data hierarchy. Get it right before doing anything
+else.</p>
+<pre><code>Company
+├── Branch (e.g., &quot;Riyadh Mall&quot;)
+│   ├── Outlet (e.g., &quot;Coffee Shop&quot;)
+│   │   ├── Terminal A07
+│   │   ├── Terminal A08
+│   │   └── ...
+│   └── Outlet (e.g., &quot;Pharmacy&quot;)
+│       └── Terminal P01
+└── Branch (e.g., &quot;Jeddah Souq&quot;)
+    └── ...</code></pre>
+<h3 id="create-the-company">2.1 Create the company</h3>
+<p>If new install, ERPNext will already prompt you. If not:</p>
+<ol type="1">
+<li>Go to <code>/app/company/new</code></li>
+<li>Required: Company Name, Abbreviation, Default Currency (SAR for
+KSA), Country (Saudi Arabia)</li>
+<li>ZATCA-required: Tax ID (15-digit VAT number), Company Registration
+Number, Address (with district, city, postal code, country)</li>
+<li>Save</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>Don’t skip the address.</strong> ZATCA Phase 2 requires
+the seller’s address on every invoice. Missing fields cause invoice
+submission to fail.</p>
+</blockquote>
+<h3 id="create-branches">2.2 Create branches</h3>
+<p>For each physical store location:</p>
+<ol type="1">
+<li>Go to <code>/app/branch/new</code></li>
+<li>Branch name: human-readable (e.g., “Riyadh Mall — Branch 02”)</li>
+<li>Save</li>
+</ol>
+<h3 id="create-outlets">2.3 Create outlets</h3>
+<p>For each business unit within a branch:</p>
+<ol type="1">
+<li>Go to <code>/app/alphax-pos-outlet/new</code></li>
+<li>Outlet Name: human-readable (e.g., “Coffee Shop”)</li>
+<li>Branch: link to the parent branch</li>
+<li>Domain Pack (optional): pick the vertical (Restaurant, Retail,
+Pharmacy, Electronics, Generic) — affects which features the cashier
+shows</li>
+<li>Default Warehouse: where stock for this outlet lives (often a
+Branch-level warehouse)</li>
+<li>Default Cost Center</li>
+<li>Save</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Outlets are the operational unit</strong> — most reports
+and permissions are by outlet, not branch. Create one outlet per
+business unit even if the branch only has one shop.</p>
+</blockquote>
+<h3 id="create-terminals">2.4 Create terminals</h3>
+<p>For each physical cashier station:</p>
+<ol type="1">
+<li>Go to <code>/app/alphax-pos-terminal/new</code></li>
+<li>Terminal Name: short code (e.g., “A07”, “P01”)</li>
+<li>POS Outlet: link to the parent outlet</li>
+<li>(Optional) Default POS Profile: a POS Profile to suggest</li>
+<li>(Optional) Hardware tags: which printer, which scanner, etc.</li>
+<li>Save</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Use a labeling system for terminal names</strong> that
+makes physical sense. “A07” = “Aisle A, station 07”. Or “RM-CS-01” =
+“Riyadh Mall, Coffee Shop, station 01”. Whatever you pick, label the
+actual PCs with stickers so managers know which terminal to bind during
+setup.</p>
+</blockquote>
+<h3 id="verify-the-hierarchy">2.5 Verify the hierarchy</h3>
+<p>Open <code>/app/alphax-pos-terminal</code> and look at the list. You
+should see each terminal with its outlet visible. Click into one — the
+breadcrumb should show you Branch → Outlet → Terminal.</p>
+<hr />
+<h2 id="day-3-pos-profile-and-payment-methods">Day 3: POS Profile and
+payment methods</h2>
+<p>✅ <strong>Working</strong></p>
+<p>POS Profiles are standard ERPNext doctypes that define a cashier’s
+operational permissions. AlphaX POS uses these directly.</p>
+<h3 id="create-payment-methods-mode-of-payment">3.1 Create payment
+methods (Mode of Payment)</h3>
+<p>Before profiles, make sure you have payment methods:</p>
+<ol type="1">
+<li>Go to <code>/app/mode-of-payment</code></li>
+<li>Standard ones: Cash, Mada (KSA debit), Visa, Mastercard, Apple Pay,
+Bank Transfer, Credit Note, Loyalty Points</li>
+<li>Each has an “Account” field — link to the appropriate cash or bank
+account in your chart of accounts</li>
+<li>Mark which are “POS”-enabled</li>
+</ol>
+<h3 id="create-a-pos-profile">3.2 Create a POS Profile</h3>
+<p>For each role/outlet combination:</p>
+<ol type="1">
+<li>Go to <code>/app/pos-profile/new</code></li>
+<li>Name: human-readable (e.g., “Coffee Shop Cashier”)</li>
+<li>Company, Customer (default walk-in), Currency</li>
+<li><strong>Warehouse</strong>: where stock comes from for this
+profile’s sales</li>
+<li><strong>Mode of Payment table</strong>: list all accepted payment
+methods</li>
+<li><strong>Applicable for Users</strong>: list specific cashiers OR
+leave empty for “all”</li>
+<li><strong>Item Groups</strong>: filter what items show up</li>
+<li><strong>Taxes and Charges Template</strong>: link to a Sales Tax
+template</li>
+<li><strong>Letter Head, Print Heading</strong>: for receipts</li>
+<li><strong>Update Stock</strong> (check — usually yes)</li>
+<li><strong>Apply Discount on</strong>: Grand Total or Net Total</li>
+<li>Save</li>
+</ol>
+<h3 id="link-the-profile-to-your-alphax-outlet">3.3 Link the profile to
+your AlphaX outlet</h3>
+<p>After saving, also link the POS Profile to the AlphaX POS Outlet:</p>
+<ol type="1">
+<li>Open the AlphaX POS Outlet record</li>
+<li>Set “Default POS Profile” if there’s only one for this outlet</li>
+<li>Or set per-cashier in their User record (if your shop assigns by
+user)</li>
+</ol>
+<h3 id="test-it">3.4 Test it</h3>
+<p>The cashier won’t fully work until users are assigned and PINs are
+set, but you can verify the data setup by going to
+<code>/app/alphax-pos-classic</code> as System Administrator. The
+“Station Not Configured” card should appear (because no terminal is
+bound to your admin’s PC). Don’t bind it yet — that’s for cashier PCs,
+not yours.</p>
+<hr />
+<h2 id="day-4-items-taxes-pricing">Day 4: items, taxes, pricing</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="item-groups">4.1 Item groups</h3>
+<p>Create item groups that match how your customer thinks about their
+products:</p>
+<pre><code>All Item Groups
+├── Beverages
+│   ├── Hot Drinks
+│   └── Cold Drinks
+├── Food
+│   ├── Sandwiches
+│   └── Desserts
+├── Pharmacy (separate vertical)
+│   ├── OTC
+│   └── Prescription
+└── Services</code></pre>
+<h3 id="items">4.2 Items</h3>
+<p>Create each sellable product:</p>
+<ol type="1">
+<li>Go to <code>/app/item/new</code></li>
+<li>Item Code: short, scannable (e.g., “WAT-001”)</li>
+<li>Item Name: human-readable</li>
+<li>Item Group</li>
+<li>Default Unit of Measure</li>
+<li><strong>Maintain Stock</strong>: yes for retail/pharmacy, no for
+services</li>
+<li><strong>Is Sales Item</strong>: yes</li>
+<li><strong>Standard Selling Rate</strong> in the Item Defaults
+table</li>
+<li>Save</li>
+</ol>
+<blockquote>
+<p>💡 <strong>For barcode-driven workflows</strong>, the Item Code IS
+the barcode. Or add separate barcodes via the Item’s “Barcodes” child
+table.</p>
+</blockquote>
+<h3 id="item-taxes">4.3 Item taxes</h3>
+<p>For VAT (KSA) and similar:</p>
+<ol type="1">
+<li>Go to <code>/app/sales-taxes-and-charges-template</code></li>
+<li>Create “KSA Standard 15% VAT” template</li>
+<li>Add row: Account Head = “VAT 15% - Output”, Rate = 15</li>
+<li>Mark the “Inclusive” checkbox if your prices include VAT</li>
+<li>Save</li>
+</ol>
+<p>Link this template on POS Profiles → Taxes section.</p>
+<h3 id="inclusive-vs-exclusive-vat">4.4 Inclusive vs exclusive VAT</h3>
+<p>KSA shops typically display prices INCLUSIVE of VAT (the customer
+sees the total they pay). Configure:</p>
+<ul>
+<li>POS Profile → “Apply Discount on” → Net Total</li>
+<li>Sales Tax Template → mark “Included in Print Rate”</li>
+<li>Item rate = price-with-VAT (e.g., 11.50 SAR for a 10-SAR-net
+coffee)</li>
+</ul>
+<p>The system breaks out VAT on the receipt automatically.</p>
+<h3 id="item-pricing-rules">4.5 Item pricing rules</h3>
+<p>For “Buy 2 get 1 free”, “10% off Tuesdays”, loyalty discounts:</p>
+<ol type="1">
+<li>Go to <code>/app/pricing-rule/new</code></li>
+<li>Filter: by item, item group, customer group, or all</li>
+<li>Apply on: Discount Percentage / Discount Amount / Free Item</li>
+<li>Conditions: Min/Max quantity, Date range, Day of week</li>
+<li>Save</li>
+</ol>
+<h3 id="test-with-a-dummy-item">4.6 Test with a dummy item</h3>
+<p>Open the cashier (you’ll need to bind your test PC first). Scan or
+type the item code. Confirm the price, taxes, and any discounts are
+applied as expected.</p>
+<hr />
+<h2 id="day-5-users-roles-manager-pins">Day 5: users, roles, manager
+PINs</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="create-the-alphax-pos-manager-role-if-not-present">5.1 Create
+the AlphaX POS Manager role (if not present)</h3>
+<p>The role is auto-created on app install, but verify:</p>
+<ol type="1">
+<li>Go to <code>/app/role</code></li>
+<li>Search for “AlphaX POS Manager”</li>
+<li>If missing, create with:
+<ul>
+<li>Name: AlphaX POS Manager</li>
+<li>Description: “Authorizes register-side privileged actions (returns,
+discounts, station setup, voids)”</li>
+</ul></li>
+<li>Save</li>
+</ol>
+<h3 id="create-cashier-users">5.2 Create cashier users</h3>
+<p>For each cashier:</p>
+<ol type="1">
+<li>Go to <code>/app/user/new</code></li>
+<li>First Name, Last Name, Email (will be username)</li>
+<li>Set a temporary password OR send password reset link</li>
+<li><strong>Roles</strong> tab: assign “Sales User” + “POS User” +
+(optional) “Stock User”</li>
+<li><strong>Restrict by User Permissions</strong>: optionally restrict
+by company, warehouse</li>
+<li>Save</li>
+</ol>
+<h3 id="create-manager-users">5.3 Create manager users</h3>
+<p>For each manager:</p>
+<p>Same as cashiers, plus: 1. <strong>Roles</strong> tab: ALSO assign
+“AlphaX POS Manager” 2. Don’t grant System Manager unless they truly
+need full admin</p>
+<h3 id="set-manager-pins">5.4 Set manager PINs</h3>
+<p>This is currently CLI-only — there’s no admin UI for it yet.</p>
+<p>In Frappe Cloud: 1. Site → Console (in the bench dashboard) 2.
+Run:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> frappe</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>frappe.call(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;alphax_pos_suite.alphax_pos_suite.security.manager_pin.set_manager_pin&#39;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">&#39;khalid@example.com&#39;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    pin<span class="op">=</span><span class="st">&#39;8472&#39;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Replace the email and PIN. The PIN must be 4-6 digits.</p>
+<p>The system: - Verifies the user has a manager role - Hashes the PIN
+with bcrypt (12 rounds) - Saves to <code>AlphaX POS Manager PIN</code>
+doctype - Resets any prior lockout state - Logs the action in the
+Authorization Log</p>
+<blockquote>
+<p>💡 <strong>Tell the manager their PIN privately.</strong> Don’t email
+it. Don’t WhatsApp it. Walk over and tell them, or use a password
+manager share if your team has one.</p>
+</blockquote>
+<h3 id="test-pin-authentication">5.5 Test PIN authentication</h3>
+<ol type="1">
+<li>Open <code>/app/alphax-pos-classic</code> on a non-bound PC (the
+test bench admin’s own browser is fine)</li>
+<li>Click “Manager Setup”</li>
+<li>Type the manager’s username + PIN</li>
+<li>Verify the green “Authorized” message appears</li>
+<li>Pick any terminal to bind (you can reset right after)</li>
+<li>Confirm the cashier UI loads</li>
+</ol>
+<h3 id="reset-a-forgotten-pin">5.6 Reset a forgotten PIN</h3>
+<p>If a manager forgets:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> frappe</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>frappe.call(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;alphax_pos_suite.alphax_pos_suite.security.manager_pin.set_manager_pin&#39;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">&#39;khalid@example.com&#39;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    pin<span class="op">=</span><span class="st">&#39;9999&#39;</span>  <span class="co"># NEW pin</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>This resets the PIN AND clears any lockout state.</p>
+<h3 id="reset-a-locked-out-manager">5.7 Reset a locked-out manager</h3>
+<p>If lockout was triggered without resetting the PIN itself:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> frappe</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>frappe.call(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;alphax_pos_suite.alphax_pos_suite.security.manager_pin.reset_manager_lockout&#39;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span><span class="st">&#39;khalid@example.com&#39;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<hr />
+<h2 id="day-6-zatca-phase-2-setup">Day 6: ZATCA Phase 2 setup</h2>
+<p>✅ <strong>Working</strong> for the integration code 🚧 <strong>In
+Development</strong> — full guided onboarding UI (manual steps for
+now)</p>
+<blockquote>
+<p>⚠️ <strong>This section is critical for KSA customers.</strong>
+Mistakes mean invoices don’t submit, leading to compliance
+violations.</p>
+</blockquote>
+<h3 id="confirm-zatca-registration">6.1 Confirm ZATCA registration</h3>
+<p>Before configuring the system, your customer must:</p>
+<ol type="1">
+<li>Be registered on <a href="https://fatoora.zatca.gov.sa/">Fatoora
+portal</a></li>
+<li>Have a valid VAT certificate</li>
+<li>Be aware they’re moving to Phase 2 (Integration / Generation
+phase)</li>
+</ol>
+<p>If they’re not yet registered, that’s a tax-consultant task — not a
+software task. Don’t proceed without it.</p>
+<h3 id="generate-device-certificates">6.2 Generate device
+certificates</h3>
+<p>Each cashier device that submits invoices needs its own CSID
+(Cryptographic Stamp Identifier). The flow:</p>
+<ol type="1">
+<li>Cashier admin opens the AlphaX ZATCA app’s onboarding page</li>
+<li>Enter OTP from the Fatoora portal</li>
+<li>The app generates a private key + CSR</li>
+<li>App submits CSR to ZATCA</li>
+<li>ZATCA returns the device certificate</li>
+<li>Certificate is stored on the device (or in the bench, depending on
+your deployment model)</li>
+</ol>
+<blockquote>
+<p>🚧 <strong>Manual step for v15.5.13:</strong> The full guided UI is
+in development. For now, follow ERPGulf’s documentation in the
+<code>alphax_zatca</code> repo for the device-onboarding flow. The fork
+retains their tooling.</p>
+</blockquote>
+<h3 id="production-vs-sandbox">6.3 Production vs sandbox</h3>
+<p>ZATCA has separate sandbox and production environments.
+Configure:</p>
+<ol type="1">
+<li>Go to <code>/app/alphax-zatca-settings</code> (or equivalent in the
+fork)</li>
+<li>Set “Mode” = Sandbox while testing</li>
+<li>Switch to Production only after successful sandbox tests</li>
+</ol>
+<h3 id="verify-e-invoicing-on-a-test-sale">6.4 Verify e-invoicing on a
+test sale</h3>
+<ol type="1">
+<li>Make a test sale on a cashier PC</li>
+<li>Check <code>/app/alphax-pos-processing-log</code> (the workspace
+shortcut “ZATCA Status”)</li>
+<li>The new invoice should appear with status “Submitted” or
+“Pending”</li>
+<li>After a few seconds, “Submitted” should become “Cleared”</li>
+<li>The QR code on the receipt should be a valid Phase 2 ZATCA QR</li>
+</ol>
+<p>If status stays “Failed”, drill into the row for the error message.
+Most common causes: - Device certificate not provisioned for this
+terminal - VAT number missing on customer - Inclusive VAT misconfigured
+- Time desync between bench and ZATCA (rare; ZATCA is strict on
+timestamps)</p>
+<hr />
+<h2 id="day-7-hardware-bridge-printers-drawers-scanners">Day 7: hardware
+bridge — printers, drawers, scanners</h2>
+<p>✅ <strong>Working</strong> for browser-only flows (no special
+hardware needed) 🔬 <strong>Beta</strong> for the bridge daemon</p>
+<h3 id="what-works-without-the-bridge">7.1 What works without the
+bridge</h3>
+<p>Out of the box, with a standard browser and a USB receipt printer
+configured at the OS level, you can:</p>
+<ul>
+<li>Print receipts via the browser’s print dialog</li>
+<li>Use a USB barcode scanner (acts as a keyboard, no setup needed)</li>
+<li>Capture cash payments (no drawer hardware needed for amount
+entry)</li>
+</ul>
+<p>For many small shops, this is enough. Skip to Day 8.</p>
+<h3 id="what-requires-the-bridge">7.2 What requires the bridge</h3>
+<p>If you need:</p>
+<ul>
+<li>Auto-cut receipts (no print dialog)</li>
+<li>Cash drawer that opens automatically after a sale</li>
+<li>Weight scale integrated with item entry</li>
+<li>Card terminal that exchanges payment data with the POS
+automatically</li>
+<li>Direct ESC/POS commands to specific printer models</li>
+</ul>
+<p>…you need the AlphaX POS Bridge daemon running on each cashier
+PC.</p>
+<h3 id="installing-the-bridge">7.3 Installing the bridge</h3>
+<p>The bridge is a separate Python program in its own GitHub repo.</p>
+<blockquote>
+<p>🔬 <strong>Status:</strong> The bridge codebase exists with installer
+scaffolding (PyInstaller, Inno Setup for Windows, .deb for Linux), but
+the end-to-end installer has not been certified for production. For
+v15.5.13 deployments, treat the bridge as Beta.</p>
+</blockquote>
+<h3 id="bridge-browser-communication">7.4 Bridge → browser
+communication</h3>
+<p>The bridge listens on <code>ws://localhost:9876</code>. The browser
+connects to it for hardware actions:</p>
+<pre><code>Browser ←─WebSocket─→ Bridge daemon ←─USB─→ Hardware</code></pre>
+<p>If the bridge is offline, the cashier still works — it just can’t
+auto-print or open the drawer.</p>
+<h3 id="testing-the-bridge">7.5 Testing the bridge</h3>
+<p>After install:</p>
+<ol type="1">
+<li>Start the bridge daemon (<code>alphax-bridge</code> command)</li>
+<li>In the cashier, click any test buttons (planned for
+<code>/app/alphax-pos-hardware-test</code>)</li>
+<li>Verify printer prints, drawer opens, scanner reads</li>
+</ol>
+<blockquote>
+<p>🚧 <strong>The hardware test page is in development.</strong> For
+v15.5.13, test by completing a real sale and verifying receipt + drawer
+behavior.</p>
+</blockquote>
+<hr />
+<h2 id="domain-packs-configuring-per-vertical-features">Domain packs:
+configuring per-vertical features</h2>
+<p>✅ <strong>Working</strong></p>
+<p>A “domain pack” is a configuration that turns on/off features for a
+vertical. You set the domain pack per Outlet.</p>
+<h3 id="available-packs">Available packs</h3>
+<ul>
+<li><strong>Restaurant</strong> — Floor Plan, KDS, Modifiers, Service
+Charge, Tips</li>
+<li><strong>Retail</strong> — Standard cart with stock check</li>
+<li><strong>Pharmacy</strong> — Drug Master, Prescriptions, Controlled
+Substance Log, Drug Interaction Rules</li>
+<li><strong>Electronics</strong> — Serial Number capture, Warranty
+registration</li>
+<li><strong>Generic</strong> — Bare cart, no extras</li>
+</ul>
+<h3 id="how-to-switch-a-domain-pack">How to switch a domain pack</h3>
+<ol type="1">
+<li>Go to <code>/app/alphax-pos-outlet</code></li>
+<li>Open the outlet</li>
+<li><strong>Domain Pack</strong> field: pick the right one</li>
+<li>Save</li>
+</ol>
+<p>Cashiers at this outlet will see the relevant features enabled on
+next page reload.</p>
+<h3 id="mixing-packs-across-outlets">Mixing packs across outlets</h3>
+<p>Each outlet has its own pack, even within a single branch. So a
+“Riyadh Mall” branch can have both “Coffee Shop” (Restaurant pack) and
+“Pharmacy” (Pharmacy pack) outlets, each with the right features.</p>
+<hr />
+<h2 id="loyalty-offers-pricing-rules">Loyalty, offers, pricing
+rules</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="loyalty-program-setup">Loyalty program setup</h3>
+<ol type="1">
+<li>Go to <code>/app/loyalty-program/new</code></li>
+<li>Define earn rate (e.g., 1 point per 1 SAR spent)</li>
+<li>Define redemption value (e.g., 100 points = 10 SAR off)</li>
+<li>Set expiry policy (typical: 1 year)</li>
+<li>Save</li>
+</ol>
+<p>In POS Profile, link the Loyalty Program. Cashiers can see and apply
+loyalty automatically.</p>
+<h3 id="offers-campaigns">Offers (campaigns)</h3>
+<ol type="1">
+<li>Go to <code>/app/alphax-pos-offer/new</code></li>
+<li>Code: a coupon code customers can type at checkout</li>
+<li>Discount: percent or amount</li>
+<li>Date range</li>
+<li>Item / Item Group filter</li>
+<li>Min purchase</li>
+<li>Save</li>
+</ol>
+<p>The cashier’s “Offer Code” field accepts these codes.</p>
+<h3 id="pricing-rules">Pricing rules</h3>
+<p>For non-coupon discounts (volume discounts, Tuesday discounts, etc.),
+use ERPNext’s standard Pricing Rule doctype. See Day 4 above.</p>
+<hr />
+<h2
+id="pharmacy-domain-drugs-prescriptions-controlled-substances">Pharmacy
+domain: drugs, prescriptions, controlled substances</h2>
+<p>✅ <strong>Working</strong> for the data model 🔬
+<strong>Beta</strong> for the cashier UI integration (Vue cashier only)
+🚧 <strong>In Development</strong> — full prescription capture in
+Classic cashier</p>
+<h3 id="drug-master-setup">11.1 Drug Master setup</h3>
+<p>Each medication is an Item AND an AlphaX Drug Master record:</p>
+<ol type="1">
+<li>Item Code is the same on both</li>
+<li>AlphaX Drug Master adds:
+<ul>
+<li>Active ingredient</li>
+<li>Strength</li>
+<li>Form (tablet, capsule, syrup, etc.)</li>
+<li>Route (oral, topical, IV)</li>
+<li>Schedule (Schedule II, IV, OTC)</li>
+<li>Max refills, refill cap</li>
+</ul></li>
+</ol>
+<h3 id="drug-interaction-rules">11.2 Drug Interaction Rules</h3>
+<p>Define which combinations are dangerous:</p>
+<ol type="1">
+<li>Go to <code>/app/alphax-drug-interaction-rule/new</code></li>
+<li>Drug A, Drug B</li>
+<li>Severity: Major / Moderate / Minor</li>
+<li>Mechanism (free-text explanation)</li>
+<li>Save</li>
+</ol>
+<p>The cashier will warn at scan time when a customer tries to buy two
+interacting drugs in the same transaction.</p>
+<h3 id="controlled-substance-log">11.3 Controlled Substance Log</h3>
+<p>Every dispense of a Schedule II/III/IV drug auto-creates an AlphaX
+Controlled Substance Log entry. This is a regulatory requirement in some
+jurisdictions.</p>
+<p>The log has: - Drug, quantity, batch - Patient identifier -
+Prescribing physician - Pharmacist who dispensed - Timestamp</p>
+<p>Auditable. Cannot be deleted by users (System Manager too).</p>
+<h3 id="prescription-capture">11.4 Prescription capture</h3>
+<blockquote>
+<p>🚧 <strong>In Development</strong> — for v15.5.13, prescriptions are
+entered as documents (<code>/app/alphax-prescription/new</code>) and the
+cashier sale is linked to them via the customer field. Full inline
+prescription entry from the cashier is on the roadmap.</p>
+</blockquote>
+<hr />
+<h2 id="routine-administration-tasks">Routine administration tasks</h2>
+<h3 id="daily">12.1 Daily</h3>
+<ul>
+<li>Check ZATCA Status (workspace shortcut) for any failed
+submissions</li>
+<li>Review Manager Authorization Log for unusual patterns</li>
+<li>Confirm all shifts closed cleanly yesterday</li>
+</ul>
+<h3 id="weekly">12.2 Weekly</h3>
+<ul>
+<li>Review Sales Register for variance trends</li>
+<li>Check inventory adjustments</li>
+<li>Backup verification (see “Backup and disaster recovery” below)</li>
+</ul>
+<h3 id="monthly">12.3 Monthly</h3>
+<ul>
+<li>Rotate manager PINs (optional but recommended)</li>
+<li>Review Item pricing — anything stale?</li>
+<li>ZATCA certificate expiry check (most renew yearly)</li>
+<li>User access audit — anyone left the company?</li>
+</ul>
+<h3 id="yearly">12.4 Yearly</h3>
+<ul>
+<li>ZATCA recertification (per ZATCA’s schedule)</li>
+<li>Frappe Cloud bench upgrade (Frappe v15 → v16 when stable)</li>
+<li>Customer’s tax-year close</li>
+</ul>
+<hr />
+<h2 id="backup-and-disaster-recovery">Backup and disaster recovery</h2>
+<p>✅ <strong>Frappe Cloud handles this</strong> for you.</p>
+<h3 id="what-frappe-cloud-does-automatically">What Frappe Cloud does
+automatically</h3>
+<ul>
+<li>Daily SQL dumps of the site database</li>
+<li>Daily file backups (uploaded files, certificates, etc.)</li>
+<li>14 days of restore points kept</li>
+</ul>
+<h3 id="what-you-should-do-additionally">What you should do
+additionally</h3>
+<ul>
+<li><strong>Monthly off-site copy</strong>: download a backup to your
+own storage monthly. Frappe Cloud is reliable but a customer-side copy
+is defense in depth.</li>
+<li><strong>Test a restore</strong>: at least once, verify a backup can
+actually restore. Don’t discover backup is broken in an emergency.</li>
+</ul>
+<h3 id="disaster-scenarios">Disaster scenarios</h3>
+<p><strong>Site is unreachable</strong>: contact Frappe Cloud support.
+Usually resolved in &lt;1 hour.</p>
+<p><strong>Database corruption</strong>: restore from latest backup. You
+lose any sales between backup and corruption (typically &lt;24 hours).
+Use the offline Sync Queue on cashier PCs if any sales weren’t synced
+when corruption happened.</p>
+<p><strong>Customer’s bench is decommissioned</strong>: download all
+backups, save them. Customer can re-deploy on a new bench from these
+backups.</p>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="cashier-shows-station-not-configured-forever">Cashier shows
+“Station Not Configured” forever</h3>
+<p>Manager hasn’t bound the PC yet. See Day 5 — “Test PIN
+authentication”.</p>
+<h3 id="manager-pin-dialog-says-incorrect-credentials">Manager PIN
+dialog says “Incorrect credentials”</h3>
+<p>Possible causes: - Manager mistyped → try again - Manager doesn’t
+have the AlphaX POS Manager role → grant it - PIN was never set for this
+manager → set it (Day 5.4) - Manager is locked out → reset (Day 5.7)</p>
+<p>The error is intentionally generic to prevent enumeration of valid
+managers. Look at the <strong>AlphaX POS Manager Authorization
+Log</strong> to see what actually happened.</p>
+<h3 id="some-assets-serve-others-404">Some assets serve, others 404</h3>
+<p>If <code>/assets/alphax_pos_suite/dist/vendor/...</code> works but
+<code>/assets/alphax_pos_suite/dist/cashier/...</code> returns 404 —
+this is a Frappe Cloud bench issue. Run from the bench shell:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>your-site<span class="op">&gt;</span> build <span class="at">--app</span> alphax_pos_suite <span class="at">--hard-link</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>your-site<span class="op">&gt;</span> migrate</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> restart</span></code></pre></div>
+<p>If still failing, contact Frappe Cloud support — the symlink for the
+app’s public folder may be broken.</p>
+<h3 id="zatca-invoice-failed">ZATCA invoice failed</h3>
+<p>Drill into the row in <strong>AlphaX POS Processing Log</strong>. The
+error column tells you why. Common fixes:</p>
+<ul>
+<li>“Invalid VAT number” → fix on the Customer record, resubmit</li>
+<li>“Device certificate expired” → reissue via the ZATCA companion
+app</li>
+<li>“Time skew” → check NTP on bench server (Frappe Cloud does this
+automatically; report to support if persistent)</li>
+</ul>
+<h3 id="slow-cashier-on-a-specific-pc">Slow cashier on a specific
+PC</h3>
+<p>Possible causes: - Network: check ping to your bench - Browser: try
+Chrome instead of older browsers - Hardware: bridge daemon eating CPU?
+Restart it - Cashier UI: hard-refresh (Ctrl+Shift+R) to clear cached
+JS</p>
+<h3 id="audit-log-is-empty-even-after-manager-actions">Audit log is
+empty even after manager actions</h3>
+<p>Check that <code>frappe.log_error</code> isn’t suppressing failures.
+From the bench console:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> frappe</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>frappe.get_all(<span class="st">&quot;Error Log&quot;</span>, fields<span class="op">=</span>[<span class="st">&quot;error&quot;</span>, <span class="st">&quot;creation&quot;</span>], limit<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
+<p>If you see “AlphaX POS: failed to write authorization audit log”
+errors, the audit doctype itself may have issues. Run migrate, then
+re-test.</p>
+<hr />
+<h2 id="glossary">Glossary</h2>
+<p><strong>Bench</strong> — A Frappe deployment unit. One bench can host
+multiple sites. Frappe Cloud customers usually have one bench per Frappe
+Cloud account.</p>
+<p><strong>Bcrypt</strong> — A password-hashing algorithm. Used for
+manager PINs. Slow by design (12 rounds takes ~50ms) — defends against
+offline brute-force.</p>
+<p><strong>Branch</strong> — A standard Frappe doctype for physical
+store locations.</p>
+<p><strong>Bridge</strong> — The AlphaX POS Bridge daemon, a separate
+Python program running on each cashier PC. Handles USB hardware.</p>
+<p><strong>CSID</strong> — Cryptographic Stamp Identifier. The
+certificate ZATCA issues per device for Phase 2 e-invoicing.</p>
+<p><strong>Domain Pack</strong> — A bundle of features turned on/off for
+a vertical (Restaurant, Retail, Pharmacy, etc.). Set per outlet.</p>
+<p><strong>Fatoora</strong> — ZATCA’s portal for VAT registration and
+e-invoicing device management.</p>
+<p><strong>Outlet</strong> — An AlphaX-specific doctype for business
+units within a branch.</p>
+<p><strong>POS Profile</strong> — Standard ERPNext doctype defining
+cashier permissions and settings.</p>
+<p><strong>Sandbox / Production (ZATCA)</strong> — Two ZATCA
+environments. Sandbox for testing, Production for live invoices.</p>
+<p><strong>System Manager</strong> — Frappe role with full access. Use
+sparingly. Required for: bench-level operations, setting manager PINs,
+clearing lockouts, accessing audit logs at scale.</p>
+<p><strong>Terminal</strong> — An AlphaX-specific doctype for individual
+cashier stations within an outlet.</p>
+<hr />
+<h2 id="quick-reference-cheat-sheet">Quick reference: cheat sheet</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>New install</td>
+<td>Bench → Apps → Add App from GitHub</td>
+</tr>
+<tr class="even">
+<td>Create a Branch</td>
+<td><code>/app/branch/new</code></td>
+</tr>
+<tr class="odd">
+<td>Create an Outlet</td>
+<td><code>/app/alphax-pos-outlet/new</code></td>
+</tr>
+<tr class="even">
+<td>Create a Terminal</td>
+<td><code>/app/alphax-pos-terminal/new</code></td>
+</tr>
+<tr class="odd">
+<td>Create POS Profile</td>
+<td><code>/app/pos-profile/new</code></td>
+</tr>
+<tr class="even">
+<td>Set Manager PIN</td>
+<td>Bench → Console → <code>frappe.call(...)</code></td>
+</tr>
+<tr class="odd">
+<td>ZATCA Status</td>
+<td><code>/app/alphax-pos-processing-log</code></td>
+</tr>
+<tr class="even">
+<td>Audit Log</td>
+<td><code>/app/alphax-pos-manager-authorization-log</code></td>
+</tr>
+<tr class="odd">
+<td>User management</td>
+<td><code>/app/user</code></td>
+</tr>
+<tr class="even">
+<td>Today’s Sales</td>
+<td><code>/app/sales-register</code> (filtered today)</td>
+</tr>
+<tr class="odd">
+<td>Workspace</td>
+<td><code>/app/alphax-pos-hub</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Manual version 15.5.13 — May 2026.</em></p>
+</body>
+</html>

@@ -1,0 +1,1 @@
+# AlphaX POS Suite v15.9.5 — adds AlphaX POS Settings → Notification Gateway URL field (WhatsApp/SMS gateway template for close notifications; was read by notify.py but missing from the doctype). No other changes vs 15.9.4.

@@ -1,0 +1,1 @@
+# AlphaX POS Suite v15.9.10 — Repair endpoint now physically ALTERs missing parent/parentfield/parenttype/idx columns into child tables that were created while istable=0 (Frappe never retrofits standard columns; reload alone cannot fix — field traceback APOS-DC-2026-00060). Idempotent; returns healed_columns. Deploy, run the repair URL once more, then day close.

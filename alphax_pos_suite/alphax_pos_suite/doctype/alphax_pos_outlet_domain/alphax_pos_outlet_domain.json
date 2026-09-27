@@ -1,0 +1,19 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Outlet Domain",
+  "module": "AlphaX POS Suite",
+  "istable": 1,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "domain",
+      "label": "Domain",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Domain Pack",
+      "in_list_view": 1,
+      "reqd": 1
+    }
+  ],
+  "permissions": []
+}

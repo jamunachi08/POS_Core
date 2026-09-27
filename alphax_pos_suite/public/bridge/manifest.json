@@ -1,0 +1,9 @@
+{
+  "version": "15.6.0",
+  "kit_file": "AlphaX-POS-Bridge-Setup-15.6.0.zip",
+  "sha256": "20beca674c840ed74011fbab651d1f652f97e23ed8d868b5bd8c94cc73d4c360",
+  "size_bytes": 83580,
+  "source_tag": "v15.6.0",
+  "source_sha": "unreleased: built from v15.5.3 + LAN discovery patch (see bridge_patch/). Commit to the bridge repo before the next sync_bridge_kit.ps1.",
+  "built_at": "2026-09-22T09:39:23.827830+00:00"
+}
