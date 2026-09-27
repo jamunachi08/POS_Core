@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>manager-manual</title>
+  <link rel="stylesheet" href="alphax-docs.css">
+</head>
+<body>
+<header class="alphax-header">
+  <div class="alphax-header-inner">
+    <a class="alphax-brand" href="index.html">
+      <div class="alphax-brand-mark">A<span>X</span></div>
+      <div class="alphax-brand-text">
+        <div class="alphax-brand-name">AlphaX POS</div>
+        <div class="alphax-brand-tag">Documentation · v15.5.13</div>
+      </div>
+    </a>
+    <a href="index.html" style="color: var(--alphax-mauve); font-size: 14px; font-weight: 500;">← All manuals</a>
+  </div>
+</header>
+
+<header id="title-block-header">
+<h1 class="title">manager-manual</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#alphax-pos-manager-manual"
+id="toc-alphax-pos-manager-manual">AlphaX POS — Manager Manual</a>
+<ul>
+<li><a href="#whats-in-this-manual" id="toc-whats-in-this-manual">What’s
+in this manual</a></li>
+<li><a href="#your-role-and-what-you-can-authorize"
+id="toc-your-role-and-what-you-can-authorize">Your role and what you can
+authorize</a></li>
+<li><a href="#your-manager-pin-setup-and-care"
+id="toc-your-manager-pin-setup-and-care">Your manager PIN: setup and
+care</a></li>
+<li><a href="#setting-up-a-new-cashier-pc-station-binding"
+id="toc-setting-up-a-new-cashier-pc-station-binding">Setting up a new
+cashier PC (station binding)</a></li>
+<li><a href="#changing-a-pcs-terminal"
+id="toc-changing-a-pcs-terminal">Changing a PC’s terminal</a></li>
+<li><a href="#resetting-a-pc" id="toc-resetting-a-pc">Resetting a
+PC</a></li>
+<li><a href="#daily-opening-procedures"
+id="toc-daily-opening-procedures">Daily opening procedures</a></li>
+<li><a href="#during-the-day-approvals-youll-be-asked-for"
+id="toc-during-the-day-approvals-youll-be-asked-for">During the day:
+approvals you’ll be asked for</a></li>
+<li><a href="#shift-management-opens-closes-cash-counts"
+id="toc-shift-management-opens-closes-cash-counts">Shift management:
+opens, closes, cash counts</a></li>
+<li><a href="#reading-the-days-sales"
+id="toc-reading-the-days-sales">Reading the day’s sales</a></li>
+<li><a href="#handling-returns-and-refunds"
+id="toc-handling-returns-and-refunds">Handling returns and
+refunds</a></li>
+<li><a href="#held-order-cleanup" id="toc-held-order-cleanup">Held order
+cleanup</a></li>
+<li><a href="#day-end-procedures" id="toc-day-end-procedures">Day-end
+procedures</a></li>
+<li><a href="#audit-log-who-did-what-when"
+id="toc-audit-log-who-did-what-when">Audit log: who did what,
+when</a></li>
+<li><a href="#troubleshooting-from-a-managers-view"
+id="toc-troubleshooting-from-a-managers-view">Troubleshooting from a
+manager’s view</a></li>
+<li><a href="#glossary" id="toc-glossary">Glossary</a></li>
+<li><a href="#quick-reference-card-for-managers"
+id="toc-quick-reference-card-for-managers">Quick reference card for
+managers</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="alphax-pos-manager-manual">AlphaX POS — Manager Manual</h1>
+<p><strong>For:</strong> Branch managers, shift supervisors, and anyone
+with the AlphaX POS Manager role <strong>Version:</strong> 15.5.13
+<strong>Last updated:</strong> May 2026</p>
+<hr />
+<h2 id="whats-in-this-manual">What’s in this manual</h2>
+<ol type="1">
+<li><a href="#your-role-and-what-you-can-authorize">Your role and what
+you can authorize</a></li>
+<li><a href="#your-manager-pin-setup-and-care">Your manager PIN: setup
+and care</a></li>
+<li><a href="#setting-up-a-new-cashier-pc-station-binding">Setting up a
+new cashier PC (station binding)</a></li>
+<li><a href="#daily-opening-procedures">Daily opening
+procedures</a></li>
+<li><a href="#during-the-day-approvals-youll-be-asked-for">During the
+day: approvals you’ll be asked for</a></li>
+<li><a href="#shift-management-opens-closes-cash-counts">Shift
+management: opens, closes, cash counts</a></li>
+<li><a href="#reading-the-days-sales">Reading the day’s sales</a></li>
+<li><a href="#handling-returns-and-refunds">Handling returns and
+refunds</a></li>
+<li><a href="#held-order-cleanup">Held order cleanup</a></li>
+<li><a href="#day-end-procedures">Day-end procedures</a></li>
+<li><a href="#audit-log-who-did-what-when">Audit log: who did what,
+when</a></li>
+<li><a href="#troubleshooting-from-a-managers-view">Troubleshooting from
+a manager’s view</a></li>
+<li><a href="#glossary">Glossary</a></li>
+</ol>
+<hr />
+<h2 id="your-role-and-what-you-can-authorize">Your role and what you can
+authorize</h2>
+<p>✅ <strong>Working</strong></p>
+<p>As a <strong>manager</strong>, you have authority that cashiers
+don’t. Specifically:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>Who can do it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ring up a sale</td>
+<td>Cashier or Manager</td>
+</tr>
+<tr class="even">
+<td>Process a routine return</td>
+<td>Cashier or Manager</td>
+</tr>
+<tr class="odd">
+<td>Override the price of an item</td>
+<td>Manager (with PIN)</td>
+</tr>
+<tr class="even">
+<td>Approve a return older than X days</td>
+<td>Manager (with PIN)</td>
+</tr>
+<tr class="odd">
+<td>Approve a discount above the threshold</td>
+<td>Manager (with PIN)</td>
+</tr>
+<tr class="even">
+<td>Bind a PC to a terminal</td>
+<td>Manager (with PIN)</td>
+</tr>
+<tr class="odd">
+<td>Reset a PC’s terminal binding</td>
+<td>Manager (with PIN)</td>
+</tr>
+<tr class="even">
+<td>Cancel a held order older than today</td>
+<td>Manager (or Cashier with permission)</td>
+</tr>
+<tr class="odd">
+<td>Edit credit note amount</td>
+<td>Manager only</td>
+</tr>
+<tr class="even">
+<td>Open/close a register shift with cash variance</td>
+<td>Manager (must approve variance)</td>
+</tr>
+</tbody>
+</table>
+<p>When a cashier triggers an action that needs your authorization, the
+register shows a manager-PIN dialog. You walk over, type your username
+and PIN, and the action proceeds. The system records who authorized it,
+when, and on which terminal.</p>
+<h3 id="status-of-features-in-this-manual">Status of features in this
+manual</h3>
+<blockquote>
+<p>✅ <strong>Working</strong> = ready to use today 🔬
+<strong>Beta</strong> = available but might change soon 🚧 <strong>In
+Development</strong> = coming in a future update</p>
+</blockquote>
+<hr />
+<h2 id="your-manager-pin-setup-and-care">Your manager PIN: setup and
+care</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="why-pins-instead-of-passwords">Why PINs instead of
+passwords</h3>
+<p>Your full Frappe password is long and hard to type at a busy
+register. PINs are a 4-to-6 digit shortcut for the small set of
+register-floor authorizations you do many times a day.</p>
+<p>A PIN is <strong>not</strong> a replacement for your password. You
+still log in with your username and password. The PIN is only for these
+register-side approvals.</p>
+<h3 id="getting-your-pin-set">Getting your PIN set</h3>
+<p>You don’t set your own PIN. The <strong>System Administrator</strong>
+sets it for you — usually during your onboarding. They:</p>
+<ol type="1">
+<li>Go to your User profile</li>
+<li>Open “AlphaX POS Manager PIN” → New</li>
+<li>Enter a 4-6 digit PIN</li>
+<li>Save</li>
+</ol>
+<p>You’ll be told the PIN privately. <strong>Memorize it.</strong> Don’t
+write it down where customers or other staff can see.</p>
+<h3 id="changing-your-pin">Changing your PIN</h3>
+<p>If you suspect your PIN was seen by someone, ask the System
+Administrator to change it. They can also rotate PINs on a schedule
+(some shops do this every 90 days).</p>
+<h3 id="when-you-forget-your-pin">When you forget your PIN</h3>
+<p>This is normal. Tell the System Administrator. They reset it. You get
+a new one. Don’t panic and don’t try to guess — see the next
+section.</p>
+<h3 id="lockout-policy">Lockout policy</h3>
+<p>If 5 wrong PIN attempts happen in a row on your account, you’re
+locked out for 5 minutes. After that, the next 5 wrong attempts lock you
+out for 30 minutes. Then 4 hours. Then 24 hours plus an alert email to
+the System Administrator. After that, only the admin can unlock you.</p>
+<p>This is to protect your authority — if someone tries to guess your
+PIN, the system stops them long before they succeed.</p>
+<p><strong>If you trigger a lockout by accident:</strong> 1. Wait the
+listed time 2. Try again with the correct PIN 3. If you genuinely
+forgot, contact the System Administrator to reset and unlock</p>
+<blockquote>
+<p>⚠️ <strong>Important:</strong> If you find yourself locked out and
+you didn’t mistype your PIN, that means <strong>someone else tried to
+use it</strong>. Tell the System Administrator immediately.</p>
+</blockquote>
+<h3 id="pin-security-rules">PIN security rules</h3>
+<ul>
+<li>✅ Use a PIN that’s not your birthday or a common pattern (1234,
+0000, 1111)</li>
+<li>✅ Memorize it; don’t write it on a sticky note</li>
+<li>✅ Type it where customers can’t see (cover the keypad with your
+hand)</li>
+<li>❌ Never give your PIN to a cashier “just this once”</li>
+<li>❌ Never share it via WhatsApp / SMS / email</li>
+<li>❌ Never type your PIN on a device that’s not yours</li>
+</ul>
+<hr />
+<h2 id="setting-up-a-new-cashier-pc-station-binding">Setting up a new
+cashier PC (station binding)</h2>
+<p>✅ <strong>Working</strong></p>
+<p>A new PC arrives at the branch. Or an old one was reset. Either way,
+when a cashier logs in, they see:</p>
+<blockquote>
+<p>🔒 <strong>Station Not Configured</strong> This computer hasn’t been
+bound to a POS terminal yet. A manager must complete a one-time setup
+before this station can take orders.</p>
+</blockquote>
+<p>Here’s what you do.</p>
+<h3 id="step-1-make-sure-the-terminal-exists-in-the-system">Step 1: Make
+sure the terminal exists in the system</h3>
+<p>Each cashier station has to correspond to a <strong>Terminal</strong>
+record in AlphaX POS. Before binding, confirm with your System
+Administrator that:</p>
+<ul>
+<li>Your branch has its terminals defined (e.g., “Terminal A07”)</li>
+<li>Each terminal is linked to the correct <strong>Outlet</strong></li>
+<li>Each outlet is linked to the correct <strong>Branch</strong></li>
+</ul>
+<p>If the terminals haven’t been created yet, ask the System
+Administrator to create them — give them the list of physical PC
+locations.</p>
+<h3 id="step-2-open-the-cashier-on-the-new-pc">Step 2: Open the cashier
+on the new PC</h3>
+<p>The cashier is at the new PC, sees the “Station Not Configured”
+card.</p>
+<h3 id="step-3-click-manager-setup">Step 3: Click “Manager Setup”</h3>
+<p>A dialog opens with two fields: <strong>Manager Username</strong> and
+<strong>Manager PIN</strong>.</p>
+<h3 id="step-4-type-your-credentials-and-verify">Step 4: Type your
+credentials and verify</h3>
+<p>Type: - Your username (work email) - Your 4-6 digit PIN</p>
+<p>Click <strong>Verify</strong>.</p>
+<p>If correct: a green confirmation appears: <strong>✓ Authorized as
+[your name]</strong>.</p>
+<p>If wrong: a red error appears. Try again. After 5 wrong attempts
+you’re locked out — see the lockout policy above.</p>
+<h3 id="step-5-bind-the-pc-to-a-terminal">Step 5: Bind the PC to a
+terminal</h3>
+<p>After successful verification, two buttons appear:</p>
+<ul>
+<li><strong>Bind This PC to a Terminal</strong> — opens a dropdown of
+all terminals</li>
+<li><strong>Done</strong> — close without binding</li>
+</ul>
+<p>Click <strong>Bind This PC to a Terminal</strong>.</p>
+<p>A new dialog opens with a dropdown showing all terminals in the
+breadcrumb format:</p>
+<pre><code>Riyadh Mall  ›  Coffee Shop  ›  Terminal A07
+Riyadh Mall  ›  Coffee Shop  ›  Terminal A08
+Jeddah Branch  ›  Pharmacy  ›  Terminal P01
+...</code></pre>
+<p>Pick the one that matches the <strong>physical location of the PC
+you’re sitting at</strong>. Double-check by reading the label on the PC
+if there is one.</p>
+<p>Click <strong>Bind This PC</strong>.</p>
+<h3 id="step-6-verify-the-binding">Step 6: Verify the binding</h3>
+<p>The cashier UI loads automatically. The station banner at the top
+shows:</p>
+<pre><code>STATION   Riyadh Mall  ›  Coffee Shop  ›  Terminal A07</code></pre>
+<p>If this is correct, you’re done. The PC is bound. Every future shift
+on this PC, the cashier loads straight to this terminal.</p>
+<h3 id="step-7-hand-off-to-the-cashier">Step 7: Hand off to the
+cashier</h3>
+<p>The cashier can start their shift. Your work here is done.</p>
+<hr />
+<h2 id="changing-a-pcs-terminal">Changing a PC’s terminal</h2>
+<p>A PC has been bound to one terminal but you need to change it (e.g.,
+the PC is being moved to another counter, or you set the wrong terminal
+originally).</p>
+<h3 id="steps">Steps</h3>
+<ol type="1">
+<li>At the PC in question, click the <strong>⚙ gear icon</strong> in the
+top-right of the cashier toolbar</li>
+<li>Type your username + PIN in the Manager Setup dialog</li>
+<li>After verification, click <strong>Change Terminal</strong></li>
+<li>Pick the new terminal from the dropdown</li>
+<li>Click <strong>Bind This PC</strong></li>
+</ol>
+<p>The PC is now bound to the new terminal. Anything from the old
+terminal stays in the system — you haven’t deleted any sales, just
+changed which terminal future sales go to.</p>
+<hr />
+<h2 id="resetting-a-pc">Resetting a PC</h2>
+<p>Use this when: - The PC is being decommissioned - You’re handing it
+to another branch - Something is genuinely wrong and you want a fresh
+start</p>
+<h3 id="steps-1">Steps</h3>
+<ol type="1">
+<li>Click <strong>⚙</strong> → type credentials →
+<strong>Verify</strong></li>
+<li>Click <strong>Reset Station (Clear Binding)</strong></li>
+<li>Confirm the prompt</li>
+</ol>
+<p>The PC is now unconfigured. The cashier sees the “Station Not
+Configured” card on next refresh. The next manager (or you) needs to
+re-bind it before sales can happen.</p>
+<hr />
+<h2 id="daily-opening-procedures">Daily opening procedures</h2>
+<p>🔬 <strong>Some parts in development</strong> — adapt these to your
+shop’s habits; the platform is flexible.</p>
+<h3 id="walk-the-floor">1. Walk the floor</h3>
+<p>Before opening: - Visit each cashier station - Confirm the station
+banner shows the right terminal/branch - Check that printers, scanners,
+cash drawers all look connected - Open one test scan if you want to be
+sure</p>
+<h3 id="open-the-days-shifts">2. Open the day’s shifts</h3>
+<p>Each cashier opens their own shift via <strong>Shifts → Open
+Shift</strong>, but you should know: - Their starting cash float (you
+give it to them) - The shift opens “open” - They can take sales</p>
+<h3 id="check-the-sync-queue">3. Check the Sync Queue</h3>
+<p>Look at any cashier’s Sync Queue counter. It should be 0 at start of
+day. If it shows pending items from yesterday, that’s a sign yesterday
+didn’t close cleanly. Investigate before letting the day proceed.</p>
+<h3 id="check-the-workspace-for-alerts">4. Check the workspace for
+alerts</h3>
+<p>Visit <code>/app/alphax-pos-hub</code>. You’ll see: - Today’s Sales
+(will start at 0, increases as sales happen) - ZATCA Status (any pending
+or failed e-invoicing submissions) - Open Cashier shortcut</p>
+<p>If ZATCA Status shows a red number, click into it. There may be
+yesterday’s invoices that didn’t submit. Get the System Administrator
+involved if you’re not sure how to clear it.</p>
+<hr />
+<h2 id="during-the-day-approvals-youll-be-asked-for">During the day:
+approvals you’ll be asked for</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="discount-approval">Discount approval</h3>
+<p>A cashier tries to apply a discount above your shop’s threshold. The
+register shows a dialog asking for manager PIN.</p>
+<p><strong>You should:</strong> 1. Look at the discount on screen — is
+it justified? (Loyalty member, manager-approved promo, customer
+complaint resolution, etc.) 2. If yes, type your username + PIN 3. If
+no, decline — the cashier closes the dialog and the regular price
+applies</p>
+<h3 id="price-override-approval">Price override approval</h3>
+<p>A cashier needs to change an item’s price to something other than the
+default. Same flow.</p>
+<h3 id="return-approval-older-than-x-days">Return approval (older than X
+days)</h3>
+<p>Returns within X days don’t need approval (X is set in your shop’s
+settings). Older returns ask for your PIN.</p>
+<h3 id="cash-drawer-open-without-sale">Cash drawer open without
+sale</h3>
+<p>A cashier needs to open the cash drawer without ringing up a sale
+(e.g., to make change for a customer who only has a 500 SAR note).</p>
+<blockquote>
+<p>🔬 <strong>Beta</strong> — this varies by shop and printer. Some
+shops let cashiers do this; others require manager approval.</p>
+</blockquote>
+<h3 id="voiding-a-submitted-invoice">Voiding a submitted invoice</h3>
+<p>If a sale was completed by mistake, voiding it is a manager-only
+action. Generally: 1. Find the invoice in <strong>Sales
+Invoices</strong> list 2. Click <strong>Cancel</strong> (not Delete —
+never delete) 3. Reason: choose from the standard set, or type a
+free-form reason 4. The system records who voided, when, why</p>
+<blockquote>
+<p>⚠️ <strong>Voiding affects:</strong> - Inventory (items return to
+stock) - Accounts (revenue reduced) - ZATCA (a credit note will be
+generated automatically)</p>
+<p>Don’t void casually. Use Returns instead for the customer-walked-back
+case.</p>
+</blockquote>
+<hr />
+<h2 id="shift-management-opens-closes-cash-counts">Shift management:
+opens, closes, cash counts</h2>
+<p>✅ <strong>Working</strong> for basic flow 🔬 <strong>Beta</strong>
+for variance approvals</p>
+<h3 id="opening-a-shift">Opening a shift</h3>
+<p>Each cashier should open their own shift at start of day: 1. Cashier
+clicks <strong>Shifts</strong> in the cashier toolbar 2. Picks the cash
+they’re starting with (their float) 3. Confirms</p>
+<p>The shift is now “Open” in the system. All their sales today flow
+into this shift.</p>
+<h3 id="mid-shift-cash-drops">Mid-shift cash drops</h3>
+<p>When a cashier’s drawer gets full of cash, they (or you) can do a
+<strong>Cash Move</strong> to the safe:</p>
+<ol type="1">
+<li>Click <strong>Cash Moves</strong> at the top</li>
+<li>Pick <strong>Safe Drop</strong></li>
+<li>Enter the amount</li>
+<li>Confirm</li>
+</ol>
+<p>The system records the move. The drawer’s expected balance reduces.
+The amount is credited to the safe account.</p>
+<h3 id="closing-a-shift">Closing a shift</h3>
+<p>At end of shift, the cashier: 1. Clicks <strong>Shifts</strong> →
+<strong>Close Shift</strong> 2. Counts the actual cash in the drawer 3.
+Types the count 4. Sees “Variance: 0.00” (perfect) or “Variance: ±X.XX”
+(mismatch)</p>
+<p>If variance is 0 or within tolerance: shift closes automatically.</p>
+<p>If variance is over tolerance: a manager-approval dialog appears. You
+walk over, look at the count, type your PIN, choose: - <strong>Approve
+and Close</strong> (variance is recorded but the shift closes) -
+<strong>Recount</strong> (cashier counts again)</p>
+<blockquote>
+<p>💡 <strong>Variances over tolerance trigger an audit log
+entry</strong> even when approved. Pattern of variances on one cashier
+should be investigated.</p>
+</blockquote>
+<hr />
+<h2 id="reading-the-days-sales">Reading the day’s sales</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="live-sales-counter">Live sales counter</h3>
+<p>The workspace’s “Today’s Sales” shortcut takes you to a live report:
+- Total sales count - Total revenue - Breakdown by mode of payment -
+Per-cashier breakdown</p>
+<h3 id="drilling-into-one-cashiers-sales">Drilling into one cashier’s
+sales</h3>
+<p>Click a cashier’s row. You see all their invoices for the day: -
+Invoice number, time, customer, total, payment method - Each invoice’s
+items, taxes, etc.</p>
+<h3 id="looking-at-one-specific-invoice">Looking at one specific
+invoice</h3>
+<p>Click any invoice. The full receipt details appear. You can: - Print
+a duplicate receipt - Email it to the customer - See the ZATCA status
+for that invoice (Submitted / Pending / Failed)</p>
+<h3 id="end-of-day-summary">End-of-day summary</h3>
+<blockquote>
+<p>🚧 <strong>In Development</strong> — a one-click “End of Day” button
+is coming. For now, you read the Today’s Sales report at end of day,
+then close shifts manually.</p>
+</blockquote>
+<hr />
+<h2 id="handling-returns-and-refunds">Handling returns and refunds</h2>
+<p>✅ <strong>Working</strong> for routine cases 🔬
+<strong>Beta</strong> for cross-branch returns</p>
+<h3 id="routine-returns-same-branch-same-day">Routine returns (same
+branch, same day)</h3>
+<p>The cashier handles these without your involvement. They: 1. Click
+<strong>Return</strong> → find the invoice → adjust quantities → submit
+2. Choose Cash Refund or Credit Note 3. The customer leaves with cash or
+a credit note</p>
+<h3 id="returns-needing-your-approval">Returns needing your
+approval</h3>
+<p>When the system asks for manager PIN on a return:</p>
+<ol type="1">
+<li>Look at the original sale (the cashier should show you on
+screen)</li>
+<li>Look at the return reason (cashier should ask)</li>
+<li>Decide:
+<ul>
+<li>Within shop policy: type your PIN, return proceeds</li>
+<li>Outside policy: decline, explain to customer</li>
+</ul></li>
+</ol>
+<p><strong>Common reasons returns ask for approval:</strong> - Older
+than X days from original sale - Refund amount exceeds threshold -
+Customer doesn’t have the receipt - Item is on a no-return list (e.g.,
+underwear, perishables)</p>
+<h3 id="cross-branch-returns">Cross-branch returns</h3>
+<blockquote>
+<p>🔬 <strong>Beta</strong> — supported but flow is being polished.</p>
+</blockquote>
+<p>If a customer bought at Riyadh Mall and is returning at Jeddah
+Branch: 1. The cashier searches for the original invoice (should appear
+if both branches use the same Frappe instance) 2. The return goes
+through, but the credit note / cash refund is recorded against the
+Jeddah Branch’s books 3. End-of-month reconciliation between branches
+handles the inter- branch transfer</p>
+<p>If the system can’t find the invoice across branches, the cashier
+can’t process the return. Direct the customer back to the branch where
+they bought it, or take their info and arrange a manual refund through
+accounts.</p>
+<hr />
+<h2 id="held-order-cleanup">Held order cleanup</h2>
+<p>✅ <strong>Working</strong></p>
+<p>Held orders are sales that were paused. Sometimes they linger forever
+(customer never came back). Cleaning them up keeps the held-orders list
+manageable for cashiers.</p>
+<h3 id="reviewing-held-orders">Reviewing held orders</h3>
+<p>Go to <code>/app/alphax-pos-order</code> (or click “Held Orders” from
+the workspace). You see a list with: - Order number - Customer - Time
+held - Cashier who held it - Items in the order</p>
+<h3 id="when-to-cancel-a-held-order">When to cancel a held order</h3>
+<ul>
+<li>Customer didn’t come back within a few hours</li>
+<li>Items are being held for an inventory recount and need to be
+released</li>
+<li>Cashier accidentally held an order they meant to submit</li>
+</ul>
+<h3 id="how-to-cancel">How to cancel</h3>
+<ol type="1">
+<li>Click into the held order</li>
+<li>Click <strong>Cancel</strong> (top-right)</li>
+<li>Reason: pick from list or type your own</li>
+<li>Confirm</li>
+</ol>
+<p>The held order is voided. Inventory and accounting are unaffected (it
+was never a real sale).</p>
+<hr />
+<h2 id="day-end-procedures">Day-end procedures</h2>
+<p>🔬 <strong>Beta</strong> — process is being formalized into a single
+button.</p>
+<h3 id="before-closing-the-branch">Before closing the branch</h3>
+<ol type="1">
+<li><strong>All cashiers close their shifts</strong> (cash counted,
+variances approved by you, shifts closed)</li>
+<li><strong>Sync Queue is 0</strong> on all cashier PCs</li>
+<li><strong>Held Orders list is empty</strong> (or only contains
+genuinely-pending orders like layaways)</li>
+<li><strong>ZATCA Status</strong> shows no failures (workspace
+shortcut)</li>
+</ol>
+<h3 id="run-the-day-close-report">Run the day-close report</h3>
+<blockquote>
+<p>🚧 <strong>In Development</strong> — a single “Day Close” report is
+coming.</p>
+</blockquote>
+<p>For now, run: - Today’s Sales (workspace shortcut) → print or save
+PDF - Cash Moves report → all cash drops/lifts for the day - Sales
+Register → if accountant wants details</p>
+<h3 id="reconcile-cash-to-bank">Reconcile cash to bank</h3>
+<p>Take cash drops to bank/safe per your shop’s policy. Update the Cash
+Move records or use the standard ERPNext deposit flow if configured.</p>
+<h3 id="logout-and-lock-up">Logout and lock up</h3>
+<p>Each cashier logs out. You log out last. The PCs go to sleep / shut
+down per your shop’s policy.</p>
+<hr />
+<h2 id="audit-log-who-did-what-when">Audit log: who did what, when</h2>
+<p>✅ <strong>Working</strong></p>
+<h3 id="what-gets-logged">What gets logged</h3>
+<p>Every privileged action — anything that needed a manager PIN — is
+recorded in the <strong>AlphaX POS Manager Authorization Log</strong>.
+This includes:</p>
+<ul>
+<li>Manager PIN attempts (success and failure)</li>
+<li>Terminal bindings, changes, resets</li>
+<li>(When implemented:) discount overrides, return approvals, void
+approvals</li>
+</ul>
+<h3 id="why-this-matters">Why this matters</h3>
+<ul>
+<li>Patterns of failures may indicate someone is trying to guess your
+PIN</li>
+<li>Patterns of approvals tell you which cashiers ask for them most
+(training opportunity)</li>
+<li>Audits, disputes with customers, or staff disagreements can be
+reviewed factually</li>
+</ul>
+<h3 id="reading-the-log">Reading the log</h3>
+<p>Go to <code>/app/alphax-pos-manager-authorization-log</code>. Filter
+by: - Date range - Specific manager - Specific terminal - Result
+(Success / Wrong PIN / Locked Out / etc.)</p>
+<p>Click any entry for details: who, when, what, IP address, browser
+used.</p>
+<h3 id="what-you-cant-do">What you can’t do</h3>
+<p>The log is <strong>append-only</strong>. You cannot delete entries,
+even as a System Manager. This is a security feature — a compromised
+admin account cannot scrub their own tracks.</p>
+<p>If you genuinely need to remove an entry (e.g., it contains an entry
+mistakenly tied to the wrong user), contact the System Administrator who
+has the database tools to handle it.</p>
+<hr />
+<h2 id="troubleshooting-from-a-managers-view">Troubleshooting from a
+manager’s view</h2>
+<h3 id="a-cashier-is-locked-out-of-their-pin">A cashier is locked out of
+their PIN</h3>
+<p>You need their full username (work email). Tell the System
+Administrator: “Khalid (khalid@example.com) is locked out, please
+reset.” The Admin runs a one-line command, the lockout clears, Khalid
+types his PIN again.</p>
+<h3 id="a-whole-branchs-pcs-went-offline-at-the-same-time">A whole
+branch’s PCs went offline at the same time</h3>
+<p>This is usually internet trouble, not POS trouble. Each PC’s Sync
+Queue accumulates pending sales. When internet returns: 1. Each cashier
+clicks <strong>Sync Queue</strong> at the top 2. Pending sales push to
+the server 3. Counter goes back to 0</p>
+<p>If sync fails after multiple tries, that’s a deeper issue. Get the
+System Administrator on the line.</p>
+<h3 id="receipt-printing-fails-on-every-pc">Receipt printing fails on
+every PC</h3>
+<p>Printer issue (network printer, paper jam, ink) or driver issue.
+Check the physical printer first. If multiple PCs print to the same
+network printer and that one is offline, all PCs lose printing.</p>
+<h3 id="a-cashier-cant-sign-in">A cashier can’t sign in</h3>
+<p>Ask: - Are they sure of the username (often it’s their email, full
+domain)? - Did they get their password reset email? - Is the system
+reachable from any PC? (Can YOU log in?)</p>
+<p>If you can log in and they can’t: their account issue → Admin help.
+If you also can’t log in: bigger system issue → Admin help urgently.</p>
+<h3 id="zatca-status-workspace-shortcut-shows-red-errors">“ZATCA Status”
+workspace shortcut shows red errors</h3>
+<p>Click into it. You’ll see invoices that didn’t submit to ZATCA. Each
+has a reason in the error column. Common causes: - ZATCA portal had
+downtime → just resubmit - Customer’s VAT number was malformed → fix on
+the invoice, resubmit - Device certificate expired → System Admin needs
+to rotate it</p>
+<p>If you can’t tell what’s wrong, get System Admin help — ZATCA
+non-compliance has financial consequences.</p>
+<h3 id="a-customer-is-upset-about-a-return-rejection">A customer is
+upset about a return rejection</h3>
+<p>You’re authorized to override your own shop’s return policy in
+exceptional cases. You can: 1. Override the manager-PIN check (you ARE
+the manager) 2. Process the return with a manager-required-approved
+discount 3. Document the reason in the invoice’s notes field</p>
+<p>But: every override is in the audit log. If your shop’s policy says
+“no returns after 30 days” and you approve one, your owner sees that in
+the audit report. Have a reason ready.</p>
+<hr />
+<h2 id="glossary">Glossary</h2>
+<p><strong>AlphaX POS Manager</strong> — A Frappe role. Anyone with this
+role can perform manager actions and have a manager PIN.</p>
+<p><strong>Audit Log</strong> — The append-only record of all privileged
+actions taken in the POS system. See “Audit log: who did what, when”
+above.</p>
+<p><strong>Branch</strong> — A physical store location. One business
+owns one or more branches.</p>
+<p><strong>Cash Move</strong> — A non-sale movement of cash (drop to
+safe, lift to fund float, between drawers, etc.). Tracked separately
+from sales.</p>
+<p><strong>Lockout</strong> — A state where a manager’s PIN is
+temporarily disabled because of too many wrong attempts. Lockout
+durations escalate: 5 min → 30 min → 4 hours → 24 hours → admin reset
+only.</p>
+<p><strong>Outlet</strong> — A business unit within a branch. A branch
+can have multiple outlets (e.g., “Coffee Shop” and “Pharmacy” at the
+same mall location).</p>
+<p><strong>POS Profile</strong> — A Frappe doctype that defines a
+cashier’s permissions, default warehouse, payment methods, etc.</p>
+<p><strong>Shift</strong> — A cashier’s time on the clock with a
+specific cash float. Opens at start of work, closes at end of work, with
+a cash count both times. Variances are reconciled at close.</p>
+<p><strong>Sync Queue</strong> — Pending offline sales waiting to be
+sent to the server. Should be 0 at end of every shift.</p>
+<p><strong>Terminal</strong> — A specific cashier station within an
+outlet. Each PC running the cashier is bound to exactly one
+terminal.</p>
+<p><strong>Variance</strong> — Difference between expected cash
+(calculated) and actual cash (counted) at shift close. Small variances
+within tolerance are auto-accepted; larger ones need manager
+approval.</p>
+<p><strong>ZATCA</strong> — The Saudi tax authority. The POS reports
+each sale to ZATCA automatically; failures are visible in the
+workspace.</p>
+<hr />
+<h2 id="quick-reference-card-for-managers">Quick reference card for
+managers</h2>
+<blockquote>
+<p>📋 <strong>Print and keep at your desk.</strong></p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>New cashier PC needs setup</td>
+<td>⚙ icon → Verify PIN → Bind terminal</td>
+</tr>
+<tr class="even">
+<td>Cashier asks for discount approval</td>
+<td>Walk over, type PIN at their station</td>
+</tr>
+<tr class="odd">
+<td>Return is too old / too large</td>
+<td>Walk over, type PIN, approve with reason</td>
+</tr>
+<tr class="even">
+<td>Shift close shows variance</td>
+<td>Recount with cashier, then approve+close</td>
+</tr>
+<tr class="odd">
+<td>Sync Queue won’t clear</td>
+<td>Get System Admin (network or auth issue)</td>
+</tr>
+<tr class="even">
+<td>Cashier can’t login</td>
+<td>Check user account; Admin if needed</td>
+</tr>
+<tr class="odd">
+<td>ZATCA showed errors yesterday</td>
+<td>Click ZATCA Status → resubmit failures</td>
+</tr>
+<tr class="even">
+<td>Audit a specific employee</td>
+<td>Filter Authorization Log by their user</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Manual version 15.5.13 — May 2026. For the latest version, check
+the docs/ folder in your AlphaX POS installation.</em></p>
+</body>
+</html>

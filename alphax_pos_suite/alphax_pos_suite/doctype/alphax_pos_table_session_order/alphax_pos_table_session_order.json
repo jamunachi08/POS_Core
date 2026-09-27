@@ -1,0 +1,34 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Table Session Order",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "autoname": "hash",
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "order_label",
+      "label": "Order Label",
+      "fieldtype": "Data",
+      "reqd": 1
+    },
+    {
+      "fieldname": "sales_invoice",
+      "label": "Sales Invoice",
+      "fieldtype": "Link",
+      "options": "Sales Invoice"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ]
+}

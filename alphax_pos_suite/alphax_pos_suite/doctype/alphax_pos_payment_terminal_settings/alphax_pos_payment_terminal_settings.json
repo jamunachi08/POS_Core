@@ -1,0 +1,154 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Payment Terminal Settings",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:settings_name",
+  "fields": [
+    {
+      "fieldname": "settings_name",
+      "label": "Settings Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "default": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "scope_section",
+      "label": "Scope",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "pos_profile",
+      "label": "POS Profile",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Profile"
+    },
+    {
+      "fieldname": "terminal",
+      "label": "Terminal",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Terminal"
+    },
+    {
+      "fieldname": "connection_section",
+      "label": "Connection",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "provider",
+      "label": "Provider/Driver",
+      "fieldtype": "Select",
+      "options": "Generic REST\nLocal Bridge (localhost)\nNetwork TCP",
+      "default": "Generic REST"
+    },
+    {
+      "fieldname": "connection_mode",
+      "label": "Connection Mode",
+      "fieldtype": "Select",
+      "options": "Cloud API\nLocal Network\nLocal Agent",
+      "default": "Cloud API"
+    },
+    {
+      "fieldname": "endpoint_url",
+      "label": "Endpoint URL",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "terminal_ip",
+      "label": "Terminal IP",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "terminal_port",
+      "label": "Terminal Port",
+      "fieldtype": "Int",
+      "default": 0
+    },
+    {
+      "fieldname": "timeout_seconds",
+      "label": "Timeout (seconds)",
+      "fieldtype": "Int",
+      "default": 45
+    },
+    {
+      "fieldname": "ids_section",
+      "label": "IDs",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "merchant_id",
+      "label": "Merchant ID (MID)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "terminal_id",
+      "label": "Terminal ID (TID)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "beh_section",
+      "label": "Behavior",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "auto_capture_on_mop",
+      "label": "Auto-capture on MoP with Capture Terminal Data",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "require_terminal_approval",
+      "label": "Require Terminal Approval",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "allow_manual_reference",
+      "label": "Allow Manual Reference (Fallback)",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "store_masked_pan",
+      "label": "Store Masked PAN Last4 (Optional)",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "print_terminal_slip",
+      "label": "Print Terminal Slip (Optional)",
+      "fieldtype": "Check",
+      "default": 0
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

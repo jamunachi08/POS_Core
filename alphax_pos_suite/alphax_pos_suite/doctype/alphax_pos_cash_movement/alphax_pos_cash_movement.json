@@ -1,0 +1,98 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Cash Movement",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "hash",
+  "fields": [
+    {
+      "fieldname": "shift",
+      "label": "Shift",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "AlphaX POS Shift"
+    },
+    {
+      "fieldname": "pos_terminal",
+      "label": "POS Terminal",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "options": "AlphaX POS Terminal"
+    },
+    {
+      "fieldname": "user",
+      "label": "User",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "options": "User"
+    },
+    {
+      "fieldname": "movement_type",
+      "label": "Movement Type",
+      "fieldtype": "Select",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Paid In\nPaid Out\nPetty Cash Expense\nCash Drop To Safe"
+    },
+    {
+      "fieldname": "amount",
+      "label": "Amount",
+      "fieldtype": "Currency",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "remarks",
+      "label": "Remarks",
+      "fieldtype": "Small Text",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "posting_datetime",
+      "label": "Posting Datetime",
+      "fieldtype": "Datetime",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Cash movements during a shift."
+}

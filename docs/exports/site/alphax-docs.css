@@ -1,0 +1,460 @@
+/*
+ * AlphaX POS — Documentation site styles
+ *
+ * Mauve palette matching the AlphaX POS workspace:
+ *   #714B67  primary mauve   - brand, accents
+ *   #DBCED9  light mauve     - subtle highlights
+ *   #EAE5E9  warm border     - dividers
+ *   #FAF7F9  page tint       - page background
+ *   #4B5563  body text
+ *   #9088A0  muted text
+ */
+
+:root {
+    --alphax-mauve:        #714B67;
+    --alphax-mauve-dark:   #5C3D54;
+    --alphax-mauve-light:  #DBCED9;
+    --alphax-border:       #EAE5E9;
+    --alphax-bg:           #FAF7F9;
+    --alphax-surface:      #FFFFFF;
+    --alphax-text:         #4B5563;
+    --alphax-text-strong:  #1F2937;
+    --alphax-muted:        #9088A0;
+    --alphax-green:        #15803D;
+    --alphax-orange:       #C2410C;
+    --alphax-grey:         #6B7280;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--alphax-bg);
+    color: var(--alphax-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--alphax-mauve); text-decoration: none; }
+a:hover { color: var(--alphax-mauve-dark); text-decoration: underline; }
+
+/* ---------------------------------------------------------------------- *
+ * Header (shared across all pages)
+ * ---------------------------------------------------------------------- */
+
+.alphax-header {
+    background: var(--alphax-surface);
+    border-bottom: 0.5px solid var(--alphax-border);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.alphax-header-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.alphax-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+.alphax-brand:hover { text-decoration: none; }
+
+.alphax-brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--alphax-mauve);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -1px;
+}
+.alphax-brand-mark span { opacity: 0.7; }
+
+.alphax-brand-name {
+    font-weight: 600;
+    color: var(--alphax-text-strong);
+    font-size: 16px;
+    line-height: 1.1;
+}
+.alphax-brand-tag {
+    font-size: 12px;
+    color: var(--alphax-muted);
+    margin-top: 2px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Home page (landing)
+ * ---------------------------------------------------------------------- */
+
+.alphax-home-main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+}
+
+.alphax-hero {
+    text-align: center;
+    padding: 24px 0 40px;
+}
+
+.alphax-hero h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 16px;
+    letter-spacing: -0.5px;
+}
+
+.alphax-hero p {
+    font-size: 16px;
+    color: var(--alphax-text);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.alphax-hero .b {
+    padding: 1px 8px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.b.green { background: #DCFCE7; color: var(--alphax-green); }
+.b.orange { background: #FFEDD5; color: var(--alphax-orange); }
+.b.grey { background: #F3F4F6; color: var(--alphax-grey); }
+
+/* Manual cards grid */
+
+.alphax-manuals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 24px;
+}
+@media (max-width: 720px) {
+    .alphax-manuals {
+        grid-template-columns: 1fr;
+    }
+}
+
+.alphax-manual-card {
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-top: 4px solid var(--alphax-mauve);
+    border-radius: 14px;
+    padding: 28px;
+    text-decoration: none !important;
+    color: var(--alphax-text);
+    display: block;
+    transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+
+.alphax-manual-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(113, 75, 103, 0.10);
+    color: var(--alphax-text);
+}
+
+.alphax-manual-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    line-height: 1;
+}
+
+.alphax-manual-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 6px;
+    letter-spacing: -0.2px;
+}
+
+.alphax-manual-for {
+    font-size: 13px;
+    color: var(--alphax-mauve-dark);
+    font-weight: 500;
+    margin: 0 0 12px;
+}
+
+.alphax-manual-desc {
+    font-size: 14px;
+    color: var(--alphax-text);
+    margin: 0 0 14px;
+    line-height: 1.55;
+}
+
+.alphax-manual-meta {
+    font-size: 12px;
+    color: var(--alphax-muted);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Other formats / status sections */
+
+.alphax-formats, .alphax-status-key {
+    margin-top: 56px;
+    padding: 28px;
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 12px;
+}
+
+.alphax-formats h2, .alphax-status-key h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--alphax-mauve);
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 13px;
+}
+
+.alphax-format-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+}
+.alphax-format-table th,
+.alphax-format-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 0.5px solid var(--alphax-border);
+    font-size: 14px;
+}
+.alphax-format-table th {
+    color: var(--alphax-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 11.5px;
+    letter-spacing: 1px;
+}
+
+.alphax-key-list {
+    margin: 14px 0 0;
+    padding: 0 0 0 4px;
+    list-style: none;
+}
+.alphax-key-list li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Footer */
+
+.alphax-footer {
+    border-top: 0.5px solid var(--alphax-border);
+    padding: 24px;
+    text-align: center;
+    color: var(--alphax-muted);
+    font-size: 12px;
+}
+
+/* ---------------------------------------------------------------------- *
+ * Manual pages (the pandoc HTML output)
+ * ---------------------------------------------------------------------- */
+
+body:not(.alphax-docs-home) {
+    /* Pandoc's default body has extreme padding; replace it */
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+/* Inject a header banner for manual pages — sadly pandoc doesn't give
+   us a way to add an <a href="index.html"> easily, so we use ::before
+   on body to provide a visual anchor + a CSS-only "Home" link. */
+body:not(.alphax-docs-home) {
+    background: var(--alphax-bg);
+}
+
+body:not(.alphax-docs-home) > h1:first-child {
+    /* The first H1 is the document title from pandoc */
+    background: var(--alphax-surface);
+    border-bottom: 0.5px solid var(--alphax-border);
+    border-top: 4px solid var(--alphax-mauve);
+    padding: 24px 32px;
+    margin: 0 !important;
+    color: var(--alphax-mauve);
+    font-size: 28px;
+    font-weight: 600;
+    position: relative;
+}
+
+/* Wrap the rest of the content in a max-width container via padding hack */
+body:not(.alphax-docs-home) > *:not(:first-child) {
+    max-width: 760px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+/* Headings */
+body:not(.alphax-docs-home) h1,
+body:not(.alphax-docs-home) h2,
+body:not(.alphax-docs-home) h3,
+body:not(.alphax-docs-home) h4 {
+    color: var(--alphax-mauve);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+}
+
+body:not(.alphax-docs-home) h2 {
+    font-size: 22px;
+    margin: 36px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid var(--alphax-border);
+}
+
+body:not(.alphax-docs-home) h3 {
+    font-size: 17px;
+    margin: 28px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--alphax-mauve-dark);
+    font-size: 13px;
+}
+
+body:not(.alphax-docs-home) h4 {
+    font-size: 15px;
+    margin: 20px 0 8px;
+    color: var(--alphax-text-strong);
+}
+
+/* Body content */
+body:not(.alphax-docs-home) p,
+body:not(.alphax-docs-home) ul,
+body:not(.alphax-docs-home) ol {
+    color: var(--alphax-text);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+body:not(.alphax-docs-home) ul li,
+body:not(.alphax-docs-home) ol li {
+    margin-bottom: 4px;
+}
+
+/* Tables */
+body:not(.alphax-docs-home) table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    font-size: 14px;
+}
+body:not(.alphax-docs-home) table th,
+body:not(.alphax-docs-home) table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 0.5px solid var(--alphax-border);
+    vertical-align: top;
+}
+body:not(.alphax-docs-home) table th {
+    background: var(--alphax-bg);
+    color: var(--alphax-mauve-dark);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--alphax-border);
+}
+
+/* Code */
+body:not(.alphax-docs-home) code {
+    background: var(--alphax-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--alphax-mauve-dark);
+    font-family: ui-monospace, "SF Mono", "Menlo", "Consolas", monospace;
+}
+
+body:not(.alphax-docs-home) pre {
+    background: #FAF7F9;
+    border: 0.5px solid var(--alphax-border);
+    border-left: 3px solid var(--alphax-mauve);
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 18px 0;
+}
+body:not(.alphax-docs-home) pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--alphax-text-strong);
+    font-size: 13px;
+}
+
+/* Blockquotes (used a lot for tips/warnings) */
+body:not(.alphax-docs-home) blockquote {
+    margin: 18px 0;
+    padding: 12px 16px;
+    background: var(--alphax-bg);
+    border-left: 3px solid var(--alphax-mauve-light);
+    border-radius: 6px;
+    font-size: 14.5px;
+}
+body:not(.alphax-docs-home) blockquote p {
+    margin: 0;
+}
+
+/* TOC */
+body:not(.alphax-docs-home) #TOC,
+body:not(.alphax-docs-home) nav#TOC {
+    background: var(--alphax-surface);
+    border: 0.5px solid var(--alphax-border);
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin: 24px auto;
+    max-width: 760px;
+    font-size: 14px;
+}
+body:not(.alphax-docs-home) #TOC ul,
+body:not(.alphax-docs-home) nav#TOC ul {
+    list-style: none;
+    padding-left: 16px;
+    margin: 0;
+}
+body:not(.alphax-docs-home) #TOC > ul {
+    padding-left: 0;
+}
+body:not(.alphax-docs-home) #TOC li {
+    margin: 4px 0;
+    line-height: 1.5;
+}
+
+/* Horizontal rules */
+body:not(.alphax-docs-home) hr {
+    border: 0;
+    border-top: 0.5px solid var(--alphax-border);
+    margin: 32px 0;
+}
+
+/* Print rules — keep readability */
+@media print {
+    body { font-size: 11pt; }
+    .alphax-header { display: none; }
+    body:not(.alphax-docs-home) > h1:first-child { border-top: none; padding: 0; }
+}
