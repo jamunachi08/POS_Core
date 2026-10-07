@@ -1,0 +1,232 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Table Reservation",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "naming_series:",
+  "title_field": "guest_name",
+  "search_fields": "guest_name,phone,reservation_date,from_time",
+  "sort_field": "reservation_date",
+  "sort_order": "DESC",
+  "description": "A table booked for a party at a time. Rows on the table timeline.",
+  "field_order": [
+    "naming_series",
+    "outlet",
+    "floor",
+    "table",
+    "cb0",
+    "reservation_date",
+    "from_time",
+    "duration_minutes",
+    "to_time",
+    "sec_party",
+    "guest_name",
+    "phone",
+    "customer",
+    "cb1",
+    "covers",
+    "source",
+    "vip",
+    "status",
+    "sec_notes",
+    "allergy_notes",
+    "notes",
+    "sec_link",
+    "seated_on",
+    "table_session",
+    "released_on"
+  ],
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "label": "Series",
+      "fieldtype": "Select",
+      "options": "APOS-RES-.YYYY.-",
+      "default": "APOS-RES-.YYYY.-",
+      "hidden": 1
+    },
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Outlet",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "floor",
+      "label": "Floor",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Floor"
+    },
+    {
+      "fieldname": "table",
+      "label": "Table",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Table",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Leave blank to hold the booking unassigned; the timeline can suggest a table."
+    },
+    {
+      "fieldname": "cb0",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "reservation_date",
+      "label": "Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "from_time",
+      "label": "From",
+      "fieldtype": "Time",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "duration_minutes",
+      "label": "Duration (minutes)",
+      "fieldtype": "Int",
+      "default": "90",
+      "description": "Expected turn time. Drives the bar width on the timeline."
+    },
+    {
+      "fieldname": "to_time",
+      "label": "Until",
+      "fieldtype": "Time",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "sec_party",
+      "fieldtype": "Section Break",
+      "label": "Party"
+    },
+    {
+      "fieldname": "guest_name",
+      "label": "Guest Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "phone",
+      "label": "Phone",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "options": "Customer"
+    },
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "covers",
+      "label": "Covers",
+      "fieldtype": "Int",
+      "default": "2",
+      "reqd": 1,
+      "in_list_view": 1,
+      "description": "Number of guests. Checked against the table's party size."
+    },
+    {
+      "fieldname": "source",
+      "label": "Source",
+      "fieldtype": "Select",
+      "options": "Phone\nWalk-in\nOnline\nAggregator\nStaff",
+      "default": "Phone"
+    },
+    {
+      "fieldname": "vip",
+      "label": "VIP",
+      "fieldtype": "Check",
+      "default": "0"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Booked\nSeated\nCompleted\nNo Show\nCancelled",
+      "default": "Booked",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "sec_notes",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "allergy_notes",
+      "label": "Allergies / Dietary",
+      "fieldtype": "Small Text",
+      "description": "Shown on the kitchen ticket when this party is seated."
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "sec_link",
+      "fieldtype": "Section Break",
+      "label": "Service",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "seated_on",
+      "label": "Seated On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "table_session",
+      "label": "Table Session",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Table Session",
+      "read_only": 1
+    },
+    {
+      "fieldname": "released_on",
+      "label": "Released On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

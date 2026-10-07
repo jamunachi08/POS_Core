@@ -1,0 +1,145 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Item Availability",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "hash",
+  "title_field": "item",
+  "search_fields": "item,outlet,status",
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "description": "An item taken off, or put back on, for one outlet. The 86 list.",
+  "field_order": [
+    "outlet",
+    "item",
+    "item_name",
+    "cb0",
+    "status",
+    "reason",
+    "until",
+    "sec_audit",
+    "marked_by",
+    "marked_on",
+    "restored_by",
+    "restored_on"
+  ],
+  "fields": [
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Outlet",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "item",
+      "label": "Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "item_name",
+      "label": "Item Name",
+      "fieldtype": "Data",
+      "fetch_from": "item.item_name",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "cb0",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Off\nLow\nOn",
+      "default": "Off",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "description": "Off hides it at the till. Low still sells but warns the cashier. On restores it."
+    },
+    {
+      "fieldname": "reason",
+      "label": "Reason",
+      "fieldtype": "Data",
+      "description": "What the kitchen said. Printed on the 86 board."
+    },
+    {
+      "fieldname": "until",
+      "label": "Until",
+      "fieldtype": "Datetime",
+      "description": "Leave blank to hold until someone puts it back. Set it to end of service and the scheduler restores it."
+    },
+    {
+      "fieldname": "sec_audit",
+      "fieldtype": "Section Break",
+      "label": "Audit",
+      "collapsible": 1
+    },
+    {
+      "fieldname": "marked_by",
+      "label": "Marked By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    },
+    {
+      "fieldname": "marked_on",
+      "label": "Marked On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    },
+    {
+      "fieldname": "restored_by",
+      "label": "Restored By",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1
+    },
+    {
+      "fieldname": "restored_on",
+      "label": "Restored On",
+      "fieldtype": "Datetime",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1
+    },
+    {
+      "role": "AlphaX POS Kitchen",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}

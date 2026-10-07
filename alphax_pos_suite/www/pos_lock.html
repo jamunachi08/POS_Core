@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ brand.title }}</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#16202b;--muted:#5a6472;--line:#dde4ea;--panel:#fff;--bg:#f2f5f7;
+  --navy:#12303f;--teal:#1b7f79;--red:#a03030;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Arabic",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+ :root{--ink:#e6edf3;--muted:#9aa8b6;--line:#2a3743;--panel:#161e26;--bg:#0e1419;
+       --navy:#8fc4dd;--teal:#4fb3ab;--red:#e08a83}
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;
+ display:flex;overflow:hidden}
+html[data-lang="en"] .ar{display:none}
+html[data-lang="ar"] .en{display:none}
+
+.hero{flex:1 1 auto;position:relative;background:linear-gradient(135deg,#12303f,#17474c 55%,#1b7f79);
+ overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero::after{content:"";position:absolute;inset:0;
+ background:linear-gradient(90deg,rgba(0,0,0,.12),rgba(0,0,0,0))}
+.hero-mark{position:absolute;inset-inline-start:34px;bottom:30px;color:#fff;z-index:2}
+.hero-mark b{display:block;font-size:26px;letter-spacing:.02em}
+.hero-mark span{opacity:.82;font-size:13px}
+
+.pad{flex:0 0 380px;background:var(--panel);display:flex;flex-direction:column;
+ border-inline-start:1px solid var(--line)}
+@media (max-width:860px){.hero{display:none}.pad{flex:1 1 auto;border:0}}
+
+.pad-top{padding:26px 28px 6px;text-align:center}
+.logo{max-height:46px;max-width:170px;margin-bottom:6px}
+.brandname{font-size:24px;font-weight:650;letter-spacing:.06em;color:var(--teal)}
+.outlet{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+.dots{display:flex;gap:11px;justify-content:center;margin:24px 0 6px;min-height:16px}
+.dot{width:13px;height:13px;border-radius:50%;border:2px solid var(--line);transition:.12s}
+.dot.on{background:var(--teal);border-color:var(--teal);transform:scale(1.06)}
+.msg{min-height:34px;text-align:center;font-size:13px;color:var(--red);padding:6px 20px}
+.msg.info{color:var(--muted)}
+
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 22px 10px;flex:1 1 auto}
+.key{font:inherit;font-size:27px;font-weight:300;color:var(--ink);background:transparent;
+ border:0;border-radius:12px;cursor:pointer;min-height:62px;touch-action:manipulation}
+.key:hover{background:var(--bg)}
+.key:active{background:var(--line)}
+.key.fn{font-size:17px;color:var(--muted)}
+.key[disabled]{opacity:.35;cursor:not-allowed}
+
+.pad-foot{border-top:1px solid var(--line);padding:12px 22px;display:flex;flex-direction:column;gap:9px}
+.alt{font:inherit;font-size:13.5px;padding:10px;border-radius:9px;border:1px solid var(--line);
+ background:transparent;color:var(--ink);cursor:pointer;text-align:center;text-decoration:none}
+.alt:hover{background:var(--bg)}
+.meta{text-align:center;font-size:11px;color:var(--muted)}
+.langsel{font:inherit;font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+ background:transparent;color:var(--muted);cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  {% if brand.image %}<img src="{{ brand.image }}" alt="">{% endif %}
+  <div class="hero-mark">
+    <b>{{ brand.title }}</b>
+    <span class="en">Point of sale</span><span class="ar">نقطة البيع</span>
+  </div>
+</div>
+
+<div class="pad">
+  <div class="pad-top">
+    {% if brand.logo %}<img class="logo" src="{{ brand.logo }}" alt="{{ brand.title }}">
+    {% else %}<div class="brandname">{{ brand.title }}</div>{% endif %}
+    {% if brand.subtitle %}<div class="outlet">{{ brand.subtitle }}</div>{% endif %}
+  </div>
+
+  {% if already_signed_in %}
+    <div class="msg info" style="padding-top:26px">
+      <span class="en">Signed in as <b>{{ current_user }}</b>.</span>
+      <span class="ar">تم تسجيل الدخول باسم <b>{{ current_user }}</b>.</span>
+    </div>
+    <div class="pad-foot">
+      <a class="alt" href="/app/alphax-cashier"><span class="en">Open the till</span><span class="ar">فتح الصندوق</span></a>
+      <a class="alt" href="/api/method/logout"><span class="en">Sign out</span><span class="ar">تسجيل الخروج</span></a>
+    </div>
+
+  {% elif pin_enabled %}
+    <div class="dots" id="dots"></div>
+    <div class="msg" id="msg"></div>
+    <div class="keys" id="keys">
+      <button class="key" data-d="1">1</button>
+      <button class="key" data-d="2">2</button>
+      <button class="key" data-d="3">3</button>
+      <button class="key" data-d="4">4</button>
+      <button class="key" data-d="5">5</button>
+      <button class="key" data-d="6">6</button>
+      <button class="key" data-d="7">7</button>
+      <button class="key" data-d="8">8</button>
+      <button class="key" data-d="9">9</button>
+      <button class="key fn" data-act="clear">
+        <span class="en">Clear</span><span class="ar">مسح</span></button>
+      <button class="key" data-d="0">0</button>
+      <button class="key fn" data-act="back">⌫</button>
+    </div>
+    <div class="pad-foot">
+      <a class="alt" href="/pos_login"><span class="en">Sign in with a password</span><span class="ar">الدخول بكلمة المرور</span></a>
+      <div class="meta">
+        {% if terminal %}{{ terminal }} · {% endif %}
+        <button class="langsel" id="lang" type="button">العربية</button>
+      </div>
+    </div>
+
+  {% else %}
+    <div class="msg info" style="padding-top:26px">
+      <span class="en">PIN sign-in is not switched on for this terminal.</span>
+      <span class="ar">الدخول بالرمز غير مفعّل على هذا الجهاز.</span>
+    </div>
+    <div class="pad-foot">
+      <a class="alt" href="/pos_login"><span class="en">Sign in with a password</span><span class="ar">الدخول بكلمة المرور</span></a>
+      <div class="meta"><button class="langsel" id="lang" type="button">العربية</button></div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function setLang(l) {
+    var lang = (l === "ar") ? "ar" : "en";
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang);
+    root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+    var b = document.getElementById("lang");
+    if (b) b.textContent = lang === "ar" ? "English" : "العربية";
+    try { localStorage.setItem("alphax_locale", lang); } catch (e) { /* private mode */ }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("alphax_locale"); } catch (e) { /* ignore */ }
+  setLang(saved || (navigator.language || "en").slice(0, 2));
+  var lb = document.getElementById("lang");
+  if (lb) lb.addEventListener("click", function () {
+    setLang(root.getAttribute("data-lang") === "ar" ? "en" : "ar");
+  });
+
+  var keys = document.getElementById("keys");
+  if (!keys) return;
+
+  var TERMINAL = {{ terminal | tojson }};
+  var MIN = 4, MAX = 8;
+  var pin = "";
+  var busy = false;
+  var $dots = document.getElementById("dots");
+  var $msg = document.getElementById("msg");
+
+  function paint() {
+    $dots.innerHTML = "";
+    for (var i = 0; i < Math.max(MIN, pin.length); i++) {
+      var d = document.createElement("span");
+      d.className = "dot" + (i < pin.length ? " on" : "");
+      $dots.appendChild(d);
+    }
+  }
+
+  function say(text, info) {
+    $msg.textContent = text || "";
+    $msg.className = "msg" + (info ? " info" : "");
+  }
+
+  function setBusy(on) {
+    busy = on;
+    Array.prototype.forEach.call(keys.querySelectorAll(".key"), function (k) {
+      k.disabled = on;
+    });
+  }
+
+  function push(d) {
+    if (busy || pin.length >= MAX) return;
+    pin += d;
+    say("");
+    paint();
+    // Submit as soon as a 4-digit PIN is complete; longer PINs are sent
+    // by the user pausing, so a 6-digit PIN is not cut off at four.
+    if (pin.length === MIN) setTimeout(function () { if (pin.length === MIN) submit(); }, 260);
+  }
+
+  function submit() {
+    if (busy || pin.length < MIN) return;
+    setBusy(true);
+    say("…", true);
+    fetch("/api/method/alphax_pos_suite.alphax_pos_suite.security.staff_pin.pin_signin", {
+      method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json",
+                 "X-Frappe-CSRF-Token": (window.csrf_token || "") },
+      body: JSON.stringify({ terminal: TERMINAL, pin: pin })
+    }).then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (data) {
+        var m = (data && data.message) || {};
+        if (m.ok) {
+          location.href = m.redirect || "/app/alphax-cashier";
+          return;
+        }
+        pin = "";
+        paint();
+        setBusy(false);
+        say(m.message || (root.getAttribute("data-lang") === "ar" ? "رمز غير صحيح." : "Wrong PIN."));
+        if (m.locked && m.retry_in) countdown(m.retry_in);
+      })
+      .catch(function () {
+        pin = "";
+        paint();
+        setBusy(false);
+        say(root.getAttribute("data-lang") === "ar"
+          ? "تعذّر الوصول إلى الخادم." : "Could not reach the server.");
+      });
+  }
+
+  function countdown(sec) {
+    setBusy(true);
+    var left = sec;
+    var t = setInterval(function () {
+      left -= 1;
+      if (left <= 0) {
+        clearInterval(t);
+        setBusy(false);
+        say("");
+        return;
+      }
+      say((root.getAttribute("data-lang") === "ar"
+        ? "مقفل — المحاولة بعد " : "Locked — try again in ") + left + "s");
+    }, 1000);
+  }
+
+  keys.addEventListener("click", function (e) {
+    var k = e.target.closest ? e.target.closest(".key") : null;
+    if (!k || k.disabled) return;
+    if (k.dataset.d) return push(k.dataset.d);
+    if (k.dataset.act === "clear") { pin = ""; say(""); return paint(); }
+    if (k.dataset.act === "back") { pin = pin.slice(0, -1); say(""); return paint(); }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (busy) return;
+    if (e.key >= "0" && e.key <= "9") return push(e.key);
+    if (e.key === "Backspace") { pin = pin.slice(0, -1); paint(); }
+    if (e.key === "Enter") submit();
+    if (e.key === "Escape") { pin = ""; say(""); paint(); }
+  });
+
+  paint();
+  {% if locked_for %}countdown({{ locked_for }});{% endif %}
+})();
+</script>
+</body>
+</html>

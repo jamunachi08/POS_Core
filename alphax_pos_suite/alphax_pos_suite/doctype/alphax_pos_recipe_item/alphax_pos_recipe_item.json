@@ -1,0 +1,41 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Recipe Item",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "autoname": "hash",
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "material_item",
+      "label": "Material Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "qty",
+      "label": "Qty per 1",
+      "fieldtype": "Float",
+      "reqd": 1
+    },
+    {
+      "fieldname": "uom",
+      "label": "UOM",
+      "fieldtype": "Link",
+      "options": "UOM"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ]
+}

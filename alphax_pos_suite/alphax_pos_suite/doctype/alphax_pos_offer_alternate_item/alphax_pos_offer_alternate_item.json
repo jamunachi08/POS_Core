@@ -1,0 +1,40 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Offer Alternate Item",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "autoname": "hash",
+  "is_submittable": 0,
+  "fields": [
+    {
+      "fieldname": "offer_item",
+      "label": "Offer Item Row ID",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "item_code",
+      "label": "Alternate Item",
+      "fieldtype": "Link",
+      "options": "Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "price_diff",
+      "label": "Price Diff",
+      "fieldtype": "Currency",
+      "default": "0"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1
+    }
+  ]
+}

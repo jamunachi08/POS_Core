@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ brand.title }}</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --ink:#16202b;--muted:#5a6472;--line:#d9e1e8;--panel:#fff;--bg:#f5f7f9;
+  --navy:#12303f;--teal:#1b7f79;--red:#a03030;--radius:12px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Arabic",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+ :root{--ink:#e6edf3;--muted:#9aa8b6;--line:#2a3743;--panel:#161e26;--bg:#0e1419;
+       --navy:#8fc4dd;--teal:#4fb3ab;--red:#e08a83}
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;
+ line-height:1.55;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+html[data-lang="en"] .ar{display:none}
+html[data-lang="ar"] .en{display:none}
+.topbar{position:fixed;inset-inline:0;top:0;height:5px;
+ background:linear-gradient(90deg,var(--navy),var(--teal))}
+.wrap{width:100%;max-width:400px}
+.brand{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:22px}
+.brand img{max-height:56px;max-width:190px}
+.mark{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;color:#fff;
+ background:linear-gradient(135deg,#12303f,#1b7f79);font-weight:700;font-size:21px;letter-spacing:.04em}
+.title{font-size:21px;font-weight:650;letter-spacing:.01em}
+.sub{font-size:12.5px;color:var(--muted)}
+.langrow{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);margin-top:2px}
+.langrow select{font:inherit;font-size:12px;padding:3px 9px;border-radius:999px;
+ border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+form{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+label{display:block;margin-bottom:14px}
+label span.lbl{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--muted)}
+input[type=text],input[type=password]{width:100%;font:inherit;font-size:15px;padding:11px 13px;
+ border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+input:focus{outline:2px solid var(--teal);outline-offset:1px;border-color:transparent}
+.pwwrap{position:relative}
+.reveal{position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%);
+ border:0;background:transparent;color:var(--muted);font:inherit;font-size:11.5px;
+ cursor:pointer;padding:5px 8px;border-radius:6px}
+.reveal:hover{color:var(--ink)}
+button.go{width:100%;font:inherit;font-size:15px;font-weight:600;padding:12px;border:0;
+ border-radius:9px;background:var(--teal);color:#fff;cursor:pointer}
+button.go:hover{filter:brightness(1.07)}
+button.go[disabled]{opacity:.6;cursor:progress}
+.err{margin-bottom:14px;padding:9px 12px;border-radius:8px;font-size:13px;
+ border:1px solid #f3c6c2;background:#fbeceb;color:#8c2f2a}
+@media (prefers-color-scheme:dark){.err{border-color:#5a2b28;background:#2e1a19;color:#e8a9a4}}
+.note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center}
+.note a{color:var(--teal);text-decoration:none}
+.caps{display:none;margin-top:7px;font-size:11.5px;color:#a16207}
+.caps.on{display:block}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+
+<div class="wrap">
+  <div class="brand">
+    {% if brand.logo %}
+      <img src="{{ brand.logo }}" alt="{{ brand.title }}">
+    {% else %}
+      <div class="mark">AX</div>
+    {% endif %}
+    <div class="title">{{ brand.title }}</div>
+    {% if brand.subtitle %}<div class="sub">{{ brand.subtitle }}</div>{% endif %}
+    <div class="langrow">
+      <span class="en">Language</span><span class="ar">اللغة</span>
+      <select id="lang" aria-label="Language">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </div>
+
+  {% if already_signed_in %}
+  <form onsubmit="return false">
+    <p style="margin:0 0 14px;font-size:14px">
+      <span class="en">Signed in as <b>{{ current_user }}</b>.</span>
+      <span class="ar">تم تسجيل الدخول باسم <b>{{ current_user }}</b>.</span>
+    </p>
+    <button class="go" type="button" onclick="location.href='{{ redirect_to }}'">
+      <span class="en">Open the till</span><span class="ar">فتح الصندوق</span>
+    </button>
+    <p class="note">
+      <a href="/api/method/logout"><span class="en">Sign in as someone else</span><span class="ar">تسجيل الدخول بحساب آخر</span></a>
+    </p>
+  </form>
+  {% else %}
+  <form id="f" autocomplete="on">
+    <div class="err" id="err" hidden></div>
+
+    <label>
+      <span class="lbl"><span class="en">Email or username</span><span class="ar">البريد الإلكتروني أو اسم المستخدم</span></span>
+      <input type="text" id="usr" name="usr" autocomplete="username" autocapitalize="none"
+             spellcheck="false" required autofocus>
+    </label>
+
+    <label>
+      <span class="lbl"><span class="en">Password</span><span class="ar">كلمة المرور</span></span>
+      <div class="pwwrap">
+        <input type="password" id="pwd" name="pwd" autocomplete="current-password" required>
+        <button class="reveal" type="button" id="rev" aria-label="Show password">
+          <span class="en">Show</span><span class="ar">إظهار</span>
+        </button>
+      </div>
+      <div class="caps" id="caps">
+        <span class="en">Caps Lock is on.</span><span class="ar">مفتاح الأحرف الكبيرة مُفعّل.</span>
+      </div>
+    </label>
+
+    <button class="go" type="submit" id="go">
+      <span class="en">Sign in</span><span class="ar">تسجيل الدخول</span>
+    </button>
+
+    <p class="note">
+      <a href="/login#forgot"><span class="en">Forgot password</span><span class="ar">نسيت كلمة المرور</span></a>
+    </p>
+  </form>
+  {% endif %}
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var sel = document.getElementById("lang");
+
+  function setLang(l) {
+    var lang = (l === "ar") ? "ar" : "en";
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang);
+    root.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+    if (sel) sel.value = lang;
+    try { localStorage.setItem("alphax_locale", lang); } catch (e) { /* private mode */ }
+  }
+
+  // The cashier SPA reads the same key, so the choice made here is the
+  // language the till opens in. One decision, not two.
+  var saved = null;
+  try { saved = localStorage.getItem("alphax_locale"); } catch (e) { /* ignore */ }
+  setLang(saved || (navigator.language || "en").slice(0, 2));
+  if (sel) sel.addEventListener("change", function () { setLang(sel.value); });
+
+  var f = document.getElementById("f");
+  if (!f) return;
+
+  var rev = document.getElementById("rev");
+  var pwd = document.getElementById("pwd");
+  rev.addEventListener("click", function () {
+    pwd.type = pwd.type === "password" ? "text" : "password";
+    pwd.focus();
+  });
+
+  var caps = document.getElementById("caps");
+  function capsCheck(e) {
+    if (e.getModifierState) caps.classList.toggle("on", e.getModifierState("CapsLock"));
+  }
+  pwd.addEventListener("keydown", capsCheck);
+  pwd.addEventListener("keyup", capsCheck);
+
+  var err = document.getElementById("err");
+  var go = document.getElementById("go");
+
+  f.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    err.hidden = true;
+    go.disabled = true;
+    try {
+      var body = new URLSearchParams({
+        cmd: "login",
+        usr: document.getElementById("usr").value.trim(),
+        pwd: pwd.value,
+      });
+      var res = await fetch("/api/method/login", {
+        method: "POST", credentials: "same-origin",
+        headers: { "Content-Type": "application/x-www-form-urlencoded",
+                   "X-Frappe-CSRF-Token": (window.csrf_token || "") },
+        body: body.toString(),
+      });
+      if (res.ok) {
+        location.href = {{ redirect_to | tojson }};
+        return;
+      }
+      // Deliberately one message for every failure: a different message
+      // for "no such user" tells an attacker which names are real.
+      err.textContent = root.getAttribute("data-lang") === "ar"
+        ? "البريد الإلكتروني أو كلمة المرور غير صحيحة."
+        : "Wrong email, username, or password.";
+      err.hidden = false;
+      pwd.value = "";
+      pwd.focus();
+    } catch (ex) {
+      err.textContent = root.getAttribute("data-lang") === "ar"
+        ? "تعذّر الوصول إلى الخادم. تحقق من الاتصال."
+        : "Could not reach the server. Check the connection.";
+      err.hidden = false;
+    } finally {
+      go.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
