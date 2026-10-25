@@ -1,0 +1,72 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Order Item",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "external_code",
+   "label": "Platform code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "external_name",
+   "label": "Name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "item_code",
+   "label": "Item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "qty",
+   "label": "Qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "rate",
+   "label": "Unit price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "is_modifier",
+   "label": "Topping",
+   "fieldtype": "Check"
+  },
+  {
+   "fieldname": "parent_line",
+   "label": "Topping of line",
+   "fieldtype": "Int"
+  },
+  {
+   "fieldname": "note",
+   "label": "Note",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "field_order": [
+  "external_code",
+  "external_name",
+  "item_code",
+  "qty",
+  "rate",
+  "is_modifier",
+  "parent_line",
+  "note"
+ ],
+ "permissions": [],
+ "istable": 1
+}

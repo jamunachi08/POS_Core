@@ -1,0 +1,223 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Gift Card",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "masked_code",
+   "label": "Card",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "in_list_view": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Inactive\nActive\nSuspended\nUsed Up\nExpired\nVoided",
+   "default": "Inactive",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "balance",
+   "label": "Balance",
+   "fieldtype": "Currency",
+   "options": "currency",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "initial_value",
+   "label": "Value when sold",
+   "fieldtype": "Currency",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb1",
+   "label": "",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "label": "Currency",
+   "fieldtype": "Link",
+   "options": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "issued_on",
+   "label": "Activated on",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expires_on",
+   "label": "Expires on",
+   "fieldtype": "Date",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Sold at",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_people",
+   "label": "Purchaser and recipient",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "purchaser",
+   "label": "Purchaser",
+   "fieldtype": "Link",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "recipient_name",
+   "label": "Recipient",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "cb2",
+   "label": "",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "recipient_phone",
+   "label": "Recipient mobile",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "message",
+   "label": "Message",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "sb_sec",
+   "label": "Security",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "code_hash",
+   "label": "Code hash",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "unique": 1,
+   "hidden": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "pin_required",
+   "label": "PIN required",
+   "fieldtype": "Check",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pin_hash",
+   "label": "PIN hash",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "hidden": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "failed_attempts",
+   "label": "Wrong PIN attempts",
+   "fieldtype": "Int",
+   "read_only": 1
+  },
+  {
+   "fieldname": "locked_until",
+   "label": "Locked until",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "batch",
+   "label": "Batch",
+   "fieldtype": "Link",
+   "options": "AlphaX Gift Card Batch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "liability_account",
+   "label": "Liability account",
+   "fieldtype": "Link",
+   "options": "Account",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "masked_code",
+  "status",
+  "balance",
+  "initial_value",
+  "cb1",
+  "company",
+  "currency",
+  "issued_on",
+  "expires_on",
+  "outlet",
+  "sb_people",
+  "purchaser",
+  "recipient_name",
+  "cb2",
+  "recipient_phone",
+  "message",
+  "sb_sec",
+  "code_hash",
+  "pin_required",
+  "pin_hash",
+  "failed_attempts",
+  "locked_until",
+  "batch",
+  "liability_account"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ],
+ "autoname": "hash",
+ "title_field": "masked_code",
+ "sort_field": "creation",
+ "description": "A prepaid gift card. Only a hash of the card number is stored; the full number is shown once, when the card is created."
+}

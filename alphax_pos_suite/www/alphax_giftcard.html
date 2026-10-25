@@ -1,0 +1,38 @@
+{% raw %}<!DOCTYPE html>{% endraw %}
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift card balance</title>
+<style>
+:root{--ink:#1d2321;--muted:#6b726f;--line:#e6e2da;--bg:#faf8f4;--card:#fff;--brand:#0f6e6e;--warn:#b4462b}
+@media (prefers-color-scheme:dark){:root{--ink:#eceae5;--muted:#a3a7a4;--line:#2d322f;--bg:#141716;--card:#1c201e;--brand:#3fb3a8;--warn:#ef8a6f}}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,"Segoe UI","Noto Sans Arabic",sans-serif}
+main{max-width:420px;margin:auto;padding:40px 20px}h1{font-size:24px}label{display:block;font-size:13px;color:var(--muted);margin:14px 0 4px}
+input{width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:12px;font:inherit;font-variant-numeric:tabular-nums;letter-spacing:1px}
+button{margin-top:16px;width:100%;border:0;border-radius:12px;padding:14px;background:var(--brand);color:#fff;font:inherit;font-weight:700}
+.res{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.big{font-size:34px;font-weight:800}
+.err{color:var(--warn);margin-top:12px}.lang{float:inline-end;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;width:auto;margin:0}
+</style></head><body><main>
+<button class="lang" id="lang">العربية</button><h1 id="h"></h1>
+<label id="lc"></label><input id="code" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000">
+<div id="pinw" hidden><label id="lp"></label><input id="pin" type="password" inputmode="numeric" maxlength="4"></div>
+<button id="go"></button><div class="err" id="err"></div><div class="res" id="res" hidden></div>
+<script>
+(() => {
+  const L = { en: { h: "Gift card balance", c: "Card number", p: "PIN", go: "Check balance", bal: "Balance", exp: "Valid until", lang: "العربية" },
+              ar: { h: "رصيد بطاقة الهدية", c: "رقم البطاقة", p: "الرقم السري", go: "تحقق من الرصيد", bal: "الرصيد", exp: "صالحة حتى", lang: "English" } };
+  let lang = (navigator.language || "").startsWith("ar") ? "ar" : "en";
+  const $ = (i) => document.getElementById(i);
+  const paint = () => { const t = L[lang]; document.documentElement.dir = lang === "ar" ? "rtl" : "ltr"; $("h").textContent = t.h; $("lc").textContent = t.c; $("lp").textContent = t.p; $("go").textContent = t.go; $("lang").textContent = t.lang; };
+  $("lang").onclick = () => { lang = lang === "ar" ? "en" : "ar"; paint(); };
+  $("go").onclick = () => {
+    $("err").textContent = ""; $("res").hidden = true;
+    fetch("/api/method/alphax_pos_suite.alphax_pos_suite.giftcard.api.balance?" + new URLSearchParams({ code: $("code").value, pin: $("pin").value }), { headers: { Accept: "application/json" } })
+      .then(async (r) => { const j = await r.json(); if (!r.ok) { let m = "Error"; try { m = JSON.parse(JSON.parse(j._server_messages)[0]).message; } catch (e) {} throw new Error(m); } return j.message; })
+      .then((m) => {
+        if (m.pin_required && !m.ok) { $("pinw").hidden = false; $("pin").focus(); return; }
+        const t = L[lang], money = new Intl.NumberFormat(lang === "ar" ? "ar-SA" : "en-SA", { style: "currency", currency: m.currency || "SAR" });
+        $("res").hidden = false; $("res").innerHTML = `<div>${m.masked}</div><div class="big">${money.format(m.balance)}</div><div>${t.exp} ${m.expires_on || "—"}</div>`;
+      }).catch((e) => ($("err").textContent = e.message));
+  };
+  paint();
+})();
+</script></main></body></html>

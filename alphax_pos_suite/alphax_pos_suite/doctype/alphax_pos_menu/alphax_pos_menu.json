@@ -1,0 +1,131 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Menu",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "autoname": "field:menu_name",
+ "track_changes": 1,
+ "description": "What a place sells. Menus are the ONLY thing that decides which items appear on a till. Item groups stay a merchandise taxonomy (what a thing is); menus are the sales channel (where it is sold). Keeping those apart is what lets two branches of the same brand carry different ranges without ever reorganising the item tree.",
+ "fields": [
+  {
+   "fieldname": "menu_name",
+   "label": "Menu Name",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "in_list_view": 1,
+   "description": "Blank means every company on this site."
+  },
+  {
+   "fieldname": "enabled",
+   "label": "Enabled",
+   "fieldtype": "Check",
+   "default": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "col_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_list",
+   "label": "Price List Override",
+   "fieldtype": "Link",
+   "options": "Price List",
+   "description": "Applies to items reached through this menu. Blank uses the outlet's price list. This is how a delivery or airport-branch menu carries different pricing without a duplicate item master."
+  },
+  {
+   "fieldname": "priority",
+   "label": "Priority",
+   "fieldtype": "Int",
+   "default": 0,
+   "description": "When several menus stack, the highest priority supplies the price for an item they both contain."
+  },
+  {
+   "fieldname": "sec_availability",
+   "fieldtype": "Section Break",
+   "label": "When It Is Available",
+   "description": "Leave blank for always. A breakfast or Ramadan menu is a time window, not a separate outlet."
+  },
+  {
+   "fieldname": "available_from",
+   "label": "From",
+   "fieldtype": "Time"
+  },
+  {
+   "fieldname": "available_to",
+   "label": "To",
+   "fieldtype": "Time"
+  },
+  {
+   "fieldname": "col_avail",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "days_of_week",
+   "label": "Days",
+   "fieldtype": "Data",
+   "description": "Comma-separated: Mon,Tue,Wed,Thu,Fri,Sat,Sun. Blank means every day."
+  },
+  {
+   "fieldname": "valid_from",
+   "label": "Valid From",
+   "fieldtype": "Date"
+  },
+  {
+   "fieldname": "valid_upto",
+   "label": "Valid Until",
+   "fieldtype": "Date"
+  },
+  {
+   "fieldname": "sec_rules",
+   "fieldtype": "Section Break",
+   "label": "Contents"
+  },
+  {
+   "fieldname": "rules",
+   "label": "Rules",
+   "fieldtype": "Table",
+   "options": "AlphaX POS Menu Rule"
+  },
+  {
+   "fieldname": "sec_stats",
+   "fieldtype": "Section Break",
+   "label": "Resolved"
+  },
+  {
+   "fieldname": "resolved_count",
+   "label": "Items Resolved",
+   "fieldtype": "Int",
+   "read_only": 1,
+   "description": "Recomputed on save. Zero means the rules match nothing — usually an item group with no sellable items under it."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Item Map",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "connection",
+   "label": "Connection",
+   "fieldtype": "Link",
+   "options": "AlphaX Aggregator Connection",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "external_code",
+   "label": "Platform code",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "external_name",
+   "label": "Platform name",
+   "fieldtype": "Data",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "item_code",
+   "label": "Item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "is_modifier",
+   "label": "Topping / modifier",
+   "fieldtype": "Check"
+  },
+  {
+   "fieldname": "ignore",
+   "label": "Ignore (no stock, no line)",
+   "fieldtype": "Check",
+   "description": "For free toppings that are notes, not products."
+  },
+  {
+   "fieldname": "last_seen",
+   "label": "Last seen",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "connection",
+  "external_code",
+  "external_name",
+  "item_code",
+  "is_modifier",
+  "ignore",
+  "last_seen"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ],
+ "autoname": "hash",
+ "title_field": "external_name",
+ "description": "Platform product and topping codes mapped to your Items. Unknown codes are added here automatically, unmapped, when an order brings them."
+}

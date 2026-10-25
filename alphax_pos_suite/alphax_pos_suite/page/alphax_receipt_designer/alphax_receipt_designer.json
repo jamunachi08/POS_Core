@@ -1,0 +1,9 @@
+{
+  "doctype": "Page",
+  "name": "alphax-receipt-designer",
+  "module": "AlphaX POS Suite",
+  "title": "Receipt Designer",
+  "icon": "octicon octicon-file",
+  "standard": "Yes",
+  "roles": [{"role": "AlphaX POS Manager"}, {"role": "System Manager"}]
+}

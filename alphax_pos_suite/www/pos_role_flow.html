@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ title }}</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f5f7f9;--panel:#fff;--panel-2:#eef2f5;--ink:#16202b;--ink-soft:#5a6472;
+  --line:#d9e1e8;--navy:#12303f;--teal:#1b7f79;
+  --amber:#a86a12;--amber-bg:#fdf3e2;--red:#a03030;--red-bg:#fbeceb;
+  --green:#1f6f45;--green-bg:#e9f4ee;--blue:#1d5b96;--blue-bg:#e9f0f8;
+  --accent:var(--teal);--radius:10px;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Arabic",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){
+  --bg:#0e1419;--panel:#161e26;--panel-2:#1d2732;--ink:#e6edf3;--ink-soft:#9aa8b6;
+  --line:#2a3743;--navy:#8fc4dd;--teal:#4fb3ab;--amber:#e0ab5c;--amber-bg:#2c2214;
+  --red:#e08a83;--red-bg:#2e1a19;--green:#6dc094;--green-bg:#152419;--blue:#7bb0e8;--blue-bg:#141f2c;}
+}
+:root[data-theme="dark"]{
+  --bg:#0e1419;--panel:#161e26;--panel-2:#1d2732;--ink:#e6edf3;--ink-soft:#9aa8b6;
+  --line:#2a3743;--navy:#8fc4dd;--teal:#4fb3ab;--amber:#e0ab5c;--amber-bg:#2c2214;
+  --red:#e08a83;--red-bg:#2e1a19;--green:#6dc094;--green-bg:#152419;--blue:#7bb0e8;--blue-bg:#141f2c;}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+html[data-lang="ar"] body{direction:rtl}
+html[data-lang="en"] .ar{display:none}
+html[data-lang="ar"] .en{display:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 70px}
+header.top{background:linear-gradient(135deg,#12303f 0%,#17474c 55%,#1b7f79 100%);color:#fff;padding:24px 0 20px}
+.brandline{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.82;font-weight:600}
+h1{margin:8px 0 4px;font-size:clamp(20px,3.2vw,28px);line-height:1.2;font-weight:700}
+.sub{opacity:.85;font-size:13px;margin:0}
+.who{opacity:.72;font-size:12px;margin:6px 0 0;font-family:var(--mono)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;
+ padding:6px 13px;border-radius:999px;font:inherit;font-size:12.5px;cursor:pointer}
+.tbtn:hover{background:rgba(255,255,255,.22)}
+.roles{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px}
+.role{flex:0 0 auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+ padding:10px 14px;cursor:pointer;min-width:150px;text-align:start;font:inherit;color:var(--ink)}
+.role:hover{border-color:var(--accent)}
+.role[aria-selected="true"]{border-color:var(--accent);background:var(--panel-2);
+ box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 22%,transparent)}
+.rn{font-weight:650;font-size:14px;display:block}
+.rr{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);display:block;margin-top:3px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-top:16px}
+.card h2{margin:0 0 4px;font-size:17px;color:var(--navy);font-weight:700}
+.scope{color:var(--ink-soft);font-size:13px;margin:0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);
+ color:var(--ink-soft);background:var(--panel-2);font-family:var(--mono)}
+.lane[hidden]{display:none}
+.flow{margin-top:6px}
+.step{display:flex;gap:14px;padding:12px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;inset-inline-start:15px;top:40px;bottom:-4px;width:2px;background:var(--line)}
+.num{flex:0 0 32px;height:32px;width:32px;border-radius:50%;display:grid;place-items:center;
+ font-size:13px;font-weight:700;background:var(--panel-2);color:var(--ink-soft);border:2px solid var(--line);position:relative;z-index:1}
+.step[data-tag="gate"] .num{background:var(--amber-bg);color:var(--amber);border-color:var(--amber)}
+.step[data-tag="block"] .num{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.step[data-tag="auto"] .num{background:var(--blue-bg);color:var(--blue);border-color:var(--blue)}
+.step[data-tag="post"] .num{background:var(--green-bg);color:var(--green);border-color:var(--green)}
+.sbody{flex:1 1 auto;min-width:0}
+.st{font-weight:640;font-size:14.5px;margin:4px 0 2px}
+.sd{color:var(--ink-soft);font-size:13.5px;margin:0}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+ padding:2px 8px;border-radius:5px;margin-inline-start:8px;vertical-align:2px}
+.tag.gate{background:var(--amber-bg);color:var(--amber)}
+.tag.block{background:var(--red-bg);color:var(--red)}
+.tag.auto{background:var(--blue-bg);color:var(--blue)}
+.tag.post{background:var(--green-bg);color:var(--green)}
+.dt{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-top:5px;display:block;word-break:break-word}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+.tablewrap{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:start}
+thead th{background:var(--navy);color:#fff;font-size:11.5px}
+tbody tr:nth-child(even){background:var(--panel-2)}
+td.c{text-align:center;font-weight:700;font-size:12px}
+.v-y{color:var(--green)}.v-p{color:var(--amber)}.v-n{color:var(--ink-soft);opacity:.55}.v-v{color:var(--blue)}
+.note{border-inline-start:3px solid var(--accent);background:var(--panel-2);padding:11px 14px;border-radius:6px;margin-top:14px;font-size:13.5px}
+footer{color:var(--ink-soft);font-size:12px;margin-top:26px;text-align:center}
+@media (max-width:620px){.role{min-width:132px}.card{padding:15px 14px}}
+@media print{.roles,.toolbar{display:none}.lane[hidden]{display:block !important}
+ .card{break-inside:avoid}body{background:#fff}
+ header.top{background:#12303f !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brandline">
+      <span class="en">Neotec Integrated Solutions &middot; AlphaX</span>
+      <span class="ar">نيوتك للحلول المتكاملة &middot; ألفا إكس</span>
+    </div>
+    <h1>
+      <span class="en">AlphaX POS Suite &mdash; Role-Based Process Flow</span>
+      <span class="ar">منظومة ألفا إكس لنقاط البيع &mdash; مسار العمل حسب الصلاحية</span>
+    </h1>
+    <p class="sub">
+      <span class="en">What your role does, in order, and where it must escalate.</span>
+      <span class="ar">ما ينفّذه دورك بالترتيب، وأين يجب التصعيد.</span>
+    </p>
+    <p class="who">{{ current_user }}{% if user_roles %} &middot; {{ user_roles|join(" · ") }}{% endif %}</p>
+    <div class="toolbar">
+      <button class="tbtn" type="button" id="langBtn">العربية</button>
+      <button class="tbtn" type="button" id="themeBtn">Dark / Light</button>
+      <button class="tbtn" type="button" onclick="window.print()">
+        <span class="en">Print</span><span class="ar">طباعة</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+{% if not has_access %}
+  <div class="card">
+    <h2><span class="en">No AlphaX POS role assigned</span><span class="ar">لا يوجد دور مسند لك</span></h2>
+    <p class="scope">
+      <span class="en">Your user holds none of the AlphaX POS roles, so there is no lane to show. Ask your administrator to assign one.</span>
+      <span class="ar">لا يحمل حسابك أياً من أدوار ألفا إكس، لذا لا يوجد مسار لعرضه. يرجى مراجعة مسؤول النظام لإسناد دور.</span>
+    </p>
+  </div>
+{% else %}
+
+  {% if lanes|length > 1 %}
+  <div class="roles" role="tablist" id="roles">
+    {% for lane in lanes %}
+    <button class="role" type="button" role="tab" data-lane="{{ lane.id }}"
+            aria-selected="{{ 'true' if loop.first else 'false' }}">
+      <span class="rn"><span class="en">{{ lane.name_en }}</span><span class="ar">{{ lane.name_ar }}</span></span>
+      <span class="rr">{{ lane.role }}</span>
+    </button>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% for lane in lanes %}
+  <div class="card lane" data-lane="{{ lane.id }}" {% if not loop.first %}hidden{% endif %}>
+    <h2>
+      <span class="en">{{ lane.name_en }}</span><span class="ar">{{ lane.name_ar }}</span>
+      &middot; <span style="font-family:var(--mono);font-size:13px">{{ lane.role }}</span>
+    </h2>
+    <p class="scope"><span class="en">{{ lane.scope_en }}</span><span class="ar">{{ lane.scope_ar }}</span></p>
+    <div class="chips">
+      {% for c in lane.chips %}<span class="chip">{{ c }}</span>{% endfor %}
+    </div>
+
+    <div class="flow">
+      {% for s in lane.steps %}
+      <div class="step"{% if s.tag %} data-tag="{{ s.tag }}"{% endif %}>
+        <div class="num">{{ loop.index }}</div>
+        <div class="sbody">
+          <div class="st">
+            <span class="en">{{ s.t_en }}</span><span class="ar">{{ s.t_ar }}</span>
+            {% if s.tag %}<span class="tag {{ s.tag }}">{{ s.tag|upper }}</span>{% endif %}
+          </div>
+          <p class="sd"><span class="en">{{ s.d_en }}</span><span class="ar">{{ s.d_ar }}</span></p>
+          {% if s.dt %}<code class="dt">{{ s.dt }}</code>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="legend">
+      <span><b class="tag gate">GATE</b>
+        <span class="en">Manager PIN or approval required</span><span class="ar">يتطلب رمز المدير أو موافقته</span></span>
+      <span><b class="tag block">BLOCK</b>
+        <span class="en">Hard stop &mdash; flow cannot continue</span><span class="ar">إيقاف إلزامي &mdash; لا يمكن المتابعة</span></span>
+      <span><b class="tag auto">AUTO</b>
+        <span class="en">System does it automatically</span><span class="ar">ينفّذه النظام تلقائياً</span></span>
+      <span><b class="tag post">POST</b>
+        <span class="en">Posts to the ERPNext ledger</span><span class="ar">يُرحّل إلى دفاتر إي آر بي نكست</span></span>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="card">
+    <h2><span class="en">Permission matrix</span><span class="ar">مصفوفة الصلاحيات</span></h2>
+    <p class="scope">
+      {% if full_matrix %}
+      <span class="en">Every gated action in the suite, across all roles.</span>
+      <span class="ar">كل إجراء مقيّد في المنظومة لجميع الأدوار.</span>
+      {% else %}
+      <span class="en">The actions available to you. Rows you have no access to at all are not listed.</span>
+      <span class="ar">الإجراءات المتاحة لك. ولا تُعرض الصفوف التي لا تملك فيها أي صلاحية.</span>
+      {% endif %}
+    </p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="en">Action</span><span class="ar">الإجراء</span></th>
+            {% for col in columns %}
+            <th><span class="en">{{ col.name_en }}</span><span class="ar">{{ col.name_ar }}</span></th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in matrix %}
+          <tr>
+            <td><span class="en">{{ row.a_en }}</span><span class="ar">{{ row.a_ar }}</span></td>
+            {% for v in row.v %}
+              {% if v == "y" %}<td class="c v-y">&#10003;</td>
+              {% elif v == "pin" %}<td class="c v-p">PIN</td>
+              {% elif v == "view" %}<td class="c v-v">&#128065;</td>
+              {% else %}<td class="c v-n">&mdash;</td>{% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><b>&#10003;</b> <span class="en">permitted</span><span class="ar">مسموح</span></span>
+      <span><b>PIN</b> <span class="en">requires manager authorisation</span><span class="ar">يتطلب تفويض المدير</span></span>
+      <span><b>&#128065;</b> <span class="en">view only</span><span class="ar">اطلاع فقط</span></span>
+      <span><b>&mdash;</b> <span class="en">not permitted</span><span class="ar">غير مسموح</span></span>
+    </div>
+  </div>
+
+{% endif %}
+
+  <footer>AlphaX POS Suite &middot; alphax_pos_suite</footer>
+</div>
+
+<script>
+(function(){
+  var roles = document.getElementById("roles");
+  if(roles){
+    roles.addEventListener("click", function(e){
+      var btn = e.target.closest ? e.target.closest(".role") : null;
+      if(!btn) return;
+      var id = btn.getAttribute("data-lane");
+      Array.prototype.forEach.call(roles.querySelectorAll(".role"), function(b){
+        b.setAttribute("aria-selected", b === btn ? "true" : "false");
+      });
+      Array.prototype.forEach.call(document.querySelectorAll(".lane"), function(l){
+        if(l.getAttribute("data-lane") === id){ l.removeAttribute("hidden"); }
+        else { l.setAttribute("hidden",""); }
+      });
+      try{ localStorage.setItem("axrf_lane", id); }catch(err){}
+    });
+    try{
+      var saved = localStorage.getItem("axrf_lane");
+      if(saved){
+        var b = roles.querySelector('.role[data-lane="'+saved+'"]');
+        if(b) b.click();
+      }
+    }catch(err){}
+  }
+
+  var root = document.documentElement;
+  function setLang(l){
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l);
+    document.getElementById("langBtn").textContent = (l === "ar") ? "English" : "العربية";
+    try{ localStorage.setItem("axrf_lang", l); }catch(err){}
+  }
+  document.getElementById("langBtn").addEventListener("click", function(){
+    setLang(root.getAttribute("data-lang") === "ar" ? "en" : "ar");
+  });
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    var cur = root.getAttribute("data-theme");
+    var dark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = cur ? (cur === "dark" ? "light" : "dark") : (dark ? "light" : "dark");
+    root.setAttribute("data-theme", next);
+    try{ localStorage.setItem("axrf_theme", next); }catch(err){}
+  });
+
+  try{
+    var sl = localStorage.getItem("axrf_lang");
+    if(sl === "ar" || sl === "en") setLang(sl);
+    var st = localStorage.getItem("axrf_theme");
+    if(st === "dark" || st === "light") root.setAttribute("data-theme", st);
+  }catch(err){}
+})();
+</script>
+</body>
+</html>

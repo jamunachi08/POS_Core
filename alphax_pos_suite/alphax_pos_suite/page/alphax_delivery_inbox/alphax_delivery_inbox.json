@@ -1,0 +1,14 @@
+{
+  "doctype": "Page",
+  "name": "alphax-delivery-inbox",
+  "module": "AlphaX POS Suite",
+  "title": "Delivery Inbox",
+  "icon": "octicon octicon-inbox",
+  "standard": "Yes",
+  "roles": [
+    {"role": "AlphaX POS Cashier"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "AlphaX POS Manager"},
+    {"role": "System Manager"}
+  ]
+}

@@ -1,0 +1,174 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Demand Forecast",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "forecast_date",
+   "label": "For date",
+   "fieldtype": "Date",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "hijri_date",
+   "label": "Hijri date",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "events",
+   "label": "Calendar",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "generated_on",
+   "label": "Generated",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "history_to",
+   "label": "Learned from sales up to",
+   "fieldtype": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "plan_to",
+   "label": "Planned to",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_kpi",
+   "label": "Accuracy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_forecast",
+   "label": "Total forecast",
+   "fieldtype": "Float",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "total_actual",
+   "label": "Total actual",
+   "fieldtype": "Float",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "wape",
+   "label": "Error (WAPE)",
+   "fieldtype": "Percent",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "bias",
+   "label": "Bias",
+   "fieldtype": "Percent",
+   "read_only": 1,
+   "description": "Positive means the forecast ran high."
+  },
+  {
+   "fieldname": "sb_lines",
+   "label": "Items",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "lines",
+   "label": "Lines",
+   "fieldtype": "Table",
+   "options": "AlphaX POS Demand Forecast Line"
+  },
+  {
+   "fieldname": "sb_brief",
+   "label": "Briefing",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "briefing",
+   "label": "Briefing",
+   "fieldtype": "Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "briefing_source",
+   "label": "Written by",
+   "fieldtype": "Data",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "outlet",
+  "forecast_date",
+  "hijri_date",
+  "events",
+  "cb1",
+  "generated_on",
+  "history_to",
+  "plan_to",
+  "sb_kpi",
+  "total_forecast",
+  "total_actual",
+  "cb2",
+  "wape",
+  "bias",
+  "sb_lines",
+  "lines",
+  "sb_brief",
+  "briefing",
+  "briefing_source"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Kitchen",
+   "read": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1
+  }
+ ],
+ "autoname": "format:DF-{outlet}-{forecast_date}",
+ "title_field": "outlet",
+ "sort_field": "forecast_date",
+ "description": "Item-level demand forecast for one outlet and day. Regenerated nightly; actuals filled the morning after."
+}

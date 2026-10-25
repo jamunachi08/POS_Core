@@ -1,0 +1,49 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Loyalty Tier",
+  "module": "AlphaX POS Suite",
+  "istable": 1,
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "tier_name",
+      "label": "Tier Name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "reqd": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "min_lifetime_points",
+      "label": "Min Lifetime Points",
+      "fieldtype": "Float",
+      "default": 0,
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "earn_multiplier",
+      "label": "Earn Multiplier",
+      "fieldtype": "Float",
+      "default": 1.0,
+      "in_list_view": 1,
+      "columns": 2,
+      "description": "All earn rates multiplied by this for customers in this tier."
+    },
+    {
+      "fieldname": "redeem_value_multiplier",
+      "label": "Redeem Value Multiplier",
+      "fieldtype": "Float",
+      "default": 1.0,
+      "columns": 2
+    },
+    {
+      "fieldname": "color",
+      "label": "Badge Color",
+      "fieldtype": "Color",
+      "columns": 2
+    }
+  ],
+  "permissions": []
+}

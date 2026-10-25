@@ -1,0 +1,78 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Email Log",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "hash",
+  "fields": [
+    {
+      "fieldname": "report_type",
+      "label": "Report Type",
+      "fieldtype": "Select",
+      "options": "Shift Close\nDay Close",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "label": "Reference DocType",
+      "fieldtype": "Data",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "reference_name",
+      "label": "Reference Name",
+      "fieldtype": "Data",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "to",
+      "label": "To",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "cc",
+      "label": "CC",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "status",
+      "label": "Status",
+      "fieldtype": "Select",
+      "options": "Sent\nFailed\nQueued",
+      "default": "Queued",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "error",
+      "label": "Error",
+      "fieldtype": "Small Text"
+    },
+    {
+      "fieldname": "sent_on",
+      "label": "Sent On",
+      "fieldtype": "Datetime",
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "POS Manager",
+      "read": 1
+    },
+    {
+      "role": "Accounts Manager",
+      "read": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

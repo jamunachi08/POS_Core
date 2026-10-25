@@ -1,0 +1,108 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Offer",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "autoname": "field:offer_code",
+  "fields": [
+    {
+      "fieldname": "offer_code",
+      "label": "Offer Code",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "title",
+      "label": "Title",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "enabled",
+      "label": "Enabled",
+      "fieldtype": "Check",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "default": 1
+    },
+    {
+      "fieldname": "apply_on",
+      "label": "Apply On",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Order Total\nItem\nItem Group",
+      "default": "Order Total"
+    },
+    {
+      "fieldname": "discount_type",
+      "label": "Discount Type",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Percent\nAmount",
+      "default": "Percent"
+    },
+    {
+      "fieldname": "discount_value",
+      "label": "Discount Value",
+      "fieldtype": "Float",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "min_order_total",
+      "label": "Min Order Total",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "item_code",
+      "label": "Item (if apply on Item)",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Item"
+    },
+    {
+      "fieldname": "item_group",
+      "label": "Item Group (if apply on Item Group)",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Item Group"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Simple POS offer/coupon rules."
+}

@@ -1,0 +1,139 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Gift Card Entry",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "gift_card",
+   "label": "Gift card",
+   "fieldtype": "Link",
+   "options": "AlphaX Gift Card",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "entry_type",
+   "label": "Type",
+   "fieldtype": "Select",
+   "options": "Issue\nReload\nRedeem\nReverse\nRefund\nExpiry\nVoid",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "amount",
+   "label": "Amount",
+   "fieldtype": "Currency",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "balance_after",
+   "label": "Balance after",
+   "fieldtype": "Currency",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "posting_date",
+   "label": "Date",
+   "fieldtype": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "label": "",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet"
+  },
+  {
+   "fieldname": "terminal",
+   "label": "Till",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Terminal"
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "label": "Paid by",
+   "fieldtype": "Link",
+   "options": "Mode of Payment"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "label": "Reference type",
+   "fieldtype": "Link",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference_name",
+   "label": "Reference",
+   "fieldtype": "Dynamic Link",
+   "options": "reference_doctype"
+  },
+  {
+   "fieldname": "journal_entry",
+   "label": "Journal Entry",
+   "fieldtype": "Link",
+   "options": "Journal Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "client_uuid",
+   "label": "Client reference",
+   "fieldtype": "Data",
+   "unique": 1,
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "remarks",
+   "label": "Remarks",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "field_order": [
+  "gift_card",
+  "entry_type",
+  "amount",
+  "balance_after",
+  "posting_date",
+  "cb1",
+  "outlet",
+  "terminal",
+  "mode_of_payment",
+  "reference_doctype",
+  "reference_name",
+  "journal_entry",
+  "client_uuid",
+  "remarks"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1
+  },
+  {
+   "role": "Accounts User",
+   "read": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1
+  }
+ ],
+ "autoname": "hash",
+ "sort_field": "creation",
+ "description": "The gift card ledger. Entries are never edited or deleted; corrections are new entries."
+}

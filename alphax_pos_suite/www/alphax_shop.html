@@ -1,0 +1,135 @@
+{% raw %}<!DOCTYPE html>{% endraw %}
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Order online</title>
+<script>window.SHOP = { slug: {{ slug | tojson }} };</script>
+<style>
+:root{--ink:#1d2321;--muted:#6b726f;--line:#e6e2da;--bg:#faf8f4;--card:#fff;--brand:#0f6e6e;--brand-ink:#fff;--warn:#b4462b}
+@media (prefers-color-scheme:dark){:root{--ink:#eceae5;--muted:#a3a7a4;--line:#2d322f;--bg:#141716;--card:#1c201e;--brand:#3fb3a8;--brand-ink:#0d1211;--warn:#ef8a6f}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI","Noto Sans Arabic",sans-serif}
+header{padding:calc(18px + env(safe-area-inset-top,0px)) 18px 8px;max-width:760px;margin:auto;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+h1{font-size:26px;margin:0;line-height:1.15}.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.lang{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit}
+.notice{max-width:760px;margin:8px auto;padding:10px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-size:14px}
+.notice.closed{border-color:var(--warn);color:var(--warn)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav div{max-width:760px;margin:auto;display:flex;gap:6px;overflow-x:auto;padding:10px 18px}
+nav button{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px}
+nav button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+main{max-width:760px;margin:auto;padding:6px 18px 140px}
+h2{font-size:15px;color:var(--muted);font-weight:600;margin:22px 0 8px}
+.item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item img{width:64px;height:64px;border-radius:10px;object-fit:cover;flex:none;background:var(--line)}
+.item .t{flex:1;min-width:0}.item .n{font-weight:600}.item .p{color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px}
+.item .off{color:var(--warn);font-size:12px}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;line-height:1}
+.qty button.add{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.qty span{min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+.bar{position:fixed;inset:auto 0 0 0;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line)}
+.bar button{display:flex;justify-content:space-between;width:100%;max-width:724px;margin:auto;border:0;border-radius:14px;padding:15px 18px;background:var(--brand);color:var(--brand-ink);font:inherit;font-weight:700;font-size:16px}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:20}.sheet.on{display:block}
+.sheet .in{position:absolute;inset:auto 0 0 0;max-height:92vh;overflow:auto;background:var(--bg);border-radius:18px 18px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet .in>div{max-width:724px;margin:auto}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:11px 12px;font:inherit}
+.line{display:flex;justify-content:space-between;padding:6px 0;font-variant-numeric:tabular-nums}.total{font-weight:700;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.err{color:var(--warn);font-size:14px;margin-top:10px;min-height:1em}
+.go{margin-top:14px;width:100%;border:0;border-radius:14px;padding:15px;background:var(--brand);color:var(--brand-ink);font:inherit;font-weight:700;font-size:16px}
+.go:disabled{opacity:.5}
+.pay{font-size:13px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<header><div><h1 id="title">…</h1><div class="sub" id="sub"></div></div><button class="lang" id="lang">العربية</button></header>
+<div class="notice" id="notice" hidden></div>
+<nav><div id="groups"></div></nav>
+<main id="menu"></main>
+<div class="bar" id="bar" hidden><button id="openCart"><span id="barCount"></span><span id="barTotal"></span></button></div>
+<div class="sheet" id="sheet"><div class="in"><div>
+  <h2 id="cartTitle" style="margin-top:0"></h2><div id="cartLines"></div>
+  <label id="lName"></label><input id="name" autocomplete="name" maxlength="60" />
+  <label id="lPhone"></label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xxxxxxxx" />
+  <label id="lTime"></label><select id="when"></select>
+  <label id="lNote"></label><textarea id="note" rows="2" maxlength="300"></textarea>
+  <div class="pay" id="pay"></div>
+  <div class="err" id="err"></div>
+  <button class="go" id="place"></button>
+</div></div></div>
+<script>
+(() => {
+  const L = {
+    en: { pick: "Pickup order", closed: "Closed", add: "Add", unavailable: "Not available today", items: (n) => n + (n === 1 ? " item" : " items"),
+      cart: "Your order", name: "Name for the order", phone: "Mobile number", time: "Pickup time", note: "Note for the kitchen (optional)",
+      asap: (m) => "As soon as possible (about " + m + " min)", place: "Place order", placing: "Sending…", pay: "You pay when you collect.",
+      total: "Total", other: "Other", lang: "العربية", empty: "Add something first." },
+    ar: { pick: "طلب استلام", closed: "مغلق", add: "إضافة", unavailable: "غير متوفر اليوم", items: (n) => n + " صنف",
+      cart: "طلبك", name: "الاسم على الطلب", phone: "رقم الجوال", time: "وقت الاستلام", note: "ملاحظة للمطبخ (اختياري)",
+      asap: (m) => "في أقرب وقت (حوالي " + m + " دقيقة)", place: "أرسل الطلب", placing: "جارٍ الإرسال…", pay: "الدفع عند الاستلام.",
+      total: "الإجمالي", other: "أخرى", lang: "English", empty: "أضف صنفاً أولاً." },
+  };
+  let lang = (navigator.language || "").startsWith("ar") ? "ar" : "en";
+  let data = null, cart = {}, active = "";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = (v) => new Intl.NumberFormat(lang === "ar" ? "ar-SA" : "en-SA", { style: "currency", currency: (data && data.currency) || "SAR" }).format(v);
+  const api = (m, args, post) => {
+    const url = "/api/method/alphax_pos_suite.alphax_pos_suite.ordering.public." + m;
+    const opt = post ? { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(args) }
+                     : { headers: { Accept: "application/json" } };
+    return fetch(post ? url : url + "?" + new URLSearchParams(args), opt).then(async (r) => {
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) { let msg = j.exception || "Error"; try { msg = JSON.parse(JSON.parse(j._server_messages)[0]).message; } catch (e) {} throw new Error(msg.replace(/<[^>]+>/g, "")); }
+      return j.message;
+    });
+  };
+  function paint() {
+    const t = L[lang]; document.documentElement.lang = lang; document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    $("lang").textContent = t.lang; if (!data) return;
+    $("title").textContent = data.outlet_name; $("sub").textContent = t.pick;
+    const msg = lang === "ar" ? data.message_ar : data.message_en;
+    $("notice").hidden = data.open && !msg; $("notice").className = "notice" + (data.open ? "" : " closed");
+    $("notice").textContent = data.open ? msg : data.closed_reason;
+    const groups = [...new Set(data.items.map((i) => i.item_group || t.other))];
+    $("groups").innerHTML = groups.map((g) => `<button data-g="${esc(g)}" class="${g === active ? "on" : ""}">${esc(g)}</button>`).join("");
+    $("groups").querySelectorAll("button").forEach((b) => (b.onclick = () => { active = b.dataset.g; document.getElementById("g-" + groups.indexOf(active)).scrollIntoView({ behavior: "smooth" }); paint(); }));
+    $("menu").innerHTML = groups.map((g, gi) => `<h2 id="g-${gi}">${esc(g)}</h2>` + data.items.filter((i) => (i.item_group || t.other) === g).map((i) => `
+      <div class="item">${i.image ? `<img src="${esc(i.image)}" alt="" loading="lazy">` : ""}
+        <div class="t"><div class="n">${esc(i.item_name)}</div><div class="p">${money(i.rate)}</div>${i.available ? "" : `<div class="off">${t.unavailable}</div>`}</div>
+        ${i.available && data.open ? `<div class="qty">${cart[i.item_code] ? `<button data-d="${esc(i.item_code)}" aria-label="-">−</button><span>${cart[i.item_code]}</span>` : ""}<button class="add" data-a="${esc(i.item_code)}" aria-label="${t.add}">+</button></div>` : ""}
+      </div>`).join("")).join("");
+    $("menu").querySelectorAll("[data-a]").forEach((b) => (b.onclick = () => { cart[b.dataset.a] = (cart[b.dataset.a] || 0) + 1; paint(); }));
+    $("menu").querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => { cart[b.dataset.d]--; if (cart[b.dataset.d] <= 0) delete cart[b.dataset.d]; paint(); }));
+    const lines = Object.entries(cart).map(([c, q]) => ({ i: data.items.find((x) => x.item_code === c), q })).filter((l) => l.i);
+    const total = lines.reduce((s, l) => s + l.q * l.i.rate, 0), count = lines.reduce((s, l) => s + l.q, 0);
+    $("bar").hidden = !count; $("barCount").textContent = t.items(count); $("barTotal").textContent = money(total);
+    $("cartTitle").textContent = t.cart;
+    $("cartLines").innerHTML = lines.map((l) => `<div class="line"><span>${l.q} × ${esc(l.i.item_name)}</span><span>${money(l.q * l.i.rate)}</span></div>`).join("") +
+      `<div class="line total"><span>${t.total}</span><span>${money(total)}</span></div>`;
+    $("lName").textContent = t.name; $("lPhone").textContent = t.phone; $("lTime").textContent = t.time; $("lNote").textContent = t.note;
+    $("pay").textContent = t.pay; $("place").textContent = t.place;
+    const sel = $("when"), keep = sel.value; sel.innerHTML = `<option value="">${t.asap(data.lead_minutes)}</option>`;
+    const start = new Date(Date.now() + (data.lead_minutes + 15) * 60000); start.setMinutes(Math.ceil(start.getMinutes() / 15) * 15, 0, 0);
+    for (let k = 0; k < 24; k++) { const d = new Date(start.getTime() + k * 15 * 60000);
+      const v = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0") + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0") + ":00";
+      sel.insertAdjacentHTML("beforeend", `<option value="${v}">${d.toLocaleTimeString(lang === "ar" ? "ar-SA" : "en-GB", { hour: "2-digit", minute: "2-digit" })}</option>`); }
+    sel.value = keep;
+  }
+  $("lang").onclick = () => { lang = lang === "ar" ? "en" : "ar"; paint(); };
+  $("openCart").onclick = () => $("sheet").classList.add("on");
+  $("sheet").onclick = (e) => { if (e.target === $("sheet")) $("sheet").classList.remove("on"); };
+  $("place").onclick = () => {
+    const t = L[lang], items = Object.entries(cart).map(([item_code, qty]) => ({ item_code, qty }));
+    if (!items.length) { $("err").textContent = t.empty; return; }
+    $("place").disabled = true; $("place").textContent = t.placing; $("err").textContent = "";
+    api("place", { slug: SHOP.slug, items, name: $("name").value, phone: $("phone").value, pickup_at: $("when").value || null, note: $("note").value }, true)
+      .then((r) => { try { localStorage.setItem("axshop.last", r.ref); } catch (e) {} location.href = r.track_url + "?lang=" + lang; })
+      .catch((e) => { $("err").textContent = e.message; $("place").disabled = false; $("place").textContent = t.place; });
+  };
+  api("store", { slug: SHOP.slug }).then((d) => { data = d; paint(); }).catch((e) => { $("title").textContent = e.message; });
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Gift Card Batch",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "batch_name",
+   "label": "Batch",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "company",
+   "label": "Company",
+   "fieldtype": "Link",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "value",
+   "label": "Value per card",
+   "fieldtype": "Currency",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "quantity",
+   "label": "Number of cards",
+   "fieldtype": "Int",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "cb1",
+   "label": "",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Draft\nGenerated\nActivated",
+   "default": "Draft",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "expires_on",
+   "label": "Expires on",
+   "fieldtype": "Date"
+  },
+  {
+   "fieldname": "customer",
+   "label": "For customer",
+   "fieldtype": "Link",
+   "options": "Customer",
+   "description": "Corporate gifting: who bought the batch."
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "label": "Paid by",
+   "fieldtype": "Link",
+   "options": "Mode of Payment",
+   "description": "Used when the batch is activated; the payment funds the liability."
+  },
+  {
+   "fieldname": "sb2",
+   "label": "",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "codes_file",
+   "label": "Card numbers (CSV)",
+   "fieldtype": "Attach",
+   "read_only": 1,
+   "description": "Private file, generated once. The numbers are not stored anywhere else."
+  },
+  {
+   "fieldname": "notes",
+   "label": "Notes",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "field_order": [
+  "batch_name",
+  "company",
+  "value",
+  "quantity",
+  "cb1",
+  "status",
+  "expires_on",
+  "customer",
+  "mode_of_payment",
+  "sb2",
+  "codes_file",
+  "notes"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  },
+  {
+   "role": "Accounts Manager",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1
+  }
+ ],
+ "autoname": "field:batch_name",
+ "title_field": "batch_name",
+ "description": "Generate many cards at once (pre-printed cards, corporate gifting), then activate them when paid."
+}
