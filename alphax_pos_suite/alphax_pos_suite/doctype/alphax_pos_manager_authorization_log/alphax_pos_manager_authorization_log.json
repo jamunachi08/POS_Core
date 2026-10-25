@@ -1,0 +1,144 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Manager Authorization Log",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "issingle": 0,
+  "is_submittable": 0,
+  "track_changes": 0,
+  "track_seen": 0,
+  "engine": "InnoDB",
+  "naming_rule": "Expression",
+  "autoname": "format:AUTH-LOG-{YYYY}-{MM}-{#####}",
+  "title_field": "manager",
+  "search_fields": "manager,terminal,result",
+  "fields": [
+    {
+      "fieldname": "section_who",
+      "label": "Who",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "manager",
+      "label": "Manager",
+      "fieldtype": "Link",
+      "options": "User",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "read_only": 1,
+      "description": "The manager whose PIN was attempted. Null if no user matched."
+    },
+    {
+      "fieldname": "cashier_user",
+      "label": "Logged-in User",
+      "fieldtype": "Link",
+      "options": "User",
+      "read_only": 1,
+      "description": "The user who was logged into the cashier when the manager PIN was entered."
+    },
+    {
+      "fieldname": "col_break_who",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "ip_address",
+      "label": "IP Address",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+    {
+      "fieldname": "user_agent",
+      "label": "Browser",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_what",
+      "label": "What",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "action_type",
+      "label": "Action",
+      "fieldtype": "Select",
+      "options": "Verify Only\nBind Terminal\nChange Terminal\nReset Station\nPIN Set\nPIN Deleted\nLockout Triggered\nOther",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "result",
+      "label": "Result",
+      "fieldtype": "Select",
+      "options": "Success\nWrong PIN\nManager Not Found\nPIN Inactive\nLocked Out\nRate Limited\nNo Manager Role\nOther Failure",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "col_break_what",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "terminal",
+      "label": "Terminal",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "read_only": 1,
+      "description": "The terminal ID stored on the PC's localStorage (or the new terminal if it was being changed)."
+    },
+    {
+      "fieldname": "outlet",
+      "label": "Outlet",
+      "fieldtype": "Data",
+      "read_only": 1
+    },
+
+    {
+      "fieldname": "section_when",
+      "label": "Detail",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "attempted_at",
+      "label": "Attempted At",
+      "fieldtype": "Datetime",
+      "read_only": 1,
+      "default": "now"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 0,
+      "create": 0,
+      "delete": 0,
+      "report": 1,
+      "export": 1,
+      "share": 0,
+      "print": 1,
+      "email": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 0,
+      "create": 0,
+      "delete": 0,
+      "report": 1
+    }
+  ],
+  "sort_field": "attempted_at",
+  "sort_order": "DESC",
+  "description": "Append-only audit log of every manager-PIN authorization attempt at any cashier station. Every entry is created by server-side code; users cannot create or edit entries directly. Includes successes (so you can see who authorized what and when) and failures (so you can spot unusual patterns).",
+  "icon": "scroll"
+}

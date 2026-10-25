@@ -1,0 +1,163 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Store Credit Entry",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "autoname": "naming_series:",
+ "track_changes": 1,
+ "description": "One movement on a store credit balance. Append-only: a mistake is corrected by an opposing entry, never by editing history. This is what makes the balance defensible to an auditor.",
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "label": "Series",
+   "fieldtype": "Select",
+   "options": "APOS-CRE-.YYYY.-",
+   "default": "APOS-CRE-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "store_credit",
+   "label": "Store Credit",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Store Credit",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "customer",
+   "label": "Customer",
+   "fieldtype": "Link",
+   "options": "Customer",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "col_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "entry_type",
+   "label": "Type",
+   "fieldtype": "Select",
+   "options": "Issue\nRedeem\nAdjustment\nExpiry\nReversal",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Issue and Adjustment increase the balance; Redeem, Expiry and Reversal decrease it. The sign is derived from the type, never entered by hand."
+  },
+  {
+   "fieldname": "amount",
+   "label": "Amount",
+   "fieldtype": "Currency",
+   "reqd": 1,
+   "in_list_view": 1,
+   "options": "currency",
+   "description": "Always positive. Direction comes from the entry type."
+  },
+  {
+   "fieldname": "currency",
+   "label": "Currency",
+   "fieldtype": "Link",
+   "options": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sec_ctx",
+   "fieldtype": "Section Break",
+   "label": "Context"
+  },
+  {
+   "fieldname": "posting_date",
+   "label": "Posting Date",
+   "fieldtype": "Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "balance_after",
+   "label": "Balance After",
+   "fieldtype": "Currency",
+   "read_only": 1,
+   "options": "currency",
+   "description": "Snapshot at the moment of posting. Lets a statement be reconstructed without replaying every entry."
+  },
+  {
+   "fieldname": "terminal",
+   "label": "Terminal",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Terminal"
+  },
+  {
+   "fieldname": "col_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_doctype",
+   "label": "Reference Type",
+   "fieldtype": "Link",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "reference_name",
+   "label": "Reference",
+   "fieldtype": "Dynamic Link",
+   "options": "reference_doctype"
+  },
+  {
+   "fieldname": "client_uuid",
+   "label": "Client UUID",
+   "fieldtype": "Data",
+   "unique": 1,
+   "description": "Idempotency key from the till. An offline queue that retries must not redeem the same credit twice; the unique index is what actually guarantees it, not the retry logic."
+  },
+  {
+   "fieldname": "sec_gl",
+   "fieldtype": "Section Break",
+   "label": "Posting"
+  },
+  {
+   "fieldname": "journal_entry",
+   "label": "Journal Entry",
+   "fieldtype": "Link",
+   "options": "Journal Entry",
+   "read_only": 1,
+   "description": "Blank where the movement is already carried by a Sales Invoice payment line — posting it twice would double the liability."
+  },
+  {
+   "fieldname": "col_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remarks",
+   "label": "Remarks",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "posted_by",
+   "label": "Posted By",
+   "fieldtype": "Link",
+   "options": "User",
+   "read_only": 1
+  }
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ]
+}

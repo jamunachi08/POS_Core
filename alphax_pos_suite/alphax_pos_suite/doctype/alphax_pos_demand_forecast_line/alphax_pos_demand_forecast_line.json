@@ -1,0 +1,98 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Demand Forecast Line",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "label": "Item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "item_name",
+   "label": "Item name",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "forecast_qty",
+   "label": "Forecast",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "low_qty",
+   "label": "Low (P10)",
+   "fieldtype": "Float"
+  },
+  {
+   "fieldname": "high_qty",
+   "label": "High (P90)",
+   "fieldtype": "Float"
+  },
+  {
+   "fieldname": "planned_qty",
+   "label": "Plan",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "actual_qty",
+   "label": "Actual",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "columns": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "method",
+   "label": "Method",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "backtest_wape",
+   "label": "Back-test error (WAPE)",
+   "fieldtype": "Percent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "drivers",
+   "label": "Why",
+   "fieldtype": "Small Text",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "peak_slot",
+   "label": "Busiest slot",
+   "fieldtype": "Data",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "item_code",
+  "item_name",
+  "forecast_qty",
+  "low_qty",
+  "high_qty",
+  "planned_qty",
+  "actual_qty",
+  "method",
+  "backtest_wape",
+  "drivers",
+  "peak_slot"
+ ],
+ "permissions": [],
+ "istable": 1,
+ "editable_grid": 0
+}

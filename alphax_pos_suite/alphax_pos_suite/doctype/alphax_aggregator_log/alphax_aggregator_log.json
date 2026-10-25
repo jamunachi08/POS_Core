@@ -1,0 +1,83 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Log",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "connection",
+   "label": "Connection",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "direction",
+   "label": "Direction",
+   "fieldtype": "Select",
+   "options": "Inbound\nOutbound",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "path",
+   "label": "Path / URL",
+   "fieldtype": "Data",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "http_status",
+   "label": "HTTP",
+   "fieldtype": "Int",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "ok",
+   "label": "OK",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "order",
+   "label": "Order",
+   "fieldtype": "Link",
+   "options": "AlphaX Aggregator Order"
+  },
+  {
+   "fieldname": "note",
+   "label": "Note",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "body",
+   "label": "Body",
+   "fieldtype": "Code",
+   "options": "JSON"
+  }
+ ],
+ "field_order": [
+  "connection",
+  "direction",
+  "path",
+  "http_status",
+  "ok",
+  "order",
+  "note",
+  "body"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1
+  }
+ ],
+ "autoname": "hash",
+ "sort_field": "creation",
+ "description": "Every request to and from the platforms, including rejected ones. Kept 30 days."
+}

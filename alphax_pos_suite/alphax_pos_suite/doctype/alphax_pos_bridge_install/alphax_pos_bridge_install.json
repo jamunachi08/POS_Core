@@ -1,0 +1,92 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Bridge Install",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "istable": 0,
+ "autoname": "format:BRIDGE-{YY}{MM}-{#####}",
+ "engine": "InnoDB",
+ "allow_rename": 0,
+ "track_changes": 0,
+ "description": "Audit trail of bridge install attempts and terminal binding events. Answers 'who set this till up, when, from which IP, and did the bridge ever come online'.",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "fields": [
+  {
+   "fieldname": "terminal",
+   "label": "Terminal",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Terminal",
+   "in_list_view": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Attempted\nSucceeded\nFailed\nInfo",
+   "default": "Attempted",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "install_method",
+   "label": "Method",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "description": "installer | oneliner | manual | claim | auto_provision | release"
+  },
+  {
+   "fieldname": "col_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "os_name",
+   "label": "OS",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "client_ip",
+   "label": "Client IP",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "attempted_by",
+   "label": "By",
+   "fieldtype": "Link",
+   "options": "User",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sec_note",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "note",
+   "label": "Note",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1,
+   "create": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ]
+}

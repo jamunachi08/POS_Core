@@ -1,0 +1,349 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Order",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "autoname": "naming_series:",
+  "engine": "InnoDB",
+  "allow_rename": 0,
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "label": "Naming Series",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "APOS-ORD-.YYYY.-",
+      "default": "APOS-ORD-.YYYY.-"
+    },
+    {
+      "fieldname": "pos_terminal",
+      "label": "POS Terminal",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "AlphaX POS Terminal"
+    },
+    {
+      "fieldname": "pos_outlet",
+      "label": "POS Outlet",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "options": "AlphaX POS Outlet"
+    },
+    {
+      "fieldname": "posting_date",
+      "label": "Posting Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0
+    },
+    {
+      "fieldname": "posting_time",
+      "label": "Posting Time",
+      "fieldtype": "Time",
+      "reqd": 1,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Company"
+    },
+    {
+      "fieldname": "customer",
+      "label": "Customer",
+      "fieldtype": "Link",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Customer"
+    },
+    {
+      "fieldname": "table",
+      "label": "Table (Optional)",
+      "fieldtype": "Data",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "warehouse",
+      "label": "Warehouse (Override)",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Warehouse"
+    },
+    {
+      "fieldname": "update_stock",
+      "label": "Update Stock",
+      "fieldtype": "Check",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 1
+    },
+    {
+      "fieldname": "items",
+      "label": "Items",
+      "fieldtype": "Table",
+      "reqd": 1,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "AlphaX POS Order Item"
+    },
+    {
+      "fieldname": "payments",
+      "label": "Payments",
+      "fieldtype": "Table",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "AlphaX POS Payment"
+    },
+    {
+      "fieldname": "sales_invoice",
+      "label": "Sales Invoice",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "options": "Sales Invoice"
+    },
+    {
+      "fieldname": "kds_ticket",
+      "label": "KDS Ticket",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1,
+      "options": "AlphaX POS KDS Ticket"
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "order_status",
+      "label": "Order Status",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Active\nHold",
+      "default": "Active"
+    },
+    {
+      "fieldname": "is_return",
+      "label": "Is Return",
+      "fieldtype": "Check",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "return_against",
+      "label": "Return Against Invoice",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Sales Invoice"
+    },
+    {
+      "fieldname": "return_settlement_mode",
+      "label": "Return Settlement Mode",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "Cash Refund\nCredit Note",
+      "default": "Credit Note"
+    },
+    {
+      "fieldname": "offer_code",
+      "label": "Offer/Coupon Code",
+      "fieldtype": "Data",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "discount_percent",
+      "label": "Order Discount (%)",
+      "fieldtype": "Float",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "discount_amount",
+      "label": "Order Discount Amount",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "service_charge_amount",
+      "label": "Service Charge Amount",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "tip_amount",
+      "label": "Tip Amount",
+      "fieldtype": "Currency",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "default": 0
+    },
+    {
+      "fieldname": "requires_approval",
+      "label": "Requires Approval",
+      "fieldtype": "Check",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "default": 0
+    },
+    {
+      "fieldname": "approval_status",
+      "label": "Approval Status",
+      "fieldtype": "Select",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 0,
+      "options": "Not Required\nPending\nApproved\nRejected",
+      "default": "Not Required"
+    },
+    {
+      "fieldname": "approved_by",
+      "label": "Approved By",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1,
+      "options": "User"
+    },
+    {
+      "fieldname": "approved_on",
+      "label": "Approved On",
+      "fieldtype": "Datetime",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 1
+    },
+    {
+      "fieldname": "approval_reason",
+      "label": "Approval Reason",
+      "fieldtype": "Small Text",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    },
+    {
+      "fieldname": "return_reason",
+      "label": "Return Reason",
+      "fieldtype": "Link",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0,
+      "options": "AlphaX POS Return Reason"
+    },
+    {
+      "fieldname": "client_uuid",
+      "label": "Client UUID",
+      "fieldtype": "Data",
+      "reqd": 0,
+      "in_list_view": 1,
+      "read_only": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "qr_token",
+      "label": "QR Token",
+      "fieldtype": "Data",
+      "in_list_view": 0,
+      "read_only": 1,
+      "description": "Set when this order was placed via the QR ordering endpoint. Used for rate limiting."
+    },
+    {
+      "fieldname": "customer_phone",
+      "label": "Customer Phone",
+      "fieldtype": "Data",
+      "in_list_view": 0
+    },
+    {
+      "fieldname": "client_device",
+      "label": "Client Device",
+      "fieldtype": "Data",
+      "reqd": 0,
+      "in_list_view": 0,
+      "read_only": 0
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 1
+    },
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1,
+      "cancel": 1,
+      "delete": 1
+    }
+  ],
+  "description": "Unified POS Order that can post to ERPNext Sales Invoice.",
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

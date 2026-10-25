@@ -1,0 +1,88 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Prep Plan Line",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "prep_slot",
+   "label": "Slot",
+   "fieldtype": "Select",
+   "options": "Morning\nLunch\nEvening",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "station",
+   "label": "Station",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Print Station",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "material_item",
+   "label": "Prepare / pull",
+   "fieldtype": "Link",
+   "options": "Item",
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "uom",
+   "label": "UOM",
+   "fieldtype": "Link",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "required_qty",
+   "label": "Required",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "on_hand_qty",
+   "label": "On hand",
+   "fieldtype": "Float",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "shortfall_qty",
+   "label": "Shortfall",
+   "fieldtype": "Float",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "for_items",
+   "label": "For",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "done",
+   "label": "Done",
+   "fieldtype": "Check"
+  }
+ ],
+ "field_order": [
+  "prep_slot",
+  "station",
+  "material_item",
+  "uom",
+  "required_qty",
+  "on_hand_qty",
+  "shortfall_qty",
+  "for_items",
+  "done"
+ ],
+ "permissions": [],
+ "istable": 1
+}

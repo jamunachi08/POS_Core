@@ -1,0 +1,11 @@
+{
+  "doctype": "Page",
+  "name": "alphax_pos_central_kitchen_dashboard",
+  "module": "AlphaX POS Suite",
+  "title": "Central Kitchen Dashboard",
+  "page_name": "alphax-pos-central-kitchen-dashboard",
+  "restrict_to_domain": null,
+  "icon": "dashboard",
+  "is_standard": "Yes",
+  "roles": []
+}

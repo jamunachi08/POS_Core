@@ -1,0 +1,293 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Order",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "connection",
+   "label": "Connection",
+   "fieldtype": "Link",
+   "options": "AlphaX Aggregator Connection",
+   "reqd": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "platform",
+   "label": "Platform",
+   "fieldtype": "Link",
+   "options": "AlphaX Delivery Platform",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "short_code",
+   "label": "Order no.",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Received\nAccepted\nRejected\nReady\nPicked Up\nDelivered\nCancelled\nExpired\nFailed\nTest",
+   "default": "Received",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "expiry",
+   "label": "Respond by",
+   "fieldtype": "Datetime"
+  },
+  {
+   "fieldname": "pickup_time",
+   "label": "Rider pickup",
+   "fieldtype": "Datetime"
+  },
+  {
+   "fieldname": "is_test",
+   "label": "Test order",
+   "fieldtype": "Check"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "external_order_id",
+   "label": "Platform order id",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "order_token",
+   "label": "Order token",
+   "fieldtype": "Data",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "remote_store_id",
+   "label": "Platform store id",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expedition",
+   "label": "Fulfilment",
+   "fieldtype": "Select",
+   "options": "Platform delivery\nVendor delivery\nPickup"
+  },
+  {
+   "fieldname": "sb_items",
+   "label": "Items",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "label": "Items",
+   "fieldtype": "Table",
+   "options": "AlphaX Aggregator Order Item"
+  },
+  {
+   "fieldname": "customer_note",
+   "label": "Customer note",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "customer_name",
+   "label": "Customer",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "sb_money",
+   "label": "Amounts",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "gross_total",
+   "label": "Customer paid",
+   "fieldtype": "Currency"
+  },
+  {
+   "fieldname": "delivery_fee",
+   "label": "Delivery fee",
+   "fieldtype": "Currency"
+  },
+  {
+   "fieldname": "cb3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "discount_total",
+   "label": "Platform discount",
+   "fieldtype": "Currency"
+  },
+  {
+   "fieldname": "vat_total",
+   "label": "VAT",
+   "fieldtype": "Currency"
+  },
+  {
+   "fieldname": "sb_post",
+   "label": "Posting",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "label": "Sales Invoice",
+   "fieldtype": "Link",
+   "options": "Sales Invoice",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "accepted_by",
+   "label": "Accepted by",
+   "fieldtype": "Link",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "accepted_at",
+   "label": "Accepted at",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reject_reason",
+   "label": "Reject reason",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "needs_review",
+   "label": "Needs review",
+   "fieldtype": "Check",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "review_note",
+   "label": "Review note",
+   "fieldtype": "Small Text"
+  },
+  {
+   "fieldname": "last_error",
+   "label": "Last error",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_raw",
+   "label": "Raw",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "callbacks_json",
+   "label": "Callback URLs",
+   "fieldtype": "Code",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payload_json",
+   "label": "Payload",
+   "fieldtype": "Code",
+   "options": "JSON",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "connection",
+  "platform",
+  "outlet",
+  "short_code",
+  "cb1",
+  "status",
+  "expiry",
+  "pickup_time",
+  "is_test",
+  "cb2",
+  "external_order_id",
+  "order_token",
+  "remote_store_id",
+  "expedition",
+  "sb_items",
+  "items",
+  "customer_note",
+  "customer_name",
+  "sb_money",
+  "gross_total",
+  "delivery_fee",
+  "cb3",
+  "discount_total",
+  "vat_total",
+  "sb_post",
+  "sales_invoice",
+  "accepted_by",
+  "accepted_at",
+  "cb4",
+  "reject_reason",
+  "needs_review",
+  "review_note",
+  "last_error",
+  "sb_raw",
+  "callbacks_json",
+  "payload_json"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "AlphaX POS Kitchen",
+   "read": 1
+  }
+ ],
+ "autoname": "format:AGG-{YY}{MM}-{#####}",
+ "title_field": "short_code",
+ "sort_field": "creation",
+ "description": "An order from a delivery platform, from arrival to pickup."
+}

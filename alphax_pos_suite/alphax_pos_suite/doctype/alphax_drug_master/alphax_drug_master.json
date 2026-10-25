@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:drug_code",
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_identification",
+  "drug_code",
+  "drug_name",
+  "column_break_1",
+  "linked_item",
+  "active",
+  "section_classification",
+  "drug_class",
+  "atc_code",
+  "form",
+  "column_break_2",
+  "strength",
+  "strength_unit",
+  "section_safety",
+  "is_controlled",
+  "controlled_schedule",
+  "requires_prescription",
+  "column_break_3",
+  "max_daily_dose",
+  "max_daily_dose_unit",
+  "min_age_years",
+  "section_clinical",
+  "indications",
+  "contraindications",
+  "warnings",
+  "section_pregnancy",
+  "pregnancy_category",
+  "lactation_safety"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_identification",
+   "fieldtype": "Section Break",
+   "label": "Identification"
+  },
+  {
+   "fieldname": "drug_code",
+   "fieldtype": "Data",
+   "label": "Drug Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "description": "Internal code, e.g. NDC, your own SKU, or a free-form identifier."
+  },
+  {
+   "fieldname": "drug_name",
+   "fieldtype": "Data",
+   "label": "Drug Name (generic)",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "linked_item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "label": "ERPNext Item",
+   "description": "The Item record this drug is sold under. Optional but strongly recommended; lets the cashier add the drug to the cart by scanning the item barcode."
+  },
+  {
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active",
+   "default": "1"
+  },
+  {
+   "fieldname": "section_classification",
+   "fieldtype": "Section Break",
+   "label": "Classification"
+  },
+  {
+   "fieldname": "drug_class",
+   "fieldtype": "Data",
+   "label": "Drug Class",
+   "description": "e.g. Beta blocker, NSAID, Statin"
+  },
+  {
+   "fieldname": "atc_code",
+   "fieldtype": "Data",
+   "label": "ATC Code",
+   "description": "WHO Anatomical Therapeutic Chemical code, e.g. C07AB07"
+  },
+  {
+   "fieldname": "form",
+   "fieldtype": "Select",
+   "label": "Form",
+   "options": "\nTablet\nCapsule\nSyrup\nSuspension\nDrops\nInjection\nCream\nOintment\nGel\nInhaler\nSuppository\nPatch\nOther"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "strength",
+   "fieldtype": "Float",
+   "label": "Strength",
+   "precision": "3",
+   "description": "e.g. 500 for 500 mg paracetamol"
+  },
+  {
+   "fieldname": "strength_unit",
+   "fieldtype": "Select",
+   "label": "Strength Unit",
+   "options": "\nmg\ng\nmcg\nIU\nmL\nmg/mL\nmg/5mL\n%\nmEq"
+  },
+  {
+   "fieldname": "section_safety",
+   "fieldtype": "Section Break",
+   "label": "Safety / Regulatory"
+  },
+  {
+   "fieldname": "is_controlled",
+   "fieldtype": "Check",
+   "label": "Is Controlled Substance",
+   "default": "0",
+   "in_list_view": 1,
+   "description": "When checked, dispensing requires a valid prescription and is logged in the Controlled Substance Log audit trail."
+  },
+  {
+   "fieldname": "controlled_schedule",
+   "fieldtype": "Select",
+   "label": "Controlled Schedule",
+   "depends_on": "eval:doc.is_controlled",
+   "options": "\nSchedule I\nSchedule II\nSchedule III\nSchedule IV\nSchedule V\nNarcotic\nPsychotropic\nOther",
+   "description": "Per local regulations (e.g. KSA SFDA, US DEA, UAE MoHAP)."
+  },
+  {
+   "fieldname": "requires_prescription",
+   "fieldtype": "Check",
+   "label": "Requires Prescription",
+   "default": "0",
+   "description": "Cannot be dispensed without a Prescription record. Auto-set to 1 when Is Controlled is checked."
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_daily_dose",
+   "fieldtype": "Float",
+   "label": "Max Daily Dose",
+   "precision": "3",
+   "description": "Maximum safe daily dose. Validator warns if a prescription exceeds this."
+  },
+  {
+   "fieldname": "max_daily_dose_unit",
+   "fieldtype": "Select",
+   "label": "Max Daily Dose Unit",
+   "options": "\nmg\ng\nmcg\nmL\ntablets\ncapsules"
+  },
+  {
+   "fieldname": "min_age_years",
+   "fieldtype": "Int",
+   "label": "Min Age (years)",
+   "description": "Validator warns when prescribed for a younger patient."
+  },
+  {
+   "fieldname": "section_clinical",
+   "fieldtype": "Section Break",
+   "label": "Clinical Notes",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "indications",
+   "fieldtype": "Small Text",
+   "label": "Indications"
+  },
+  {
+   "fieldname": "contraindications",
+   "fieldtype": "Small Text",
+   "label": "Contraindications"
+  },
+  {
+   "fieldname": "warnings",
+   "fieldtype": "Small Text",
+   "label": "Warnings / Side Effects"
+  },
+  {
+   "fieldname": "section_pregnancy",
+   "fieldtype": "Section Break",
+   "label": "Pregnancy / Lactation",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "pregnancy_category",
+   "fieldtype": "Select",
+   "label": "Pregnancy Category",
+   "options": "\nA\nB\nC\nD\nX\nN/A",
+   "description": "FDA pregnancy risk categories. Validator warns if dispensing to a flagged-as-pregnant patient and category is C/D/X."
+  },
+  {
+   "fieldname": "lactation_safety",
+   "fieldtype": "Select",
+   "label": "Lactation Safety",
+   "options": "\nSafe\nProbably Safe\nUse with Caution\nAvoid\nUnknown"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-27 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AlphaX POS Suite",
+ "name": "AlphaX Drug Master",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "Pharmacist",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1
+  },
+  {
+   "role": "AlphaX POS User",
+   "read": 1
+  }
+ ],
+ "search_fields": "drug_name,drug_code,drug_class,atc_code",
+ "sort_field": "drug_name",
+ "sort_order": "ASC",
+ "states": [],
+ "title_field": "drug_name",
+ "track_changes": 1
+}

@@ -1,0 +1,59 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Store",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "remote_store_id",
+   "label": "Platform store id",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Delivery Hero: the remoteId (posVendorId)."
+  },
+  {
+   "fieldname": "platform_store_ref",
+   "label": "Platform restaurant id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Fallback routing: the platform's own restaurant id inside the order."
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "is_test_store",
+   "label": "Test store",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Orders for this store never reach a kitchen, whatever the platform says."
+  },
+  {
+   "fieldname": "paused",
+   "label": "Paused",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "field_order": [
+  "remote_store_id",
+  "platform_store_ref",
+  "outlet",
+  "is_test_store",
+  "paused"
+ ],
+ "permissions": [],
+ "istable": 1
+}

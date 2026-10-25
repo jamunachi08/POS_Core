@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlphaX POS v3 — Visual Mockup</title>
+<style>
+/* AlphaX POS v3 mockup — static HTML/CSS for design sign-off */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --mauve-50: #FAF7F9;
+    --mauve-100: #EAE5E9;
+    --mauve-200: #DBCED9;
+    --mauve-500: #714B67;
+    --mauve-600: #5C3D54;
+    --mauve-700: #4A3142;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --green-50: #ECFDF5;
+    --green-600: #16A34A;
+    --green-700: #15803D;
+    --red-600: #DC2626;
+    --amber-50: #FFFBEB;
+    --amber-500: #F59E0B;
+    --amber-700: #B45309;
+    --blue-500: #3B82F6;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, sans-serif;
+    background: var(--mauve-50);
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   Mockup chrome (NOT part of the actual cashier)
+   Shows the rendering at proper viewport size with notes
+   ============================================================ */
+
+.mockup-shell {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.mockup-bar {
+    background: var(--gray-900);
+    color: white;
+    padding: 8px 16px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-700);
+}
+
+.mockup-bar-left {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.mockup-tag {
+    padding: 2px 8px;
+    background: var(--amber-500);
+    color: var(--gray-900);
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.mockup-mode-switch {
+    display: flex;
+    gap: 4px;
+}
+.mockup-mode-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid var(--gray-500);
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+}
+.mockup-mode-btn.active {
+    background: white;
+    color: var(--gray-900);
+}
+
+.viewport {
+    flex: 1;
+    overflow: hidden;
+    background: var(--mauve-50);
+}
+
+/* ============================================================
+   ACTUAL CASHIER UI starts here
+   ============================================================ */
+
+.cashier-shell {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------- Top Bar (56px) ---------------- */
+
+.topbar {
+    height: 56px;
+    background: white;
+    border-bottom: 1px solid var(--mauve-100);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+}
+.topbar.return-mode {
+    background: var(--amber-50);
+    border-bottom-color: var(--amber-500);
+}
+
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 16px;
+    border-right: 1px solid var(--mauve-100);
+    height: 56px;
+}
+.logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--mauve-500);
+    color: white;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+}
+.logo-text {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--mauve-500);
+}
+
+.topbar-station {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-700);
+    font-size: 13px;
+}
+.topbar-station .crumb-sep {
+    color: var(--gray-300);
+}
+
+.topbar-mode-pill {
+    background: var(--amber-500);
+    color: var(--gray-900);
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    display: none;
+}
+.return-mode .topbar-mode-pill { display: inline-block; }
+
+.topbar-right {
+    margin-left: auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.topbar-icon-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--mauve-100);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--gray-700);
+    font-size: 16px;
+}
+.topbar-icon-btn:hover { background: var(--mauve-50); }
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border: 1px solid var(--mauve-100);
+    border-radius: 18px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    background: var(--mauve-200);
+    color: var(--mauve-600);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/* ---------------- Main 3-column body ---------------- */
+
+.body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 64px 1fr 400px;
+    min-height: 0;
+}
+
+/* ---------------- Sidebar (64px) ---------------- */
+
+.sidebar {
+    background: white;
+    border-right: 1px solid var(--mauve-100);
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    gap: 4px;
+}
+
+.sidebar-btn {
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    color: var(--gray-500);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 500;
+    position: relative;
+}
+.sidebar-btn:hover { color: var(--mauve-500); background: var(--mauve-50); }
+.sidebar-btn.active {
+    color: var(--mauve-500);
+    background: var(--mauve-50);
+}
+.sidebar-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background: var(--mauve-500);
+    border-radius: 0 3px 3px 0;
+}
+.sidebar-btn-icon { font-size: 20px; }
+.sidebar-btn-label { font-size: 9px; }
+
+.sidebar-divider {
+    height: 1px;
+    background: var(--mauve-100);
+    margin: 8px 12px;
+}
+
+/* ---------------- Catalog (center) ---------------- */
+
+.catalog {
+    background: var(--mauve-50);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.catalog-search-row {
+    padding: 16px 20px 12px;
+    background: var(--mauve-50);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.search-input {
+    flex: 1;
+    padding: 12px 14px 12px 40px;
+    border: 1px solid var(--mauve-200);
+    border-radius: 10px;
+    background: white url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23714B67' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>") no-repeat 12px center;
+    background-size: 18px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+.search-input:focus {
+    border-color: var(--mauve-500);
+    box-shadow: 0 0 0 3px rgba(113,75,103,0.1);
+}
+.search-input::placeholder { color: var(--gray-500); }
+
+.scan-status {
+    padding: 12px;
+    background: var(--green-50);
+    border: 1px solid var(--green-600);
+    color: var(--green-700);
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.category-tabs {
+    padding: 0 20px 16px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+}
+.category-tab {
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--mauve-100);
+    border-radius: 18px;
+    font-size: 13px;
+    color: var(--gray-700);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+}
+.category-tab:hover { border-color: var(--mauve-200); }
+.category-tab.active {
+    background: var(--mauve-500);
+    border-color: var(--mauve-500);
+    color: white;
+    font-weight: 600;
+}
+
+.product-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    align-content: start;
+}
+
+.product-tile {
+    background: white;
+    border: 1px solid var(--mauve-100);
+    border-radius: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 96px;
+    text-align: left;
+}
+.product-tile:hover {
+    border-color: var(--mauve-500);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(113,75,103,0.08);
+}
+.product-tile-name {
+    font-weight: 600;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.3;
+}
+.product-tile-code {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-top: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.product-tile-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--mauve-500);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+.sar-symbol {
+    font-size: 14px;
+    opacity: 0.7;
+    font-family: 'SaudiRiyalSymbol', sans-serif;
+}
+
+/* ---------------- Cart panel (right, 400px) ---------------- */
+
+.cart {
+    background: white;
+    border-left: 1px solid var(--mauve-100);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.cart-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--mauve-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-900);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.cart-customer {
+    font-size: 12px;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+.cart-customer:hover { color: var(--mauve-500); }
+
+.return-mode-banner {
+    padding: 10px 20px;
+    background: var(--amber-50);
+    border-bottom: 1px solid var(--amber-500);
+    font-size: 12px;
+    color: var(--amber-700);
+    font-weight: 500;
+    display: none;
+    align-items: center;
+    gap: 6px;
+}
+.return-mode .return-mode-banner { display: flex; }
+
+.cart-lines {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cart-line {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--mauve-50);
+}
+.cart-line:last-child { border-bottom: none; }
+
+.cart-line-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gray-900);
+    margin-bottom: 2px;
+}
+.cart-line-code {
+    font-size: 11px;
+    color: var(--gray-500);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.cart-line-qty {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--mauve-50);
+    border-radius: 8px;
+    padding: 2px;
+}
+.qty-btn {
+    width: 26px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--mauve-600);
+    font-size: 14px;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+}
+.qty-btn:hover { background: white; }
+.qty-num {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.cart-line-total {
+    font-weight: 700;
+    color: var(--gray-900);
+    font-size: 14px;
+    min-width: 70px;
+    text-align: right;
+}
+
+.cart-empty {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    color: var(--gray-500);
+    text-align: center;
+    padding: 40px;
+}
+.cart-empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+/* ---------------- Cart summary ---------------- */
+
+.cart-summary {
+    padding: 16px 20px;
+    background: var(--mauve-50);
+    border-top: 1px solid var(--mauve-100);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--gray-700);
+}
+.summary-row.total {
+    border-top: 1px solid var(--mauve-100);
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+.summary-total-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+.summary-total-amount .sar-symbol {
+    font-size: 16px;
+    color: var(--mauve-500);
+}
+
+/* ---------------- Action buttons ---------------- */
+
+.cart-actions {
+    padding: 16px 20px 20px;
+    background: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btn {
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.12s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-secondary {
+    background: var(--mauve-50);
+    color: var(--mauve-600);
+    border: 1px solid var(--mauve-100);
+}
+.btn-secondary:hover { background: var(--mauve-100); }
+
+.btn-primary {
+    background: var(--mauve-500);
+    color: white;
+    grid-column: span 2;
+    padding: 16px;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(113,75,103,0.25);
+}
+.btn-primary:hover {
+    background: var(--mauve-600);
+    transform: translateY(-1px);
+}
+
+/* ---------------- Bottom shortcuts bar ---------------- */
+
+.bottombar {
+    height: 36px;
+    background: var(--gray-900);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 24px;
+    font-size: 12px;
+}
+.shortcut {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-300);
+}
+.shortcut-key {
+    background: var(--gray-700);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+}
+.bottombar-right {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--gray-300);
+}
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green-600);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-shell">
+
+  <!-- Mockup chrome (not part of actual cashier) -->
+  <div class="mockup-bar">
+    <div class="mockup-bar-left">
+      <span class="mockup-tag">MOCKUP</span>
+      <span>AlphaX POS v3 — Visual Design Preview</span>
+    </div>
+    <div class="mockup-mode-switch">
+      <button class="mockup-mode-btn active" onclick="setMode('sale')">Sale Mode</button>
+      <button class="mockup-mode-btn" onclick="setMode('return')">Return Mode</button>
+    </div>
+  </div>
+
+  <div class="viewport">
+    <div class="cashier-shell" id="cashier">
+
+      <!-- Top bar -->
+      <div class="topbar">
+        <div class="topbar-logo">
+          <div class="logo-mark">A<span style="opacity:0.6">X</span></div>
+          <div class="logo-text">AlphaX POS</div>
+        </div>
+
+        <div class="topbar-station">
+          <span>Riyadh Mall</span>
+          <span class="crumb-sep">›</span>
+          <span>Coffee Shop</span>
+          <span class="crumb-sep">›</span>
+          <span style="font-weight:600;color:var(--gray-900)">Terminal A07</span>
+        </div>
+
+        <span class="topbar-mode-pill">↩ Return Mode</span>
+
+        <div class="topbar-right">
+          <button class="topbar-icon-btn" title="Sync status">↻</button>
+          <button class="topbar-icon-btn" title="Hardware status">🖨</button>
+          <button class="topbar-icon-btn" title="Settings">⚙</button>
+          <div class="topbar-user">
+            <div class="user-avatar">M</div>
+            <span>Mohammed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main body -->
+      <div class="body">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <button class="sidebar-btn active">
+            <div class="sidebar-btn-icon">🛒</div>
+            <div class="sidebar-btn-label">Sale</div>
+          </button>
+          <button class="sidebar-btn">
+            <div class="sidebar-btn-icon">↩</div>
+            <div class="sidebar-btn-label">Return</div>
+          </button>
+          <button class="sidebar-btn">
+            <div class="sidebar-btn-icon">⏸</div>
+            <div class="sidebar-btn-label">Holds</div>
+          </button>
+          <div class="sidebar-divider"></div>
+          <button class="sidebar-btn">
+            <div class="sidebar-btn-icon">📋</div>
+            <div class="sidebar-btn-label">Shift</div>
+          </button>
+          <button class="sidebar-btn">
+            <div class="sidebar-btn-icon">📊</div>
+            <div class="sidebar-btn-label">Today</div>
+          </button>
+        </div>
+
+        <!-- Catalog (center) -->
+        <div class="catalog">
+          <div class="catalog-search-row">
+            <input type="text" class="search-input" placeholder="Search items or scan barcode..." autofocus>
+            <div class="scan-status">📷 Ready to scan</div>
+          </div>
+
+          <div class="category-tabs">
+            <button class="category-tab active">All Items</button>
+            <button class="category-tab">Hot Drinks</button>
+            <button class="category-tab">Cold Drinks</button>
+            <button class="category-tab">Pastry</button>
+            <button class="category-tab">Sandwiches</button>
+            <button class="category-tab">Desserts</button>
+            <button class="category-tab">Other</button>
+          </div>
+
+          <div class="product-grid">
+            <div class="product-tile">
+              <div class="product-tile-name">Latte</div>
+              <div class="product-tile-price">12.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-LAT-001</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Mocha</div>
+              <div class="product-tile-price">14.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-MOC-002</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Cappuccino</div>
+              <div class="product-tile-price">11.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-CAP-003</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Espresso</div>
+              <div class="product-tile-price">8.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-ESP-004</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Americano</div>
+              <div class="product-tile-price">9.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-AME-005</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Hot Chocolate</div>
+              <div class="product-tile-price">13.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-CHO-006</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Earl Grey Tea</div>
+              <div class="product-tile-price">7.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">TEA-EAR-001</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Green Tea</div>
+              <div class="product-tile-price">7.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">TEA-GRN-002</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Iced Latte</div>
+              <div class="product-tile-price">13.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">COF-ICL-007</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Croissant</div>
+              <div class="product-tile-price">10.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">PST-CRO-001</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Almond Croissant</div>
+              <div class="product-tile-price">14.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">PST-CRA-002</div>
+            </div>
+            <div class="product-tile">
+              <div class="product-tile-name">Chocolate Muffin</div>
+              <div class="product-tile-price">9.00 <span class="sar-symbol">﷼</span></div>
+              <div class="product-tile-code">PST-MUF-001</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart panel -->
+        <div class="cart">
+          <div class="cart-header">
+            <span class="cart-title">Current Sale</span>
+            <span class="cart-customer">+ Add Customer →</span>
+          </div>
+
+          <div class="return-mode-banner">
+            ⚠ Return mode — Original: ACC-2026-00123
+          </div>
+
+          <div class="cart-lines">
+            <div class="cart-line">
+              <div>
+                <div class="cart-line-name">Latte</div>
+                <div class="cart-line-code">COF-LAT-001</div>
+              </div>
+              <div class="cart-line-qty">
+                <button class="qty-btn">−</button>
+                <span class="qty-num">1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <div class="cart-line-total">12.00</div>
+            </div>
+
+            <div class="cart-line">
+              <div>
+                <div class="cart-line-name">Almond Croissant</div>
+                <div class="cart-line-code">PST-CRA-002</div>
+              </div>
+              <div class="cart-line-qty">
+                <button class="qty-btn">−</button>
+                <span class="qty-num">1</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <div class="cart-line-total">14.00</div>
+            </div>
+
+            <div class="cart-line">
+              <div>
+                <div class="cart-line-name">Earl Grey Tea</div>
+                <div class="cart-line-code">TEA-EAR-001</div>
+              </div>
+              <div class="cart-line-qty">
+                <button class="qty-btn">−</button>
+                <span class="qty-num">2</span>
+                <button class="qty-btn">+</button>
+              </div>
+              <div class="cart-line-total">14.00</div>
+            </div>
+          </div>
+
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>40.00</span>
+            </div>
+            <div class="summary-row">
+              <span>VAT 15%</span>
+              <span>6.00</span>
+            </div>
+            <div class="summary-row total">
+              <span>TOTAL</span>
+              <span class="summary-total-amount">
+                <span class="sar-symbol">﷼</span>
+                <span>46.00</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="cart-actions">
+            <button class="btn btn-secondary">⏸ Hold</button>
+            <button class="btn btn-secondary">💳 Pay by Card</button>
+            <button class="btn btn-primary">Pay &amp; Submit (F8)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom shortcuts bar -->
+      <div class="bottombar">
+        <div class="shortcut"><span class="shortcut-key">F2</span> Scan</div>
+        <div class="shortcut"><span class="shortcut-key">F3</span> Customer</div>
+        <div class="shortcut"><span class="shortcut-key">F4</span> Hold</div>
+        <div class="shortcut"><span class="shortcut-key">F8</span> Pay</div>
+        <div class="shortcut"><span class="shortcut-key">F9</span> Return</div>
+        <div class="shortcut"><span class="shortcut-key">Esc</span> Cancel</div>
+
+        <div class="bottombar-right">
+          <span><span class="status-dot"></span>Online</span>
+          <span>Cashier: Mohammed</span>
+          <span>14:23</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function setMode(mode) {
+    const cashier = document.getElementById('cashier');
+    const btns = document.querySelectorAll('.mockup-mode-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    if (mode === 'return') {
+      cashier.querySelector('.topbar').classList.add('return-mode');
+      cashier.classList.add('return-mode');
+    } else {
+      cashier.querySelector('.topbar').classList.remove('return-mode');
+      cashier.classList.remove('return-mode');
+    }
+  }
+
+  // Click on product tile → flash effect to suggest adding to cart
+  document.querySelectorAll('.product-tile').forEach(t => {
+    t.addEventListener('click', () => {
+      t.style.background = '#DBCED9';
+      setTimeout(() => { t.style.background = 'white'; }, 200);
+    });
+  });
+
+  // Click on qty buttons (visual only, no real cart state)
+  document.querySelectorAll('.qty-btn').forEach(b => {
+    b.addEventListener('click', (e) => {
+      const num = e.target.parentElement.querySelector('.qty-num');
+      const delta = e.target.textContent === '+' ? 1 : -1;
+      const newQty = Math.max(1, parseInt(num.textContent) + delta);
+      num.textContent = newQty;
+    });
+  });
+</script>
+
+</body>
+</html>

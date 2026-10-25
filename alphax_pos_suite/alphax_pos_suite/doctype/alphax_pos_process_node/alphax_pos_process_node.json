@@ -1,0 +1,171 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Process Node",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "autoname": "hash",
+  "description": "One card on the flow board. Points at a real document type, so the board is a navigation surface rather than a picture.",
+  "fields": [
+    {
+      "fieldname": "process_flow",
+      "label": "Process Flow",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Process Flow",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "stage_key",
+      "label": "Stage Key",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "sequence",
+      "label": "Sequence",
+      "fieldtype": "Int",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "disabled",
+      "label": "Disabled",
+      "fieldtype": "Check",
+      "default": 0
+    },
+    {
+      "fieldname": "cb0",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "node_label",
+      "label": "Label",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "node_label_ar",
+      "label": "Label (Arabic)",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "icon",
+      "label": "Icon",
+      "fieldtype": "Data"
+    },
+    {
+      "fieldname": "sec_target",
+      "fieldtype": "Section Break",
+      "label": "Target"
+    },
+    {
+      "fieldname": "node_type",
+      "label": "Node Type",
+      "fieldtype": "Select",
+      "options": "DocType\nReport\nPage\nNote",
+      "default": "DocType",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "document_type",
+      "label": "Document Type",
+      "fieldtype": "Link",
+      "options": "DocType",
+      "depends_on": "eval:doc.node_type=='DocType'"
+    },
+    {
+      "fieldname": "report_name",
+      "label": "Report",
+      "fieldtype": "Link",
+      "options": "Report",
+      "depends_on": "eval:doc.node_type=='Report'"
+    },
+    {
+      "fieldname": "route_override",
+      "label": "Route Override",
+      "fieldtype": "Data",
+      "description": "Full desk route. Used for Page nodes, or to override the default list route."
+    },
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "default_view",
+      "label": "Default View",
+      "fieldtype": "Select",
+      "options": "List\nReport\nDashboard\nForm",
+      "default": "List"
+    },
+    {
+      "fieldname": "filters_json",
+      "label": "Filters (JSON)",
+      "fieldtype": "Code",
+      "options": "JSON"
+    },
+    {
+      "fieldname": "is_erpnext_standard",
+      "label": "Standard Document",
+      "fieldtype": "Check",
+      "default": 0,
+      "description": "Ticked when the node points at a stock ERPNext or Frappe document rather than an AlphaX one."
+    },
+    {
+      "fieldname": "show_count",
+      "label": "Show Live Count",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "sec_access",
+      "fieldtype": "Section Break",
+      "label": "Access"
+    },
+    {
+      "fieldname": "roles",
+      "label": "Restrict To Roles",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Node Role"
+    },
+    {
+      "fieldname": "sec_desc",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "description",
+      "label": "Description",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "AlphaX POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "AlphaX POS Supervisor",
+      "read": 1
+    },
+    {
+      "role": "AlphaX POS Cashier",
+      "read": 1
+    },
+    {
+      "role": "AlphaX POS Kitchen",
+      "read": 1
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Theme",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "field:theme_name",
+  "fields": [
+    {
+      "fieldname": "theme_name",
+      "label": "Theme Name",
+      "fieldtype": "Data",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_break_1",
+      "label": "Colors",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "primary_color",
+      "label": "Primary Color",
+      "fieldtype": "Data",
+      "default": "#2563EB"
+    },
+    {
+      "fieldname": "secondary_color",
+      "label": "Secondary Color",
+      "fieldtype": "Data",
+      "default": "#16A34A"
+    },
+    {
+      "fieldname": "accent_color",
+      "label": "Accent Color",
+      "fieldtype": "Data",
+      "default": "#22C55E"
+    },
+    {
+      "fieldname": "danger_color",
+      "label": "Danger Color",
+      "fieldtype": "Data",
+      "default": "#EF4444"
+    },
+    {
+      "fieldname": "bg_color",
+      "label": "Background Color",
+      "fieldtype": "Data",
+      "default": "#0B1220"
+    },
+    {
+      "fieldname": "card_bg",
+      "label": "Card Background",
+      "fieldtype": "Data",
+      "default": "#111827"
+    },
+    {
+      "fieldname": "text_color",
+      "label": "Text Color",
+      "fieldtype": "Data",
+      "default": "#E5E7EB"
+    },
+    {
+      "fieldname": "column_break_1",
+      "label": "",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "button_radius",
+      "label": "Button Radius (px)",
+      "fieldtype": "Int",
+      "default": 12
+    },
+    {
+      "fieldname": "touch_mode",
+      "label": "Touch Mode",
+      "fieldtype": "Check",
+      "default": 1
+    },
+    {
+      "fieldname": "font_family",
+      "label": "Font Family",
+      "fieldtype": "Data",
+      "default": "Inter, system-ui, -apple-system, Segoe UI, Roboto"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

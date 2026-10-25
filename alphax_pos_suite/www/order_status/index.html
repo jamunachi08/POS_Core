@@ -1,0 +1,659 @@
+{% raw %}<!DOCTYPE html>{% endraw %}
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Order Status</title>
+<script>
+  window.CDS = {
+    outlet: "{{ outlet }}",
+    key: "{{ display_key }}",
+    langMode: "{{ lang_mode }}"
+  };
+</script>
+{% raw %}
+<style>
+  :root {
+    --bg: #071121;
+    --panel: #0D1B30;
+    --panel-2: #12233C;
+    --line: #1E3352;
+    --ink: #E8F0FA;
+    --dim: #7E93AE;
+    --prep: #F5A524;
+    --pack: #2E9BE6;
+    --ready: #35C46A;
+    --danger: #E5484D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Tahoma, Arial, sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Every size is in vh/vw: this screen is read from four metres away on
+     anything from a 24" monitor to an 85" TV, and nobody will be there to
+     adjust it. */
+  .wrap { height: 100%; display: flex; flex-direction: column; gap: 1.1vh; padding: 1.1vh 1vw; }
+
+  /* ---------- header ---------- */
+  header {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 1.4vh;
+    padding: 1.4vh 1.6vw; display: flex; align-items: center; gap: 1.4vw;
+  }
+  .brand { display: flex; align-items: center; gap: .9vw; }
+  .logo {
+    width: 5.4vh; height: 5.4vh; border-radius: 1vh; flex: none;
+    background: linear-gradient(135deg, #12325C, #0A1D38);
+    border: 1px solid var(--line);
+    display: grid; place-items: center; font-weight: 800; font-size: 2.2vh; color: #6FB0FF;
+  }
+  .brand-name { font-size: 2.9vh; font-weight: 800; letter-spacing: .06em; line-height: 1; }
+  .brand-sub { font-size: 1.3vh; color: var(--dim); letter-spacing: .3em; margin-top: .5vh; }
+
+  .title { flex: 1; text-align: center; }
+  .title h1 { font-size: 3.6vh; font-weight: 800; letter-spacing: .01em; }
+  .title .where { font-size: 1.6vh; color: #6FB0FF; letter-spacing: .22em; margin-top: .5vh; }
+
+  .meta { text-align: right; }
+  .clock { font-size: 4.2vh; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+  .meta-row { display: flex; gap: 1vw; align-items: center; justify-content: flex-end;
+              margin-bottom: .7vh; font-size: 1.35vh; color: var(--dim); }
+  .dot { width: 1vh; height: 1vh; border-radius: 50%; background: var(--ready); display: inline-block; }
+  .dot.off { background: var(--danger); }
+  .date-row { margin-top: .6vh; font-size: 1.35vh; color: var(--dim); }
+  .sound-btn {
+    background: transparent; border: 1px solid var(--line); color: var(--dim);
+    border-radius: .8vh; padding: .3vh .8vw; font-size: 1.25vh; cursor: pointer;
+  }
+  .sound-btn.on { color: var(--ready); border-color: rgba(53,196,106,.45); }
+
+  /* ---------- lanes ---------- */
+  .lanes { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1vw; min-height: 0; }
+  .lane {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 1.4vh;
+    display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+  }
+  .lane-head {
+    padding: 1.5vh 1.2vw; display: flex; align-items: center; gap: .9vw;
+    border-bottom: 1px solid var(--line);
+  }
+  .lane-icon { font-size: 3.2vh; line-height: 1; }
+  .lane-titles { flex: 1; }
+  .lane-t { font-size: 2.4vh; font-weight: 800; letter-spacing: .02em; }
+  .lane-s { font-size: 1.4vh; color: var(--dim); margin-top: .3vh; }
+  .lane-n { font-size: 3.4vh; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .lane.prep  { border-top: .5vh solid var(--prep); }
+  .lane.pack  { border-top: .5vh solid var(--pack); }
+  .lane.ready { border-top: .5vh solid var(--ready); }
+  .lane.prep .lane-t, .lane.prep .lane-n   { color: var(--prep); }
+  .lane.pack .lane-t, .lane.pack .lane-n   { color: var(--pack); }
+  .lane.ready .lane-t, .lane.ready .lane-n { color: var(--ready); }
+
+  .cards { flex: 1; overflow: hidden; padding: 1.1vh 1vw; display: flex; flex-direction: column; gap: 1vh; }
+  .card {
+    background: var(--panel-2); border: 1px solid var(--line); border-radius: 1.1vh;
+    padding: 1.3vh 1.2vw; flex: none;
+  }
+  .card-top { display: flex; align-items: baseline; gap: 1vw; }
+  .num { font-size: 3.2vh; font-weight: 800; letter-spacing: .02em; flex: 1;
+         font-variant-numeric: tabular-nums; }
+  .age { font-size: 2.2vh; font-weight: 700; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .card.late .age { color: var(--danger); }
+  .bar { height: .9vh; background: rgba(255,255,255,.07); border-radius: 1vh; margin-top: 1vh; overflow: hidden; }
+  .bar > i { display: block; height: 100%; border-radius: 1vh; transition: width .6s ease; }
+  .lane.prep .bar > i  { background: var(--prep); }
+  .lane.pack .bar > i  { background: var(--pack); }
+
+  /* Ready lane is the one people are watching. Bigger, and the newest
+     call pulses for a few seconds so a guest who looks up late still
+     catches it. */
+  .lane.ready .card { border-color: rgba(53,196,106,.5); }
+  .lane.ready .num { font-size: 4.4vh; }
+  .card.justready { animation: pulse 1.1s ease-in-out 6; }
+  @keyframes pulse {
+    0%, 100% { background: var(--panel-2); border-color: rgba(53,196,106,.5); transform: scale(1); }
+    50%      { background: rgba(53,196,106,.22); border-color: var(--ready); transform: scale(1.015); }
+  }
+  .empty { flex: 1; display: grid; place-items: center; color: #43597A;
+           font-size: 2.4vh; font-weight: 700; text-align: center; padding: 0 1vw; }
+  .more { color: var(--dim); font-size: 1.5vh; text-align: center; padding-top: .4vh; }
+
+  /* ---------- footer ---------- */
+  footer { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1vw; height: 16vh; }
+  .promos { display: grid; grid-template-columns: 1fr 1fr; gap: 1vw; }
+  .promo {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 1.2vh;
+    padding: 1.4vh 1.2vw; display: flex; align-items: center; gap: 1vw; overflow: hidden;
+  }
+  .promo-title { font-size: 1.5vh; color: var(--prep); font-weight: 800; letter-spacing: .1em; }
+  .promo-main { font-size: 2.2vh; font-weight: 800; margin-top: .4vh; }
+  .promo-sub { font-size: 1.5vh; color: var(--dim); margin-top: .3vh; }
+  .qr { width: 11vh; height: 11vh; flex: none; background: #fff; border-radius: .8vh; padding: .6vh; }
+  .qr img, .qr canvas { width: 100%; height: 100%; display: block; }
+  .thanks {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 1.2vh;
+    display: grid; place-items: center; text-align: center; padding: 1vh 1.4vw;
+  }
+  .thanks-line { font-size: 2vh; font-weight: 700; color: var(--ready); }
+
+  .strip { display: flex; justify-content: space-between; font-size: 1.3vh; color: #405674; padding: 0 .6vw; }
+
+  /* ---------- sound unlock ---------- */
+  .unlock {
+    position: fixed; inset: 0; background: rgba(4,10,20,.93); z-index: 50;
+    display: grid; place-items: center; text-align: center; padding: 4vh;
+  }
+  .unlock h2 { font-size: 4vh; margin-bottom: 1.4vh; }
+  .unlock p { color: var(--dim); font-size: 2vh; max-width: 60ch; line-height: 1.6; }
+  .unlock button {
+    margin-top: 3vh; font-size: 2.4vh; font-weight: 800; padding: 1.6vh 4vw;
+    border: none; border-radius: 1.2vh; background: var(--ready); color: #05230F; cursor: pointer;
+  }
+  .unlock small { display: block; margin-top: 2vh; color: #43597A; font-size: 1.5vh; }
+  .ar { direction: rtl; }
+  .fault { color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">AX</div>
+      <div>
+        <div class="brand-name">ALPHAX</div>
+        <div class="brand-sub">POS</div>
+      </div>
+    </div>
+    <div class="title">
+      <h1 id="ttl">Order Status · حالة الطلبات</h1>
+      <div class="where" id="where">—</div>
+    </div>
+    <div class="meta">
+      <div class="meta-row">
+        <span><span class="dot" id="conn"></span> <span id="connText">Connected · متصل</span></span>
+      </div>
+      <div class="clock" id="clock">--:--:--</div>
+      <div class="date-row">
+        <span id="date">—</span>
+        &nbsp;·&nbsp;
+        <button class="sound-btn" id="soundBtn" type="button">Sound · الصوت</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="lanes">
+    <section class="lane prep">
+      <div class="lane-head">
+        <div class="lane-icon">👨‍🍳</div>
+        <div class="lane-titles">
+          <div class="lane-t">PREPARING · قيد التحضير</div>
+          <div class="lane-s">Being cooked · قيد الطهي</div>
+        </div>
+        <div class="lane-n" id="n-preparing">0</div>
+      </div>
+      <div class="cards" id="lane-preparing"></div>
+    </section>
+
+    <section class="lane pack">
+      <div class="lane-head">
+        <div class="lane-icon">📦</div>
+        <div class="lane-titles">
+          <div class="lane-t">PACKAGING · جاري التغليف</div>
+          <div class="lane-s">Almost ready · قارب على الجاهزية</div>
+        </div>
+        <div class="lane-n" id="n-packing">0</div>
+      </div>
+      <div class="cards" id="lane-packing"></div>
+    </section>
+
+    <section class="lane ready">
+      <div class="lane-head">
+        <div class="lane-icon">🛍</div>
+        <div class="lane-titles">
+          <div class="lane-t">READY FOR PICKUP · جاهز للاستلام</div>
+          <div class="lane-s">Collect at counter · استلم من الكاونتر</div>
+        </div>
+        <div class="lane-n" id="n-ready">0</div>
+      </div>
+      <div class="cards" id="lane-ready"></div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="promos">
+      <div class="promo" id="tickerBox">
+        <div style="font-size:3.4vh">📣</div>
+        <div>
+          <div class="promo-title">TODAY · اليوم</div>
+          <div class="promo-main" id="tickerEn">—</div>
+          <div class="promo-sub ar" id="tickerAr"></div>
+        </div>
+      </div>
+      <div class="promo" id="qrBox" style="display:none">
+        <div class="qr"><img id="qrImg" alt="" /></div>
+        <div>
+          <div class="promo-main">We value your feedback!</div>
+          <div class="promo-sub ar">نقدّر رأيك — امسح الرمز</div>
+        </div>
+      </div>
+    </div>
+    <div class="thanks">
+      <div>
+        <div class="thanks-line" id="thanksLine">Thank you for choosing · شكراً لاختياركم</div>
+        <div class="promo-sub" id="faultLine"></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="strip">
+    <span id="stripLeft">—</span>
+    <span>Powered by AlphaX · يدعم من AlphaX</span>
+  </div>
+</div>
+
+<div class="unlock" id="unlock">
+  <div>
+    <h2>Tap to start the display</h2>
+    <p>
+      Browsers block sound until someone interacts with the page. One tap
+      here and this screen can be left alone — it will chime and call each
+      order number in English and Arabic as it becomes ready.
+    </p>
+    <p class="ar" style="margin-top:1.4vh">
+      المتصفح يمنع الصوت حتى يتم التفاعل مع الصفحة. المس الشاشة مرة واحدة
+      وسيتم مناداة أرقام الطلبات بالعربية والإنجليزية تلقائياً.
+    </p>
+    <button id="unlockBtn" type="button">Start · ابدأ</button>
+    <small id="voiceNote"></small>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var CFG = window.CDS || {};
+  var POLL_MS = 4000;
+  var MAX_CARDS = { preparing: 6, packing: 4, ready: 5 };
+
+  var state = {
+    lanes: { preparing: [], packing: [], ready: [] },
+    announce: { enabled: true, repeat: 2 },
+    seenReady: {},          // ticket id -> announced
+    justReady: {},          // ticket id -> timestamp
+    soundOn: false,
+    online: false,
+    failures: 0
+  };
+
+  // ---------------------------------------------------------------
+  // Audio. The chime is synthesised rather than shipped as a file:
+  // no asset to 404, no CDN, and it survives an offline screen.
+  // ---------------------------------------------------------------
+  var actx = null;
+
+  function audio() {
+    if (!actx) {
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return null;
+      actx = new C();
+    }
+    if (actx.state === "suspended") { try { actx.resume(); } catch (e) {} }
+    return actx;
+  }
+
+  function chime() {
+    var a = audio();
+    if (!a) return;
+    // Two-tone bell — a rising fifth reads as "attention", not "alarm".
+    [[880, 0], [1318.5, 0.16]].forEach(function (pair) {
+      var osc = a.createOscillator(), gain = a.createGain();
+      var t0 = a.currentTime + pair[1];
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(pair[0], t0);
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.32, t0 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.85);
+      osc.connect(gain); gain.connect(a.destination);
+      osc.start(t0); osc.stop(t0 + 0.9);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Voice. One queue, strictly serial: two numbers called over each
+  // other is worse than one called late.
+  // ---------------------------------------------------------------
+  var speech = window.speechSynthesis || null;
+  var voices = [];
+  var queue = [];
+  var speaking = false;
+
+  function loadVoices() {
+    if (!speech) return;
+    voices = speech.getVoices() || [];
+  }
+  if (speech) {
+    loadVoices();
+    speech.onvoiceschanged = loadVoices;
+  }
+
+  function pickVoice(lang) {
+    if (!voices.length) loadVoices();
+    var exact = voices.filter(function (v) { return (v.lang || "").toLowerCase().indexOf(lang) === 0; });
+    // Prefer a local voice: a network voice on a shop TV with flaky wifi
+    // announces nothing at all.
+    var local = exact.filter(function (v) { return v.localService; });
+    return local[0] || exact[0] || null;
+  }
+
+  function digits(label) {
+    // "00063" -> "6 3". Voice engines read 00063 as "sixty-three
+    // thousand" or spell every zero; neither matches what a guest is
+    // holding. Digit-by-digit on the significant part is unambiguous
+    // in both languages.
+    var s = String(label || "").replace(/[^0-9]/g, "");
+    s = s.replace(/^0+/, "") || "0";
+    return s.split("").join(" ");
+  }
+
+  function enqueue(label) {
+    var n = digits(label);
+    var reps = Math.max(1, state.announce.repeat || 1);
+    for (var i = 0; i < reps; i++) {
+      if (CFG.langMode !== "ar") {
+        queue.push({ lang: "en", text: "Order number " + n + ", is ready for pickup." });
+      }
+      if (CFG.langMode !== "en") {
+        queue.push({ lang: "ar", text: "الطلب رقم " + n + "، جاهز للاستلام." });
+      }
+    }
+    pump();
+  }
+
+  function pump() {
+    if (speaking || !queue.length || !state.soundOn || !speech) return;
+    var item = queue.shift();
+    var v = pickVoice(item.lang);
+    if (!v && item.lang === "ar") {
+      // No Arabic voice on this device. Say nothing rather than let an
+      // English engine mangle it — the card still pulses on screen.
+      note("No Arabic voice installed on this device — Arabic calls are shown, not spoken.");
+      return pump();
+    }
+    var u = new SpeechSynthesisUtterance(item.text);
+    if (v) { u.voice = v; u.lang = v.lang; }
+    else { u.lang = item.lang === "ar" ? "ar-SA" : "en-US"; }
+    u.rate = item.lang === "ar" ? 0.92 : 0.95;   // a shade slow: it is a noisy room
+    u.pitch = 1;
+    u.volume = 1;
+    speaking = true;
+    u.onend = u.onerror = function () { speaking = false; setTimeout(pump, 180); };
+    try { speech.speak(u); }
+    catch (e) { speaking = false; setTimeout(pump, 180); }
+  }
+
+  function announce(label) {
+    if (!state.soundOn || !state.announce.enabled) return;
+    chime();
+    setTimeout(function () { enqueue(label); }, 700);
+  }
+
+  function note(msg) {
+    var el = document.getElementById("voiceNote");
+    if (el) el.textContent = msg || "";
+    var f = document.getElementById("faultLine");
+    if (f && msg) { f.textContent = msg; f.className = "promo-sub"; }
+  }
+
+  // ---------------------------------------------------------------
+  // Data
+  // ---------------------------------------------------------------
+  function fetchBoard() {
+    var url = "/api/method/alphax_pos_suite.alphax_pos_suite.display.api.board"
+      + "?outlet=" + encodeURIComponent(CFG.outlet || "")
+      + "&key=" + encodeURIComponent(CFG.key || "");
+    return fetch(url, { headers: { "Accept": "application/json" }, credentials: "same-origin" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (d) { return d.message; });
+  }
+
+  function tick() {
+    fetchBoard().then(function (data) {
+      if (!data || !data.ok) throw new Error("bad payload");
+      state.failures = 0;
+      setOnline(true);
+      apply(data);
+    }).catch(function (e) {
+      state.failures++;
+      // One missed poll on a shop wifi is noise. Three is a problem worth
+      // showing, and the last good board stays on screen meanwhile.
+      if (state.failures >= 3) {
+        setOnline(false);
+        note(String(e && e.message ? e.message : e));
+      }
+    });
+  }
+
+  function setOnline(ok) {
+    state.online = ok;
+    var dot = document.getElementById("conn");
+    var txt = document.getElementById("connText");
+    if (dot) dot.className = "dot" + (ok ? "" : " off");
+    if (txt) txt.textContent = ok ? "Connected · متصل" : "Reconnecting · إعادة الاتصال";
+    if (ok) { var f = document.getElementById("faultLine"); if (f) f.textContent = ""; }
+  }
+
+  function apply(data) {
+    state.announce = data.announce || state.announce;
+
+    var where = (data.outlet && (data.outlet.branch
+      ? data.outlet.branch + " · " + data.outlet.label
+      : data.outlet.label)) || "";
+    setText("where", where.toUpperCase());
+    setText("stripLeft", (data.outlet ? data.outlet.label : "") + "  ·  " + (CFG.outlet || ""));
+    setText("thanksLine", "Thank you for choosing · شكراً لاختياركم " + (data.outlet ? data.outlet.label : ""));
+
+    // Ticker
+    var tEn = (data.ticker && data.ticker.en) || "";
+    var tAr = (data.ticker && data.ticker.ar) || "";
+    document.getElementById("tickerBox").style.display = (tEn || tAr) ? "" : "none";
+    setText("tickerEn", tEn);
+    setText("tickerAr", tAr);
+
+    // Feedback QR, rendered through a public chart service only if the
+    // outlet configured one; otherwise the panel stays hidden.
+    var fb = data.feedback_url || "";
+    var qrBox = document.getElementById("qrBox");
+    if (fb) {
+      document.getElementById("qrImg").src =
+        "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(fb);
+      qrBox.style.display = "";
+    } else {
+      qrBox.style.display = "none";
+    }
+
+    // Announce anything that has newly arrived in the ready lane. First
+    // load seeds the set silently — nobody wants eleven numbers called
+    // because the screen rebooted.
+    var first = !Object.keys(state.seenReady).length && !state.booted;
+    var ready = (data.lanes && data.lanes.ready) || [];
+    ready.forEach(function (c) {
+      if (!state.seenReady[c.id]) {
+        state.seenReady[c.id] = true;
+        // Only a genuinely new arrival pulses. On a screen that just
+        // rebooted, everything is "new" and a wall of flashing cards
+        // tells a guest nothing.
+        if (!first) {
+          state.justReady[c.id] = Date.now();
+          announce(c.label);
+        }
+      }
+    });
+    state.booted = true;
+
+    // Forget tickets that have left the board so a number called again
+    // later (re-fired order) still announces.
+    var live = {};
+    ["preparing", "packing", "ready"].forEach(function (k) {
+      ((data.lanes && data.lanes[k]) || []).forEach(function (c) { live[c.id] = 1; });
+    });
+    Object.keys(state.seenReady).forEach(function (id) {
+      if (!live[id]) { delete state.seenReady[id]; delete state.justReady[id]; }
+    });
+
+    state.lanes = data.lanes || state.lanes;
+    render();
+  }
+
+  function render() {
+    ["preparing", "packing", "ready"].forEach(function (lane) {
+      var cards = state.lanes[lane] || [];
+      setText("n-" + lane, String(cards.length));
+      var host = document.getElementById("lane-" + lane);
+      if (!host) return;
+      host.innerHTML = "";
+
+      if (!cards.length) {
+        var e = document.createElement("div");
+        e.className = "empty";
+        e.textContent = "No active orders · لا توجد طلبات نشطة";
+        host.appendChild(e);
+        return;
+      }
+
+      var cap = MAX_CARDS[lane];
+      cards.slice(0, cap).forEach(function (c) {
+        host.appendChild(cardEl(lane, c));
+      });
+      if (cards.length > cap) {
+        var m = document.createElement("div");
+        m.className = "more";
+        m.textContent = "+" + (cards.length - cap) + " more · المزيد";
+        host.appendChild(m);
+      }
+    });
+  }
+
+  function cardEl(lane, c) {
+    var el = document.createElement("div");
+    el.className = "card" + (c.late ? " late" : "")
+      + (lane === "ready" && (Date.now() - (state.justReady[c.id] || 0) < 12000) ? " justready" : "");
+
+    var top = document.createElement("div");
+    top.className = "card-top";
+    var num = document.createElement("div");
+    num.className = "num";
+    num.textContent = c.label;
+    var age = document.createElement("div");
+    age.className = "age";
+    age.textContent = mmss(c.elapsed);
+    top.appendChild(num); top.appendChild(age);
+    el.appendChild(top);
+
+    if (lane !== "ready" && c.progress !== null && c.progress !== undefined) {
+      var bar = document.createElement("div");
+      bar.className = "bar";
+      var i = document.createElement("i");
+      i.style.width = Math.min(100, c.progress) + "%";
+      bar.appendChild(i);
+      el.appendChild(bar);
+    }
+    return el;
+  }
+
+  function mmss(sec) {
+    sec = Math.max(0, sec | 0);
+    var m = Math.floor(sec / 60), s = sec % 60;
+    if (m >= 60) { return Math.floor(m / 60) + "h " + (m % 60) + "m"; }
+    return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function setText(id, v) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = v;
+  }
+
+  // Local clock rather than server time: a wall clock that stutters with
+  // network latency looks broken.
+  function clock() {
+    var d = new Date();
+    setText("clock", [d.getHours(), d.getMinutes(), d.getSeconds()]
+      .map(function (n) { return (n < 10 ? "0" : "") + n; }).join(":"));
+    setText("date", d.toLocaleDateString(undefined,
+      { weekday: "long", year: "numeric", month: "short", day: "numeric" }));
+  }
+
+  // ---------------------------------------------------------------
+  // Boot
+  // ---------------------------------------------------------------
+  function enableSound() {
+    state.soundOn = true;
+    var b = document.getElementById("soundBtn");
+    if (b) { b.className = "sound-btn on"; b.textContent = "Sound on · الصوت مفعل"; }
+    audio();
+    if (speech) {
+      // Priming with an empty utterance makes the first real call
+      // immediate rather than swallowed on some engines.
+      try { speech.speak(new SpeechSynthesisUtterance(" ")); } catch (e) {}
+      loadVoices();
+      if (!pickVoice("ar")) {
+        note("No Arabic voice installed on this device — Arabic calls are shown, not spoken.");
+      }
+    } else {
+      note("This browser has no speech engine — orders will chime only.");
+    }
+  }
+
+  function disableSound() {
+    state.soundOn = false;
+    queue.length = 0;
+    if (speech) { try { speech.cancel(); } catch (e) {} }
+    var b = document.getElementById("soundBtn");
+    if (b) { b.className = "sound-btn"; b.textContent = "Sound off · الصوت متوقف"; }
+  }
+
+  document.getElementById("unlockBtn").addEventListener("click", function () {
+    document.getElementById("unlock").style.display = "none";
+    enableSound();
+    chime();
+    tick();
+  });
+
+  document.getElementById("soundBtn").addEventListener("click", function () {
+    if (state.soundOn) disableSound(); else enableSound();
+  });
+
+  // A screen left running for weeks will lose its socket, its wifi, and
+  // eventually its mind. Poll, re-render the clock every second, and
+  // refresh elapsed times without waiting for the next poll.
+  clock();
+  setInterval(clock, 1000);
+  setInterval(tick, POLL_MS);
+  setInterval(function () {
+    ["preparing", "packing", "ready"].forEach(function (lane) {
+      (state.lanes[lane] || []).forEach(function (c) { c.elapsed += 1; });
+    });
+    render();
+  }, 1000);
+
+  if (!CFG.outlet || !CFG.key) {
+    document.getElementById("unlock").innerHTML =
+      '<div><h2>Screen not configured</h2>' +
+      '<p>Open this page with an outlet and its display key:<br>' +
+      '<code>/order_status?outlet=OUTLET&amp;key=KEY</code><br><br>' +
+      'The key is on AlphaX POS Outlet → Customer Display.</p></div>';
+  } else {
+    tick();
+  }
+})();
+</script>
+{% endraw %}
+</body>
+</html>

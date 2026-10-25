@@ -1,0 +1,18 @@
+{
+ "doctype": "Print Format",
+ "name": "AlphaX Thermal 80mm",
+ "doc_type": "Sales Invoice",
+ "module": "AlphaX POS Suite",
+ "print_format_type": "Jinja",
+ "custom_format": 1,
+ "standard": "Yes",
+ "disabled": 0,
+ "html": "<style>\n  .thermal { font-family: monospace; width: 72mm; margin: 0 auto; font-size: 11px; color: #000; }\n  .thermal h3 { text-align: center; margin: 2px 0; font-size: 14px; }\n  .thermal .c { text-align: center; }\n  .thermal table { width: 100%; border-collapse: collapse; }\n  .thermal td, .thermal th { padding: 1px 0; vertical-align: top; }\n  .thermal th { border-bottom: 1px solid #000; text-align: start; font-size: 10px; }\n  .thermal .r { text-align: end; }\n  .thermal .tot { display: flex; justify-content: space-between; }\n  .thermal .grand { font-size: 14px; font-weight: 700; }\n  .thermal hr { border: none; border-top: 1px dashed #000; margin: 4px 0; }\n</style>\n<div class=\"thermal\">\n  <h3>{{ doc.company }}</h3>\n  {% if doc.company_tax_id %}<div class=\"c\">VAT: {{ doc.company_tax_id }}</div>{% endif %}\n  <div class=\"c\">{{ frappe.utils.format_datetime(doc.posting_date ~ \" \" ~ (doc.posting_time or \"\")) }}</div>\n  <hr>\n  <div><b>{{ doc.name }}</b></div>\n  <div>{{ _(\"Customer\") }}: {{ doc.customer_name or doc.customer }}</div>\n  <hr>\n  <table>\n    <tr><th>{{ _(\"Item\") }}</th><th class=\"r\">{{ _(\"Qty\") }}</th><th class=\"r\">{{ _(\"Rate\") }}</th><th class=\"r\">{{ _(\"Amt\") }}</th></tr>\n    {% for it in doc.items %}\n    <tr>\n      <td>{{ it.item_name }}</td>\n      <td class=\"r\">{{ frappe.utils.fmt_money(it.qty, precision=2, currency=None)|replace(frappe.db.get_default(\"currency\") or \"\", \"\")|trim if false else it.qty }}</td>\n      <td class=\"r\">{{ \"%.2f\"|format(it.rate) }}</td>\n      <td class=\"r\">{{ \"%.2f\"|format(it.amount) }}</td>\n    </tr>\n    {% endfor %}\n  </table>\n  <hr>\n  <div class=\"tot\"><span>{{ _(\"Net Total\") }}</span><b>{{ \"%.2f\"|format(doc.net_total) }}</b></div>\n  {% for tx in doc.taxes %}\n  {% if tx.tax_amount %}\n  <div class=\"tot\"><span>{{ tx.description or tx.account_head }}</span><b>{{ \"%.2f\"|format(tx.tax_amount) }}</b></div>\n  {% endif %}\n  {% endfor %}\n  <div class=\"tot grand\"><span>{{ _(\"Grand Total\") }}</span><span>{{ \"%.2f\"|format(doc.grand_total) }}</span></div>\n  {% if doc.paid_amount %}\n  <div class=\"tot\"><span>{{ _(\"Paid\") }}</span><span>{{ \"%.2f\"|format(doc.paid_amount) }}</span></div>\n  <div class=\"tot\"><span>{{ _(\"Change\") }}</span><span>{{ \"%.2f\"|format(doc.change_amount or 0) }}</span></div>\n  {% endif %}\n  <hr>\n  {% set qr = doc.get(\"ksa_einv_qr\") or doc.get(\"zatca_qr_code\") or doc.get(\"qr_code\") %}\n  {% if qr %}\n  <div class=\"c\">\n    {% if qr.startswith(\"/files\") or qr.startswith(\"http\") %}\n      <img src=\"{{ qr }}\" style=\"width: 30mm; height: 30mm;\">\n    {% else %}\n      <img src=\"https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ qr | urlencode }}\" style=\"width: 30mm; height: 30mm;\">\n    {% endif %}\n  </div>\n  {% endif %}\n  <div class=\"c\">{{ _(\"Thank you\") }} \u00b7 \u0634\u0643\u0631\u0627\u064b \u0644\u0632\u064a\u0627\u0631\u062a\u0643\u0645</div>\n</div>",
+ "line_breaks": 0,
+ "align_labels_right": 0,
+ "show_section_headings": 0,
+ "margin_top": 0.0,
+ "margin_bottom": 0.0,
+ "margin_left": 0.0,
+ "margin_right": 0.0
+}

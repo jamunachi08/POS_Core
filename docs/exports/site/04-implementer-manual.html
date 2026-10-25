@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>implementer-manual</title>
+  <link rel="stylesheet" href="alphax-docs.css">
+</head>
+<body>
+<header class="alphax-header">
+  <div class="alphax-header-inner">
+    <a class="alphax-brand" href="index.html">
+      <div class="alphax-brand-mark">A<span>X</span></div>
+      <div class="alphax-brand-text">
+        <div class="alphax-brand-name">AlphaX POS</div>
+        <div class="alphax-brand-tag">Documentation · v15.5.13</div>
+      </div>
+    </a>
+    <a href="index.html" style="color: var(--alphax-mauve); font-size: 14px; font-weight: 500;">← All manuals</a>
+  </div>
+</header>
+
+<header id="title-block-header">
+<h1 class="title">implementer-manual</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#alphax-pos-implementer-developer-manual"
+id="toc-alphax-pos-implementer-developer-manual">AlphaX POS —
+Implementer &amp; Developer Manual</a>
+<ul>
+<li><a href="#whats-in-this-manual" id="toc-whats-in-this-manual">What’s
+in this manual</a></li>
+<li><a href="#overview-for-the-developer"
+id="toc-overview-for-the-developer">Overview for the developer</a></li>
+<li><a href="#repository-structure-and-layout"
+id="toc-repository-structure-and-layout">Repository structure and
+layout</a></li>
+<li><a href="#the-three-app-architecture-in-detail"
+id="toc-the-three-app-architecture-in-detail">The three-app architecture
+in detail</a></li>
+<li><a href="#frappe-cloud-deployment-specifics"
+id="toc-frappe-cloud-deployment-specifics">Frappe Cloud deployment
+specifics</a></li>
+<li><a href="#the-cashier-ui-classic-vs-vue-runtime-sfc-loader"
+id="toc-the-cashier-ui-classic-vs-vue-runtime-sfc-loader">The cashier
+UI: classic vs Vue, runtime SFC loader</a></li>
+<li><a href="#doctype-reference-all-52-what-they-do"
+id="toc-doctype-reference-all-52-what-they-do">Doctype reference: all
+52, what they do</a></li>
+<li><a href="#hooks-and-triggers-reference"
+id="toc-hooks-and-triggers-reference">Hooks and triggers
+reference</a></li>
+<li><a href="#boot-api-contract" id="toc-boot-api-contract">Boot API
+contract</a></li>
+<li><a href="#manager-pin-security-module"
+id="toc-manager-pin-security-module">Manager PIN security
+module</a></li>
+<li><a href="#domain-pack-system" id="toc-domain-pack-system">Domain
+pack system</a></li>
+<li><a href="#soft-adapter-pattern-zatca-hardware-bridge"
+id="toc-soft-adapter-pattern-zatca-hardware-bridge">Soft adapter pattern
+(ZATCA, hardware bridge)</a></li>
+<li><a href="#custom-field-strategy-no-migrations"
+id="toc-custom-field-strategy-no-migrations">Custom field strategy: no
+migrations</a></li>
+<li><a href="#extending-the-system"
+id="toc-extending-the-system">Extending the system</a></li>
+<li><a href="#customer-onboarding-playbook"
+id="toc-customer-onboarding-playbook">Customer onboarding
+playbook</a></li>
+<li><a href="#known-issues-and-gotchas"
+id="toc-known-issues-and-gotchas">Known issues and gotchas</a></li>
+<li><a href="#roadmap-and-deferred-work"
+id="toc-roadmap-and-deferred-work">Roadmap and deferred work</a></li>
+<li><a href="#appendix-a-quick-reference"
+id="toc-appendix-a-quick-reference">Appendix A: quick reference</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="alphax-pos-implementer-developer-manual">AlphaX POS —
+Implementer &amp; Developer Manual</h1>
+<p><strong>For:</strong> Frappe developers, partners, and technical
+implementers <strong>Version:</strong> 15.5.13 <strong>Last
+updated:</strong> May 2026</p>
+<hr />
+<h2 id="whats-in-this-manual">What’s in this manual</h2>
+<ol type="1">
+<li><a href="#overview-for-the-developer">Overview for the
+developer</a></li>
+<li><a href="#repository-structure-and-layout">Repository structure and
+layout</a></li>
+<li><a href="#the-three-app-architecture-in-detail">The three-app
+architecture in detail</a></li>
+<li><a href="#frappe-cloud-deployment-specifics">Frappe Cloud deployment
+specifics</a></li>
+<li><a href="#the-cashier-ui-classic-vs-vue-runtime-sfc-loader">The
+cashier UI: classic vs Vue, runtime SFC loader</a></li>
+<li><a href="#doctype-reference-all-52-what-they-do">Doctype reference:
+all 52, what they do</a></li>
+<li><a href="#hooks-and-triggers-reference">Hooks and triggers
+reference</a></li>
+<li><a href="#boot-api-contract">Boot API contract</a></li>
+<li><a href="#manager-pin-security-module">Manager PIN security
+module</a></li>
+<li><a href="#domain-pack-system">Domain pack system</a></li>
+<li><a href="#soft-adapter-pattern-zatca-hardware-bridge">Soft adapter
+pattern (ZATCA, hardware bridge)</a></li>
+<li><a href="#custom-field-strategy-no-migrations">Custom field
+strategy: no migrations</a></li>
+<li><a href="#extending-the-system">Extending the system</a></li>
+<li><a href="#customer-onboarding-playbook">Customer onboarding
+playbook</a></li>
+<li><a href="#known-issues-and-gotchas">Known issues and
+gotchas</a></li>
+<li><a href="#roadmap-and-deferred-work">Roadmap and deferred
+work</a></li>
+</ol>
+<hr />
+<h2 id="overview-for-the-developer">Overview for the developer</h2>
+<p>✅ <strong>Most of this manual is verified working.</strong> Sections
+marked 🔬 or 🚧 follow the same conventions as other manuals.</p>
+<p>You’re reading this because you’re either:</p>
+<ul>
+<li>A Frappe developer asked to extend AlphaX POS</li>
+<li>A Frappe partner deploying it for a customer</li>
+<li>The maintainer of the codebase reviewing the architecture</li>
+</ul>
+<p>The codebase is the result of significant design work. Everything
+here is documented for one purpose: <strong>so you don’t have to read
+the entire codebase to be productive in 24 hours</strong>.</p>
+<h3 id="what-you-should-already-know">What you should already know</h3>
+<ul>
+<li>Frappe v15 framework: doctypes, hooks, REST API, fixtures,
+scheduler</li>
+<li>ERPNext: at least the POS, Sales Invoice, Stock, Item modules</li>
+<li>Python 3.10+, JavaScript ES2017+, jQuery (sadly), Vue 3
+(optional)</li>
+<li>Frappe Cloud’s deploy model (GitHub-based)</li>
+</ul>
+<h3 id="what-you-dont-need-to-know">What you don’t need to know</h3>
+<ul>
+<li>ZATCA’s e-invoicing standards in detail (the soft adapter shields
+you from most of it)</li>
+<li>Bcrypt internals (passlib does the work)</li>
+<li>USB hardware protocols (the bridge daemon handles it)</li>
+</ul>
+<hr />
+<h2 id="repository-structure-and-layout">Repository structure and
+layout</h2>
+<p>✅ <strong>Working</strong></p>
+<p>The main repo is on GitHub:</p>
+<pre><code>https://github.com/jamunachi08/alphax-pos-core-v15.5.1</code></pre>
+<p>Local checkout layout:</p>
+<pre><code>alphax-pos-core/                       &lt;-- repo root
+├── setup.py                            (Frappe app metadata)
+├── pyproject.toml
+├── MANIFEST.in
+├── README.md
+├── license.txt                         (Proprietary)
+├── build_workspace.py                  (utility to regenerate workspace fixture)
+├── fetch_vendor_bundles.py             (one-time: downloads Vue/Pinia/vue-i18n)
+│
+├── docs/                               (this manual + the other 3)
+│   ├── 01-cashier-manual.md
+│   ├── 02-manager-manual.md
+│   ├── 03-administrator-manual.md
+│   ├── 04-implementer-manual.md
+│   └── exports/                        (generated .docx and .pdf)
+│
+└── alphax_pos_suite/                   (the app package)
+    ├── __init__.py                     (__version__ string)
+    ├── hooks.py                        (ALL hook registrations)
+    ├── modules.txt                     (&quot;AlphaX POS Suite&quot;)
+    ├── patches.txt                     (migration patches)
+    ├── fixtures/
+    │   └── workspace.json              (the AlphaX POS Hub)
+    ├── frontend/                       (Vite source — DO NOT BUILD; reference only)
+    │   └── DO_NOT_BUILD.md
+    └── alphax_pos_suite/               (the module folder)
+        ├── doctype/                    (~52 doctypes)
+        ├── page/
+        │   ├── alphax_pos_classic/    (the working cashier — jQuery + Frappe UI)
+        │   ├── alphax_pos_v2/         (Vue cashier — currently 🔬 Beta)
+        │   ├── alphax_apos/
+        │   ├── alphax_floor_designer/
+        │   ├── alphax_kds/
+        │   ├── alphax_pos_central_kitchen_dashboard/
+        │   ├── alphax_pos_profitability/
+        │   └── alphax_pos_setup/
+        ├── public/
+        │   ├── dist/
+        │   │   └── vendor/             (assets that work — the only safe folder!)
+        │   │       ├── _css/
+        │   │       │   ├── alphax_pos_hub.css
+        │   │       │   └── alphax_pos_classic.css
+        │   │       ├── _js/
+        │   │       │   ├── sales_invoice_terminal_capture.js
+        │   │       │   ├── bonanza_pos_warnings.js
+        │   │       │   └── alphax_workspace_theme_apply.js
+        │   │       ├── cashier/        (Vue SPA assets)
+        │   │       │   ├── main.js
+        │   │       │   ├── sfc-loader.js
+        │   │       │   └── sfc/        (.vue files)
+        │   │       ├── vue.global.prod.js
+        │   │       ├── pinia.iife.prod.js
+        │   │       └── vue-i18n.global.prod.js
+        ├── boot/
+        │   └── api.py                  (whitelisted boot endpoints)
+        ├── security/
+        │   └── manager_pin.py          (PIN auth, lockout, audit)
+        ├── appearance/
+        │   └── workspace_theme_css.py  (boot_session hook for theme toggle)
+        ├── pos/                        (sales, posting, processing logic)
+        ├── integrations/               (zatca_adapter, card_capture, payfort)
+        ├── pharmacy/                   (drug interaction checks, controlled substance)
+        ├── loyalty/                    (points calculation, expiry)
+        ├── data/                       (custom_fields_seed.json, role permissions)
+        ├── patches/v15_0/              (migration patches)
+        └── install.py                  (after_install chain)</code></pre>
+<blockquote>
+<p>⚠️ <strong>Important:</strong> the GitHub repo name has hyphens and a
+version suffix (<code>alphax-pos-core-v15.5.1</code>), but the app’s
+installed name is <code>alphax_pos_suite</code> (underscores). This
+works because of Frappe’s <code>app_name</code> resolution, but causes
+occasional bugs. Long-term TODO: rename the repo to
+<code>alphax_pos_suite</code> for cleanliness.</p>
+</blockquote>
+<hr />
+<h2 id="the-three-app-architecture-in-detail">The three-app architecture
+in detail</h2>
+<h3 id="app-1-alphax_pos_suite">App 1: alphax_pos_suite</h3>
+<p><strong>The main app.</strong> Contains everything you can see in
+this manual: doctypes, cashier UIs, workspace, manager PIN system,
+hooks.</p>
+<p>Versioning: <code>15.5.13</code> follows semver, with the major
+matching the Frappe major (<code>15</code> = Frappe v15).</p>
+<h3 id="app-2-alphax_zatca">App 2: alphax_zatca</h3>
+<p><strong>ZATCA Phase 2 e-invoicing.</strong> Forked from ERPGulf’s <a
+href="https://github.com/ERPGulf/zatca_erpgulf"><code>zatca_erpgulf</code></a>.
+Stays separate because:</p>
+<ul>
+<li>The fork retains GPL-3 license; we don’t want it tainting the
+proprietary main app</li>
+<li>ZATCA changes (regulations, certificates) happen on a different
+cadence than the POS</li>
+<li>Customers outside KSA can install just the main app</li>
+</ul>
+<p>The main app talks to ZATCA via a <strong>soft adapter</strong> (see
+“Soft adapter pattern” below) — the integration is loose enough that you
+can disable ZATCA entirely without breaking the POS.</p>
+<h3 id="app-3-alphax-pos-bridge">App 3: alphax-pos-bridge</h3>
+<p><strong>Standalone Python daemon.</strong> NOT a Frappe app. Runs on
+each cashier PC. Architecture:</p>
+<pre><code>┌─────────────────────────────────────┐
+│ Cashier PC                          │
+│                                     │
+│ ┌─────────────────┐                 │
+│ │ Browser         │                 │
+│ │ (Frappe site)   │                 │
+│ └────────┬────────┘                 │
+│          │ ws://localhost:9876      │
+│          ▼                          │
+│ ┌─────────────────┐                 │
+│ │ Bridge daemon   │  Python +       │
+│ │ (Tornado WS)    │  PyUSB/serial   │
+│ └────────┬────────┘                 │
+│          │                          │
+│          │ USB / serial / network   │
+│          ▼                          │
+│ ┌─────────────────┐                 │
+│ │ Hardware        │                 │
+│ │ • ESC/POS print │                 │
+│ │ • Cash drawer   │                 │
+│ │ • Scale         │                 │
+│ │ • Card terminal │                 │
+│ │ • Scanner (HID) │                 │
+│ └─────────────────┘                 │
+└─────────────────────────────────────┘</code></pre>
+<p>The bridge is <strong>optional</strong>. Without it, the cashier
+still works using the browser’s native print dialog and HID barcode
+scanners. With it, auto-cut printing, drawer kicking, scale tare, and
+card-terminal data exchange become possible.</p>
+<h3 id="communication-contract">Communication contract</h3>
+<p>Bridge ↔︎ browser is JSON-over-WebSocket. Examples:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Browser</span> <span class="er">→</span> <span class="er">Bridge</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123&quot;</span><span class="fu">,</span> <span class="dt">&quot;action&quot;</span><span class="fu">:</span> <span class="st">&quot;print_receipt&quot;</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;args&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;html&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;open_drawer&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">}</span> <span class="fu">}</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">Bridge</span> <span class="er">→</span> <span class="er">Browser</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;abc123&quot;</span><span class="fu">,</span> <span class="dt">&quot;ok&quot;</span><span class="fu">:</span> <span class="kw">true</span> <span class="fu">}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span> <span class="dt">&quot;event&quot;</span><span class="fu">:</span> <span class="st">&quot;scale_reading&quot;</span><span class="fu">,</span> <span class="dt">&quot;weight_grams&quot;</span><span class="fu">:</span> <span class="dv">1247</span> <span class="fu">}</span></span></code></pre></div>
+<p>The bridge is fully documented in its own repo’s README.</p>
+<hr />
+<h2 id="frappe-cloud-deployment-specifics">Frappe Cloud deployment
+specifics</h2>
+<p>✅ <strong>Working</strong> with workarounds documented below.</p>
+<h3 id="the-asset-path-workaround-v15.5.9">The asset path workaround
+(v15.5.9)</h3>
+<p><strong>Problem:</strong> On Frappe Cloud, the standard Frappe asset
+symlinking sometimes fails to symlink ALL of
+<code>apps/alphax_pos_suite/alphax_pos_suite/public/</code> into
+<code>sites/assets/alphax_pos_suite/</code>. Files in
+<code>dist/vendor/</code> get symlinked, but files in <code>js/</code>,
+<code>css/</code>, and <code>dist/cashier/</code> do not.</p>
+<p><strong>Workaround:</strong> All static assets are colocated under
+<code>dist/vendor/</code>:</p>
+<pre><code>public/dist/vendor/
+├── _css/                  ← was public/css/
+├── _js/                   ← was public/js/
+├── cashier/               ← was public/dist/cashier/
+└── *.global.prod.js       ← original vendor bundles</code></pre>
+<p><code>hooks.py</code> uses these new paths:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>app_include_css <span class="op">=</span> [</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;/assets/alphax_pos_suite/dist/vendor/_css/alphax_pos_hub.css&quot;</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;/assets/alphax_pos_suite/dist/vendor/_css/alphax_pos_classic.css&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>app_include_js <span class="op">=</span> [</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;/assets/alphax_pos_suite/dist/vendor/_js/sales_invoice_terminal_capture.js&quot;</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div>
+<p><strong>Why this works:</strong> the <code>dist/vendor/</code> folder
+happens to be the only one that survives the Frappe Cloud build pipeline
+reliably. Cause is unknown — possibly related to the build’s hard-link
+strategy. We sidestep the issue rather than fight it.</p>
+<p><strong>If you find the root cause:</strong> great, but moving the
+folders back to their natural locations risks breaking deployments. Test
+exhaustively before reverting.</p>
+<h3 id="the-vendor-bundle-commitment-v15.5.7">The vendor bundle
+commitment (v15.5.7)</h3>
+<p>We don’t fetch Vue/Pinia/vue-i18n from CDN at runtime. They’re
+committed to the repo at:</p>
+<pre><code>public/dist/vendor/vue.global.prod.js          (~160 KB)
+public/dist/vendor/pinia.iife.prod.js          (~6 KB)
+public/dist/vendor/vue-i18n.global.prod.js     (~56 KB)</code></pre>
+<p>To upgrade these versions, edit <code>fetch_vendor_bundles.py</code>,
+run it on your laptop, commit the new files. Don’t try to fetch them
+from within <code>bench install-app</code> — Frappe Cloud’s deploy
+containers don’t have outbound CDN access.</p>
+<h3 id="the-deprecated-package.json-v15.5.6">The deprecated package.json
+(v15.5.6)</h3>
+<p>A <code>package.json</code> at the top level of the app used to
+trigger a
+<code>cd frontend &amp;&amp; npm install &amp;&amp; npm run build</code>
+step during <code>bench build</code>. This always failed on Frappe Cloud
+and aborted the entire asset symlinking. We removed it.</p>
+<p><strong>Do not re-add a top-level package.json.</strong> If you need
+npm tooling for development, use <code>frontend/package.json</code>
+(which is gitignored from build pipelines).</p>
+<h3 id="the-frappe.build.bundle-fallback-chain-v15.5.7">The
+frappe.build.bundle fallback chain (v15.5.7)</h3>
+<p>In <code>install.py</code>, the <code>force_rebuild_assets()</code>
+helper tries three strategies:</p>
+<ol type="1">
+<li><code>frappe.build.bundle()</code> (Python API, may not exist in all
+v15 minor versions)</li>
+<li><code>subprocess.run(['bench', 'build', '--app', 'alphax_pos_suite'])</code>
+(CLI)</li>
+<li>Manual <code>os.symlink()</code> of public/ to sites/assets/</li>
+</ol>
+<p>Each fall-through is silent. If all three fail, the install proceeds
+anyway (assets remain unbuilt). The bench operator can then run
+<code>bench build</code> manually.</p>
+<hr />
+<h2 id="the-cashier-ui-classic-vs-vue-runtime-sfc-loader">The cashier
+UI: classic vs Vue, runtime SFC loader</h2>
+<h3 id="the-two-cashiers">The two cashiers</h3>
+<p><strong>Classic</strong> (<code>/app/alphax-pos-classic</code>) — ✅
+<strong>Production</strong></p>
+<ul>
+<li>Plain Frappe page with jQuery + Frappe UI helpers</li>
+<li>HTML template inline in <code>alphax_pos_classic.js</code></li>
+<li>Reactive only via manual DOM updates</li>
+<li>~700 lines of JS, ~500 lines of CSS</li>
+<li>Loads in ~150ms, no vendor dependencies</li>
+<li>Recommended for v15.5.13 deployments</li>
+</ul>
+<p><strong>Vue</strong> (<code>/app/alphax-pos-v2</code>) — 🔬
+<strong>Beta</strong></p>
+<ul>
+<li>Vue 3 SPA with Pinia for state, vue-i18n for locales</li>
+<li>30+ <code>.vue</code> files compiled at runtime by a custom SFC
+loader</li>
+<li>~520 line SFC loader handles <code>&lt;script setup&gt;</code>
+syntax, scoped CSS, template compilation</li>
+<li>Modern reactive UI with kiosk mode, modifier dialogs, etc.</li>
+<li>Currently broken on neo15 due to asset path issues; targeted for
+v15.6 production status</li>
+</ul>
+<p>Both share the same backend (boot API, sales submission, etc.). You
+can run both in production — workspace shortcuts can point at
+either.</p>
+<h3 id="how-the-sfc-loader-works">How the SFC loader works</h3>
+<p>The Vue cashier doesn’t use Vite or any build step. Instead:</p>
+<pre><code>1. Page loads → loads vue.global.prod.js, pinia, vue-i18n from /assets
+2. Page loads sfc-loader.js (the magic happens here)
+3. Page loads main.js (mounts the Vue app)
+4. main.js calls sfc.loadComponent(&#39;App.vue&#39;)
+5. sfc-loader fetches App.vue as text from /assets/.../sfc/App.vue
+6. sfc-loader splits &lt;template&gt;, &lt;script setup&gt;, &lt;style scoped&gt;
+7. Compiles template with Vue&#39;s runtime template compiler
+8. Transforms &lt;script setup&gt; to setup() (poor man&#39;s compiler)
+9. Scopes CSS by adding [data-v-XXX] selectors
+10. Returns a usable Vue component object
+11. App mounts. Repeat for each child component on demand.</code></pre>
+<p>This avoids: - npm install during deployment - A build step before
+deployment - Source maps that leak proprietary code</p>
+<p>It costs: - ~50ms longer initial load (template compile happens in
+browser) - Some Vue features (TypeScript) are unavailable -
+Source-map-based debugging is harder</p>
+<p>The trade was deliberate. <strong>Do not reintroduce a Vite build
+pipeline without serious reason.</strong></p>
+<h3 id="boot-sequence-in-detail">Boot sequence in detail</h3>
+<p><code>page/alphax_pos_v2/alphax_pos_v2.js</code>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">bootCashier</span>(wrapper) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. Load vendor bundles, local first then CDN fallback</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">loadScript</span>(VENDOR_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/vue.global.prod.js&#39;</span><span class="op">,</span> VENDOR_CDN_VUE)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">loadScript</span>(VENDOR_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/pinia.iife.prod.js&#39;</span><span class="op">,</span> VENDOR_CDN_PINIA)<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">loadScript</span>(VENDOR_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/vue-i18n.global.prod.js&#39;</span><span class="op">,</span> VENDOR_CDN_I18N)<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Load global cashier styles (non-blocking &lt;link&gt;)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">loadStyle</span>(SPA_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/sfc/styles/globals.css&#39;</span>)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. Load SFC loader and main bootstrap</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">loadScript</span>(SPA_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/sfc-loader.js&#39;</span>)<span class="op">;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="fu">loadScript</span>(SPA_LOCAL_BASE <span class="op">+</span> <span class="st">&#39;/main.js&#39;</span>)<span class="op">;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 4. main.js exports `start(rootSelector, baseUrl)` which sfc-loads</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">//    App.vue and mounts it</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> <span class="bu">window</span><span class="op">.</span><span class="at">AlphaXSPA</span><span class="op">.</span><span class="at">start</span>(<span class="st">&#39;#alphax-cashier-app&#39;</span><span class="op">,</span> SPA_LOCAL_BASE)<span class="op">;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>If any vendor file fails to load from BOTH local and CDN, a
+<code>VendorLoadError</code> is thrown and a “couldn’t reach display
+files” card is shown. Other failures show “Something went wrong loading
+the register”.</p>
+<hr />
+<h2 id="doctype-reference-all-52-what-they-do">Doctype reference: all
+52, what they do</h2>
+<p>✅ <strong>All listed doctypes exist in the codebase.</strong> Some
+are 🔬 Beta (noted).</p>
+<h3 id="core-pos">Core POS</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Outlet</td>
+<td>Business unit within a Branch</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Terminal</td>
+<td>Physical cashier station</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Settings</td>
+<td>Single doctype, global config</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Profile</td>
+<td>Wraps standard POS Profile, adds AlphaX-specific fields</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Theme</td>
+<td>Visual theme (colors, logos)</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Domain Pack</td>
+<td>Feature flags per vertical</td>
+</tr>
+</tbody>
+</table>
+<h3 id="orders-sales">Orders &amp; Sales</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Order</td>
+<td>Held order (intermediate before Sales Invoice)</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Order Item</td>
+<td>Child of POS Order</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Order Tax</td>
+<td>Tax breakdown per order</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Order Payment</td>
+<td>Payment line per order</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Invoice</td>
+<td>(Currently unused; reserved for direct invoicing flow)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shifts-cash">Shifts &amp; Cash</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Shift</td>
+<td>Cashier’s open-to-close session</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Shift Cash Move</td>
+<td>Cash drops, lifts, transfers</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Cash Move</td>
+<td>Standalone cash movement</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Day Close</td>
+<td>End-of-day summary</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns-credit-notes">Returns &amp; Credit Notes</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Return</td>
+<td>Return record</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Return Line</td>
+<td>Child of Return</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Credit Note</td>
+<td>Customer credit balance</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Credit Note Use</td>
+<td>Each redemption against a credit note</td>
+</tr>
+</tbody>
+</table>
+<h3 id="loyalty-offers">Loyalty &amp; Offers</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Loyalty Program</td>
+<td>Loyalty rules</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Loyalty Tier</td>
+<td>Tier (Silver, Gold, etc.)</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Loyalty Customer Card</td>
+<td>Customer’s loyalty record</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Loyalty Transaction</td>
+<td>Earn / redeem ledger</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Offer</td>
+<td>Coupon code or promotion</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Offer Redemption</td>
+<td>Each use of an offer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pharmacy">Pharmacy 🔬</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX Drug Master</td>
+<td>Drug catalog with schedule, max refills</td>
+</tr>
+<tr class="even">
+<td>AlphaX Prescription</td>
+<td>Prescription record</td>
+</tr>
+<tr class="odd">
+<td>AlphaX Prescription Line</td>
+<td>Child of prescription</td>
+</tr>
+<tr class="even">
+<td>AlphaX Drug Interaction Rule</td>
+<td>Pairs of dangerous drug combinations</td>
+</tr>
+<tr class="odd">
+<td>AlphaX Controlled Substance Log</td>
+<td>Audit log for Schedule II/III/IV dispenses</td>
+</tr>
+</tbody>
+</table>
+<h3 id="restaurant">Restaurant 🔬</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Recipe</td>
+<td>BOM-style item recipe</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Recipe Item</td>
+<td>Ingredients child</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Modifier Group</td>
+<td>Extras (size, milk, sauce)</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Modifier</td>
+<td>Specific extra option</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Floor Plan</td>
+<td>Restaurant tables layout</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Table</td>
+<td>Individual table</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS KDS Display</td>
+<td>Kitchen Display configuration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="central-kitchen">Central Kitchen 🔬</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Central Kitchen Outlet</td>
+<td>Outlet that feeds others</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Central Kitchen Map</td>
+<td>Item routing rules</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compliance-zatca">Compliance / ZATCA</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Processing Log</td>
+<td>ZATCA submission status per invoice</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Audit Log</td>
+<td>Generic audit (different from manager auth log)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hardware-integration">Hardware integration</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Card Transaction</td>
+<td>Card terminal capture record</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Receipt Template</td>
+<td>Print template per profile</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Scale Profile</td>
+<td>Weight scale config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-new-in-v15.5.13">Security (NEW in v15.5.13)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Manager PIN</td>
+<td>Bcrypt-hashed PIN per manager + lockout state</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Manager Authorization Log</td>
+<td>Append-only audit trail</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-tables-single-doctypes">Configuration tables
+(Single doctypes)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Doctype</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AlphaX POS Settings</td>
+<td>Global settings (44 fields)</td>
+</tr>
+<tr class="even">
+<td>AlphaX POS Hardware Settings</td>
+<td>Bridge daemon connection params</td>
+</tr>
+<tr class="odd">
+<td>AlphaX POS Loyalty Settings</td>
+<td>Default loyalty config</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 Use <code>bench --site &lt;site&gt; console</code> then
+<code>frappe.get_all("DocType", {"module": "AlphaX POS Suite"})</code>
+for the live list — it’s the ground truth.</p>
+</blockquote>
+<hr />
+<h2 id="hooks-and-triggers-reference">Hooks and triggers reference</h2>
+<h3 id="document-hooks-hooks.pydoc_events">Document hooks
+(<code>hooks.py::doc_events</code>)</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;Sales Invoice&quot;</span>: {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;validate&quot;</span>: <span class="st">&quot;alphax_pos_suite...integrations.card_capture.sales_invoice_validate&quot;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;before_submit&quot;</span>: <span class="st">&quot;alphax_pos_suite...integrations.card_capture.sales_invoice_before_submit&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;on_submit&quot;</span>: [</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite...integrations.card_capture.sales_invoice_on_submit&quot;</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite...pos.processing.on_sales_invoice_submit&quot;</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite...loyalty.hooks.on_sales_invoice_submit&quot;</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite...integrations.zatca_adapter.on_pos_invoice_submit&quot;</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;on_cancel&quot;</span>: [</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite...loyalty.hooks.on_sales_invoice_cancel&quot;</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;AlphaX POS Order&quot;</span>: {</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;on_submit&quot;</span>: <span class="st">&quot;alphax_pos_suite...pos.posting.on_order_submit&quot;</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;on_cancel&quot;</span>: <span class="st">&quot;alphax_pos_suite...pos.posting.on_order_cancel&quot;</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>},</span></code></pre></div>
+<h3 id="lifecycle-hooks">Lifecycle hooks</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>after_install <span class="op">=</span> <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.install.after_install&quot;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>after_migrate <span class="op">=</span> [</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.install.force_rebuild_assets&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.install.fetch_vendor_bundles_silently&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>boot_session <span class="op">=</span> <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.appearance.workspace_theme_css.boot_workspace_theme&quot;</span></span></code></pre></div>
+<h3 id="scheduled-tasks">Scheduled tasks</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>scheduler_events <span class="op">=</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;daily&quot;</span>: [</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.pos.maintenance.daily_cleanup&quot;</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.loyalty.hooks.expire_points&quot;</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;alphax_pos_suite.alphax_pos_suite.security.manager_pin.reset_daily_counters&quot;</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="after_install-chain"><code>after_install</code> chain</h3>
+<p>In order:</p>
+<ol type="1">
+<li><code>create_roles()</code> — creates AlphaX POS Manager, etc.</li>
+<li><code>create_custom_fields()</code> — installs all from
+<code>data/custom_fields_seed.json</code></li>
+<li><code>create_workspace()</code> — loads
+<code>fixtures/workspace.json</code></li>
+<li><code>create_role_profiles()</code></li>
+<li><code>apply_permissions()</code></li>
+<li><code>seed_domain_packs()</code> — creates the 8 domain packs</li>
+<li><code>fetch_vendor_bundles_silently()</code> — best-effort CDN
+fetch</li>
+<li><code>force_rebuild_assets()</code> — three-strategy bench build
+fallback</li>
+</ol>
+<hr />
+<h2 id="boot-api-contract">Boot API contract</h2>
+<p>✅ <strong>Working</strong></p>
+<p>The <code>pos_boot</code> endpoint at
+<code>alphax_pos_suite.alphax_pos_suite.boot.api.pos_boot</code> is what
+the cashier UI calls on load to get its operational context.</p>
+<h3 id="request">Request</h3>
+<pre><code>POST /api/method/alphax_pos_suite...boot.api.pos_boot
+Content-Type: application/json
+
+{ &quot;terminal&quot;: &quot;A07&quot; }</code></pre>
+<h3 id="response-shape">Response shape</h3>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;message&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;outlet&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Coffee Shop&quot;</span><span class="fu">,</span> <span class="dt">&quot;branch&quot;</span><span class="fu">:</span> <span class="st">&quot;Riyadh Mall&quot;</span><span class="fu">,</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;profile&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="er">pos</span> <span class="er">profile</span> <span class="er">fields</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;domain_pack&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="er">feature</span> <span class="er">flags</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;theme&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="er">colors</span><span class="fu">,</span> <span class="er">logos</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;payment_methods&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="fu">{</span><span class="er">...</span><span class="fu">}</span><span class="ot">,</span> <span class="fu">{</span><span class="er">...</span><span class="fu">}</span> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;scale&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;generic&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="er">...</span><span class="fu">},</span> <span class="dt">&quot;prefix_map&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">...</span><span class="ot">]</span> <span class="fu">},</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;warehouse&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">},</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;ksa_zatca&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="er">...</span> <span class="fu">}</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The cashier caches this in <code>frappe.cache()</code> keyed by
+terminal, invalidated by: - <code>invalidate_boot_cache(terminal)</code>
+— manual call - Document hooks on Outlet, Profile, Theme</p>
+<h3 id="other-boot-endpoints">Other boot endpoints</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Endpoint</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pos_boot</code></td>
+<td>Full bootinfo for a terminal</td>
+</tr>
+<tr class="even">
+<td><code>list_terminals_for_picker</code></td>
+<td>Terminal list for the picker UI</td>
+</tr>
+<tr class="odd">
+<td><code>get_default_terminal_for_session</code></td>
+<td>Currently returns <code>can_change</code> only (deprecated
+default-terminal path)</td>
+</tr>
+<tr class="even">
+<td><code>invalidate_boot_cache(terminal)</code></td>
+<td>Clear cache for a terminal</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="manager-pin-security-module">Manager PIN security module</h2>
+<p>✅ <strong>Working</strong> (v15.5.13)</p>
+<p>Module:
+<code>alphax_pos_suite.alphax_pos_suite.security.manager_pin</code></p>
+<h3 id="public-api">Public API</h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="at">@frappe.whitelist</span>()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_manager_pin(user, pin) <span class="op">-&gt;</span> <span class="bu">dict</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># System Manager only. Hashes PIN, upserts, resets lockout.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="at">@frappe.whitelist</span>()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">@frappe.rate_limit</span>(limit<span class="op">=</span><span class="dv">10</span>, seconds<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verify_manager_pin(user, pin, action_type, terminal, outlet) <span class="op">-&gt;</span> <span class="bu">dict</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The hot path. Per-manager exponential lockout. Generic error</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># messages on any failure (no leakage). Rate-limited.</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="at">@frappe.whitelist</span>()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reset_manager_lockout(user) <span class="op">-&gt;</span> <span class="bu">dict</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># System Manager only. Manual unlock.</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="at">@frappe.whitelist</span>()</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_action(action_type, terminal, outlet, notes) <span class="op">-&gt;</span> <span class="bu">dict</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Audit log entry for follow-up actions after a PIN verify.</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reset_daily_counters() <span class="op">-&gt;</span> <span class="va">None</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Scheduled. Resets lockout_count_today on all PIN records.</span></span></code></pre></div>
+<h3 id="lockout-policy-v15.5.13">Lockout policy (v15.5.13)</h3>
+<p>Exponential backoff schedule:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>LOCKOUT_SCHEDULE_MINUTES <span class="op">=</span> [</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>,           <span class="co"># Lockout #1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">30</span>,          <span class="co"># Lockout #2</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span> <span class="op">*</span> <span class="dv">60</span>,      <span class="co"># Lockout #3</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">24</span> <span class="op">*</span> <span class="dv">60</span>,     <span class="co"># Lockout #4 + email alert to System Manager</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Past index 3: admin reset required (locked_until set 10 years out)</span></span></code></pre></div>
+<h3 id="audit-log-model">Audit log model</h3>
+<p>The <code>AlphaX POS Manager Authorization Log</code> doctype is
+<strong>append-only</strong>: - Permissions: read for System Manager +
+AlphaX POS Manager, no write/create/delete for anyone - Entries created
+only via
+<code>frappe.get_doc(...).insert(ignore_permissions=True)</code> in
+<code>_audit_log()</code> helper</p>
+<p>This means a compromised manager account cannot scrub their own audit
+trail through the Frappe UI.</p>
+<h3 id="threat-model">Threat model</h3>
+<p><strong>In scope:</strong> - Brute-force PIN attempts → exponential
+lockout + IP rate limit - Audit trail tampering → append-only doctype,
+ignore_permissions only - PIN database leak → bcrypt 12-round hashing -
+User enumeration via timing → bcrypt dummy hash on user-not-found
+path</p>
+<p><strong>Out of scope (deferred):</strong> - Phishing the PIN out of a
+manager → user education - Compromised cashier PC with keylogger →
+endpoint security - Insider with system manager role → no defense (by
+design; ultimate trust)</p>
+<hr />
+<h2 id="domain-pack-system">Domain pack system</h2>
+<p>✅ <strong>Working</strong> for the data model 🔬
+<strong>Beta</strong> for cashier-side feature toggling (some packs not
+fully wired)</p>
+<h3 id="how-it-works">How it works</h3>
+<p><code>AlphaX POS Domain Pack</code> doctype defines feature flags.
+Each <code>AlphaX POS Outlet</code> links to one domain pack.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AlphaX POS Domain Pack</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;name&quot;</span>: <span class="st">&quot;Restaurant&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;show_floor_plan&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;show_kds&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;show_modifiers&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;auto_print_kitchen_ticket&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;service_charge_enabled&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;tips_enabled&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;table_management_enabled&quot;</span>: <span class="dv">1</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;show_pharmacy_features&quot;</span>: <span class="dv">0</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;show_serial_capture&quot;</span>: <span class="dv">0</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="cashier-consumption">Cashier consumption</h3>
+<p>The cashier reads the domain pack via <code>pos_boot</code>
+response:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Vue cashier</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> useStore <span class="op">=</span> <span class="fu">defineStore</span>(<span class="st">&#39;settings&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> showFloorPlan <span class="op">=</span> <span class="fu">computed</span>(() <span class="kw">=&gt;</span> boot<span class="op">.</span><span class="at">value</span><span class="op">?.</span><span class="at">domain_pack</span><span class="op">?.</span><span class="at">show_floor_plan</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> { showFloorPlan }</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Classic cashier</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (state<span class="op">.</span><span class="at">boot</span><span class="op">?.</span><span class="at">domain_pack</span><span class="op">?.</span><span class="at">show_floor_plan</span>) {</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">$</span>(<span class="st">&#39;[data-area=&quot;floor-plan-button&quot;]&#39;</span>)<span class="op">.</span><span class="fu">show</span>()</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="adding-a-new-pack">Adding a new pack</h3>
+<ol type="1">
+<li>Create a record in <code>AlphaX POS Domain Pack</code></li>
+<li>Set the relevant feature flags</li>
+<li>Link from outlets</li>
+</ol>
+<p>To add new feature flags, add Check fields to the Domain Pack doctype
+JSON, then teach the cashier UI to read them.</p>
+<hr />
+<h2 id="soft-adapter-pattern-zatca-hardware-bridge">Soft adapter pattern
+(ZATCA, hardware bridge)</h2>
+<p>The “soft adapter” pattern lets us integrate with optional
+dependencies without breaking when they’re absent.</p>
+<h3 id="example-zatca-adapter">Example: ZATCA adapter</h3>
+<p><code>alphax_pos_suite/integrations/zatca_adapter.py</code>:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> on_pos_invoice_submit(invoice, method):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Sales Invoice on_submit hook for ZATCA.&quot;&quot;&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="im">from</span> alphax_zatca.api <span class="im">import</span> submit_invoice</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> submit_invoice(invoice)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># log result to AlphaX POS Processing Log</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># alphax_zatca not installed; this is fine for non-KSA shops</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># ZATCA failed; log but don&#39;t block the sale</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        frappe.log_error(...)</span></code></pre></div>
+<p>The same module also tries the upstream <code>zatca_erpgulf</code> if
+our fork isn’t available — graceful fallback.</p>
+<h3 id="example-bridge-adapter">Example: Bridge adapter</h3>
+<p>The browser tries <code>ws://localhost:9876</code> for the bridge
+daemon. On WebSocket open failure, it silently falls back to
+browser-native print. The cashier never blocks on hardware
+availability.</p>
+<h3 id="why-this-matters">Why this matters</h3>
+<p>A customer can install only <code>alphax_pos_suite</code> and have a
+working POS. ZATCA, the bridge, fancy printers — all optional.
+<strong>The base case always works.</strong></p>
+<hr />
+<h2 id="custom-field-strategy-no-migrations">Custom field strategy: no
+migrations</h2>
+<p>✅ <strong>Working</strong></p>
+<p>We never write database migrations to add fields. Instead:</p>
+<ol type="1">
+<li>Custom fields are declared in
+<code>data/custom_fields_seed.json</code></li>
+<li><code>install.py::create_custom_fields()</code> reads the JSON and
+creates them via <code>frappe.create_custom_field(...)</code>
+(idempotent)</li>
+<li><code>after_install</code> and <code>after_migrate</code> both run
+this — so upgrades pick up new fields automatically</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">data/custom_fields_seed.json</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;doctype&quot;</span><span class="fu">:</span> <span class="st">&quot;Custom Field&quot;</span><span class="fu">,</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;dt&quot;</span><span class="fu">:</span> <span class="st">&quot;Sales Invoice&quot;</span><span class="fu">,</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;fieldname&quot;</span><span class="fu">:</span> <span class="st">&quot;alphax_outlet&quot;</span><span class="fu">,</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;label&quot;</span><span class="fu">:</span> <span class="st">&quot;AlphaX POS Outlet&quot;</span><span class="fu">,</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;fieldtype&quot;</span><span class="fu">:</span> <span class="st">&quot;Link&quot;</span><span class="fu">,</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;options&quot;</span><span class="fu">:</span> <span class="st">&quot;AlphaX POS Outlet&quot;</span><span class="fu">,</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;insert_after&quot;</span><span class="fu">:</span> <span class="st">&quot;is_pos&quot;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="er">...</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div>
+<h3 id="to-add-a-custom-field">To add a custom field</h3>
+<ol type="1">
+<li>Add an entry to the JSON</li>
+<li>Don’t write a migration — <code>create_custom_fields()</code> will
+install it</li>
+<li>Test on a fresh site AND an existing site</li>
+</ol>
+<h3 id="to-deprecate-a-custom-field">To deprecate a custom field</h3>
+<ol type="1">
+<li>Mark it deprecated in the JSON description</li>
+<li>Don’t delete it (deletion requires a real migration)</li>
+<li>Future cleanup: write a delete-custom-field patch in
+<code>patches/v15_0/</code></li>
+</ol>
+<hr />
+<h2 id="extending-the-system">Extending the system</h2>
+<h3 id="adding-a-new-doctype">Adding a new doctype</h3>
+<ol type="1">
+<li>Use Frappe’s standard <code>bench new-doctype</code> workflow OR
+create the JSON manually</li>
+<li>Place it in
+<code>alphax_pos_suite/alphax_pos_suite/doctype/&lt;your_doctype&gt;/</code></li>
+<li>Set <code>module: "AlphaX POS Suite"</code> in the JSON</li>
+<li>(Optional) Add a controller <code>.py</code> file</li>
+<li>Run <code>bench --site ... migrate</code></li>
+</ol>
+<h3 id="adding-a-new-payment-method">Adding a new payment method</h3>
+<ol type="1">
+<li>Standard ERPNext: create a <code>Mode of Payment</code> record</li>
+<li>Link from POS Profile → Mode of Payment table</li>
+<li>(Optional) For card terminals: add a record in
+<code>AlphaX POS Card Transaction</code> when capturing card response
+data</li>
+</ol>
+<h3 id="adding-a-new-domain-pack">Adding a new domain pack</h3>
+<p>See “Domain pack system” above.</p>
+<h3 id="adding-a-new-cashier-action">Adding a new cashier action</h3>
+<p>In the Classic cashier (<code>alphax_pos_classic.js</code>):</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">// In the HTML template</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>button <span class="kw">class</span><span class="op">=</span><span class="st">&quot;alphax-btn&quot;</span> data<span class="op">-</span>action<span class="op">=</span><span class="st">&quot;my_new_action&quot;</span><span class="op">&gt;</span>My Action<span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Handler</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">$</span>(wrapper)<span class="op">.</span><span class="fu">on</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> <span class="st">&#39;[data-action=&quot;my_new_action&quot;]&#39;</span><span class="op">,</span> <span class="kw">function</span>(){</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Your code here</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>In the Vue cashier
+(<code>alphax_pos_v2/sfc/components/...</code>):</p>
+<pre class="vue"><code>&lt;template&gt;
+  &lt;button @click=&quot;onMyNewAction&quot;&gt;My Action&lt;/button&gt;
+&lt;/template&gt;
+&lt;script setup&gt;
+function onMyNewAction() {
+  // Your code here
+}
+&lt;/script&gt;</code></pre>
+<h3 id="adding-a-manager-authorized-action">Adding a manager-authorized
+action</h3>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Show the manager PIN dialog (function exists in alphax_pos_classic.js)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">open_manager_dialog</span>()<span class="op">;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">// After successful verify, the dialog opens its post-auth menu.</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Add a button there that triggers your action.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. From your action handler, call the audit log endpoint</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> frappe<span class="op">.</span><span class="fu">call</span>({</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;alphax_pos_suite.alphax_pos_suite.security.manager_pin.log_action&#39;</span><span class="op">,</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">args</span><span class="op">:</span> { <span class="dt">action_type</span><span class="op">:</span> <span class="st">&#39;My Custom Action&#39;</span><span class="op">,</span> <span class="dt">terminal</span><span class="op">:</span> <span class="fu">pc_terminal</span>() }</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Then perform the action</span></span></code></pre></div>
+<h3 id="adding-a-hook">Adding a hook</h3>
+<p>Edit <code>hooks.py</code>. Don’t add hooks at runtime — they need to
+be in the hook file for Frappe’s hook resolver to find them.</p>
+<hr />
+<h2 id="customer-onboarding-playbook">Customer onboarding playbook</h2>
+<p>When a new customer signs up:</p>
+<h3 id="phase-1-discovery-1-2-days">Phase 1: discovery (1-2 days)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Get their company info, VAT,
+branches, hardware list</label></li>
+<li><label><input type="checkbox" />Confirm Frappe Cloud bench is
+provisioned</label></li>
+<li><label><input type="checkbox" />Get GitHub access</label></li>
+<li><label><input type="checkbox" />Walk through the Administrator
+Manual together (skim, not deep)</label></li>
+<li><label><input type="checkbox" />Set realistic timeline expectations:
+1-2 weeks for non-trivial setups; 3-4 weeks if pharmacy or restaurant
+features are needed</label></li>
+</ul>
+<h3 id="phase-2-setup-3-5-days">Phase 2: setup (3-5 days)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Day 1-2: Deploy apps + create
+company hierarchy</label></li>
+<li><label><input type="checkbox" />Day 3: Items, taxes,
+pricing</label></li>
+<li><label><input type="checkbox" />Day 4: Users, roles, manager
+PINs</label></li>
+<li><label><input type="checkbox" />Day 5: First test cashier session
+end-to-end</label></li>
+</ul>
+<h3 id="phase-3-zatca-hardware-3-5-days">Phase 3: ZATCA + hardware (3-5
+days)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Sandbox ZATCA setup, test invoice
+submissions</label></li>
+<li><label><input type="checkbox" />Install bridge daemons on each
+cashier PC (if needed)</label></li>
+<li><label><input type="checkbox" />Test printers, drawers,
+scanners</label></li>
+<li><label><input type="checkbox" />Switch ZATCA to
+production</label></li>
+</ul>
+<h3 id="phase-4-training-2-3-days">Phase 4: training (2-3 days)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Train managers using Manager
+Manual</label></li>
+<li><label><input type="checkbox" />Each manager sets up their PINs,
+learns the workflow</label></li>
+<li><label><input type="checkbox" />Train cashiers using Cashier
+Manual</label></li>
+<li><label><input type="checkbox" />Run a full simulated business day
+with all staff</label></li>
+</ul>
+<h3 id="phase-5-go-live-1-day">Phase 5: go-live (1 day)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Final sanity check</label></li>
+<li><label><input type="checkbox" />Switch from test invoices to real
+ones</label></li>
+<li><label><input type="checkbox" />On-call support for the first 24
+hours</label></li>
+</ul>
+<h3 id="phase-6-handoff-ongoing">Phase 6: handoff (ongoing)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Show them the Administrator Manual
+sections they’ll use weekly</label></li>
+<li><label><input type="checkbox" />Set up support escalation: customer
+→ their IT → you</label></li>
+<li><label><input type="checkbox" />Schedule a 30-day
+check-in</label></li>
+</ul>
+<hr />
+<h2 id="known-issues-and-gotchas">Known issues and gotchas</h2>
+<h3 id="frappe-cloud-asset-symlink-quirk">Frappe Cloud asset symlink
+quirk</h3>
+<p>Documented above (Section 4). Workaround: keep all assets under
+<code>dist/vendor/</code>.</p>
+<h3 id="repo-name-vs-app-name">Repo name vs app name</h3>
+<p>Repo is <code>alphax-pos-core-v15.5.1</code>, app is
+<code>alphax_pos_suite</code>. Mostly fine, but causes occasional
+bench-tooling confusion. Plan to rename the repo eventually.</p>
+<h3
+id="long-conversation-context-loss-in-our-ai-dev-cycles">Long-conversation
+context loss in our AI dev cycles</h3>
+<p>The previous AI session that wrote much of this code occasionally
+needed re-grounding on what was already done. Symptom: ships a “fix”
+that re-introduces a bug fixed two versions ago.</p>
+<p>Mitigation for human developers: when modifying versioned code, look
+at the git history before re-doing fixes.</p>
+<h3 id="vue-cashier-vendor-bundles">Vue cashier vendor bundles</h3>
+<p>Sometimes the cashier loads vendor bundles from CDN even when local
+copies exist. Cause: timing race between local fetch and CDN fallback.
+Acceptable for now; the user gets a slightly slower first load.</p>
+<h3 id="single-pin-per-manager-limit">Single-PIN-per-manager limit</h3>
+<p>Each manager has at most one PIN. Cannot have separate PINs for
+“floor-supervisor PIN” vs “back-office PIN”. Acceptable for v15.5.13;
+revisit in v16 if customers ask.</p>
+<h3 id="no-multi-factor-auth-on-the-pin">No multi-factor auth on the
+PIN</h3>
+<p>A 6-digit PIN is 1M combinations. Combined with our exponential
+lockout, this is secure for normal threat models. For high-value shops,
+consider: - Restricting manager-PIN-able actions to specific terminals -
+Requiring two-of-N approvals for high-value voids - Adding TOTP as a
+second factor on top of the PIN</p>
+<p>These are deferred features.</p>
+<hr />
+<h2 id="roadmap-and-deferred-work">Roadmap and deferred work</h2>
+<h3 id="likely-v15.6">Likely v15.6</h3>
+<ul>
+<li>Vue cashier reaches production parity with Classic</li>
+<li>Inline prescription capture in cashier</li>
+<li>Floor plan integrated with cashier (table-tap → cart)</li>
+<li>KDS production-ready</li>
+<li>Manager PIN admin UI (currently CLI-only)</li>
+</ul>
+<h3 id="likely-v16">Likely v16</h3>
+<ul>
+<li>Full ESLint/Prettier on Classic JS</li>
+<li>Replace runtime SFC compilation with Vite build (if Frappe Cloud
+supports it cleanly)</li>
+<li>Multi-PIN-per-manager (different actions, different PINs)</li>
+<li>TOTP second factor</li>
+<li>Per-branch ACLs on manager authorization</li>
+</ul>
+<h3 id="wishlist">Wishlist</h3>
+<ul>
+<li>ZATCA Phase 3 readiness</li>
+<li>Hardware bridge production hardening</li>
+<li>Code-signing certificates for installer (Windows EV, Apple Dev)</li>
+<li>Native mobile app (currently runs in mobile browser, but native
+could be smoother)</li>
+<li>Restaurant-specific:
+<ul>
+<li>Reservation system</li>
+<li>Table-side ordering tablet UI</li>
+</ul></li>
+<li>Pharmacy-specific:
+<ul>
+<li>NPHIES integration (KSA insurance)</li>
+<li>Inventory expiry alerts</li>
+</ul></li>
+<li>Multi-language UI (Arabic + English fully)</li>
+</ul>
+<hr />
+<h2 id="appendix-a-quick-reference">Appendix A: quick reference</h2>
+<h3 id="critical-paths">Critical paths</h3>
+<ul>
+<li>Workspace: <code>/app/alphax-pos-hub</code></li>
+<li>Classic cashier: <code>/app/alphax-pos-classic</code></li>
+<li>Vue cashier: <code>/app/alphax-pos-v2</code></li>
+<li>Settings:
+<code>/app/alphax-pos-settings/AlphaX POS Settings</code></li>
+<li>Audit log:
+<code>/app/alphax-pos-manager-authorization-log</code></li>
+<li>ZATCA Status: <code>/app/alphax-pos-processing-log</code></li>
+</ul>
+<h3 id="critical-files">Critical files</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>What’s in it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>alphax_pos_suite/hooks.py</code></td>
+<td>All hook registrations</td>
+</tr>
+<tr class="even">
+<td><code>alphax_pos_suite/alphax_pos_suite/install.py</code></td>
+<td>after_install chain</td>
+</tr>
+<tr class="odd">
+<td><code>alphax_pos_suite/alphax_pos_suite/boot/api.py</code></td>
+<td>pos_boot endpoint</td>
+</tr>
+<tr class="even">
+<td><code>alphax_pos_suite/alphax_pos_suite/security/manager_pin.py</code></td>
+<td>PIN auth</td>
+</tr>
+<tr class="odd">
+<td><code>alphax_pos_suite/alphax_pos_suite/page/alphax_pos_classic/alphax_pos_classic.js</code></td>
+<td>Production cashier</td>
+</tr>
+<tr class="even">
+<td><code>alphax_pos_suite/fixtures/workspace.json</code></td>
+<td>Workspace structure</td>
+</tr>
+<tr class="odd">
+<td><code>build_workspace.py</code></td>
+<td>Workspace generator script</td>
+</tr>
+<tr class="even">
+<td><code>data/custom_fields_seed.json</code></td>
+<td>All custom fields</td>
+</tr>
+</tbody>
+</table>
+<h3 id="critical-commands">Critical commands</h3>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Deploy a new version</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push  <span class="co"># triggers Frappe Cloud auto-build</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then on Frappe Cloud: Bench → Show Updates → Deploy</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a manager PIN (no UI yet)</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>site<span class="op">&gt;</span> console</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> import <span class="ex">frappe</span><span class="kw">;</span> <span class="ex">frappe.call</span><span class="er">(</span><span class="st">&#39;alphax_pos_suite...security.manager_pin.set_manager_pin&#39;</span><span class="ex">,</span> user=<span class="st">&#39;x@y.com&#39;</span>, pin=<span class="st">&#39;1234&#39;</span><span class="kw">)</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset a lockout</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> frappe.call<span class="kw">(</span><span class="st">&#39;alphax_pos_suite...security.manager_pin.reset_manager_lockout&#39;</span><span class="ex">,</span> user=<span class="st">&#39;x@y.com&#39;</span><span class="kw">)</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Force rebuild assets</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>site<span class="op">&gt;</span> build <span class="at">--app</span> alphax_pos_suite <span class="at">--hard-link</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Migrate (run all patches)</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>site<span class="op">&gt;</span> migrate</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Run scheduler manually (for testing daily resets)</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="ex">bench</span> <span class="at">--site</span> <span class="op">&lt;</span>site<span class="op">&gt;</span> execute alphax_pos_suite.alphax_pos_suite.security.manager_pin.reset_daily_counters</span></code></pre></div>
+<hr />
+<p><em>Manual version 15.5.13 — May 2026. Maintained alongside the
+source repository.</em></p>
+</body>
+</html>

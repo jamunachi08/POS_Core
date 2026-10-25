@@ -1,0 +1,14 @@
+{
+  "doctype": "Page",
+  "name": "alphax-pos-forecast",
+  "module": "AlphaX POS Suite",
+  "title": "Demand & Prep Planner",
+  "icon": "octicon octicon-graph",
+  "standard": "Yes",
+  "roles": [
+    {"role": "AlphaX POS Manager"},
+    {"role": "AlphaX POS Kitchen"},
+    {"role": "AlphaX POS Supervisor"},
+    {"role": "System Manager"}
+  ]
+}
