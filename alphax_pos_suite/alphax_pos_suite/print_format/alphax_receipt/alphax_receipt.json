@@ -1,0 +1,20 @@
+{
+ "doctype": "Print Format",
+ "name": "AlphaX Receipt",
+ "doc_type": "Sales Invoice",
+ "module": "AlphaX POS Suite",
+ "print_format_type": "Jinja",
+ "custom_format": 1,
+ "standard": "Yes",
+ "disabled": 0,
+ "raw_printing": 0,
+ "line_breaks": 0,
+ "align_labels_right": 0,
+ "show_section_headings": 0,
+ "margin_top": 0.0,
+ "margin_bottom": 0.0,
+ "margin_left": 0.0,
+ "margin_right": 0.0,
+ "modified": "2026-10-26 09:00:00.000000",
+ "html": "{# Layout comes from the outlet's AlphaX Receipt Template (Receipt Designer). #}\n{{ alphax_receipt(doc) }}\n"
+}

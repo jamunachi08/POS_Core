@@ -1,0 +1,205 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Aggregator Connection",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "connection_name",
+   "label": "Connection",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "delivery_platform",
+   "label": "Delivery platform",
+   "fieldtype": "Link",
+   "options": "AlphaX Delivery Platform",
+   "reqd": 1,
+   "in_list_view": 1,
+   "description": "Carries the settlement Mode of Payment and commission used on posted invoices and in costing."
+  },
+  {
+   "fieldname": "adapter",
+   "label": "Protocol",
+   "fieldtype": "Select",
+   "options": "Delivery Hero (HungerStation)\nJahez\nKeeta\nGeneric JSON",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "enabled",
+   "label": "Enabled",
+   "fieldtype": "Check",
+   "default": "0"
+  },
+  {
+   "fieldname": "sandbox",
+   "label": "Sandbox / certification",
+   "fieldtype": "Check",
+   "default": "1",
+   "description": "While on, nothing is cooked or posted: orders are accepted for the platform's test flow only."
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "webhook_url",
+   "label": "Give this URL to the platform",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "customer",
+   "label": "Customer for invoices",
+   "fieldtype": "Link",
+   "options": "Customer",
+   "description": "Usually one customer per platform, e.g. HungerStation. Invoices are settled through the platform's Mode of Payment."
+  },
+  {
+   "fieldname": "auto_accept",
+   "label": "Accept automatically",
+   "fieldtype": "Check",
+   "default": "0",
+   "description": "Accept as soon as the order arrives, if the outlet has an open shift and every item is mapped. Otherwise orders wait in the Delivery Inbox."
+  },
+  {
+   "fieldname": "default_prep_minutes",
+   "label": "Default prep time (minutes)",
+   "fieldtype": "Int",
+   "default": "15"
+  },
+  {
+   "fieldname": "sb_creds",
+   "label": "Credentials",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "api_base_url",
+   "label": "Platform API base URL",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "username",
+   "label": "Username / client id",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "password",
+   "label": "Password / client secret",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "api_key",
+   "label": "API key",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "api_secret",
+   "label": "API secret",
+   "fieldtype": "Password"
+  },
+  {
+   "fieldname": "webhook_secret",
+   "label": "Webhook secret",
+   "fieldtype": "Password",
+   "description": "Delivery Hero: the plugin secret (JWT HS512). Others: shared secret or HMAC key per Protocol settings."
+  },
+  {
+   "fieldname": "sb_proto",
+   "label": "Protocol settings",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "protocol_json",
+   "label": "Protocol settings (JSON)",
+   "fieldtype": "Code",
+   "options": "JSON",
+   "description": "Paths, field mapping and status codes. Filled with a template for the chosen protocol; adjust to the specification the platform issues at onboarding."
+  },
+  {
+   "fieldname": "sb_stores",
+   "label": "Stores",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stores",
+   "label": "Stores",
+   "fieldtype": "Table",
+   "options": "AlphaX Aggregator Store"
+  },
+  {
+   "fieldname": "sb_health",
+   "label": "Health",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "last_order_at",
+   "label": "Last order received",
+   "fieldtype": "Datetime",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error",
+   "label": "Last error",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  }
+ ],
+ "field_order": [
+  "connection_name",
+  "delivery_platform",
+  "adapter",
+  "enabled",
+  "sandbox",
+  "cb1",
+  "webhook_url",
+  "customer",
+  "auto_accept",
+  "default_prep_minutes",
+  "sb_creds",
+  "api_base_url",
+  "username",
+  "password",
+  "cb2",
+  "api_key",
+  "api_secret",
+  "webhook_secret",
+  "sb_proto",
+  "protocol_json",
+  "sb_stores",
+  "stores",
+  "sb_health",
+  "last_order_at",
+  "last_error"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  }
+ ],
+ "autoname": "field:connection_name",
+ "title_field": "connection_name",
+ "description": "One platform account: credentials, protocol and which platform store maps to which outlet."
+}

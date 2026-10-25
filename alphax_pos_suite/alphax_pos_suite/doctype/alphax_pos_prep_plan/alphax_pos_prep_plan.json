@@ -1,0 +1,126 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Prep Plan",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "business_date",
+   "label": "Business date",
+   "fieldtype": "Date",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "demand_forecast",
+   "label": "From forecast",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Demand Forecast",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "label": "Status",
+   "fieldtype": "Select",
+   "options": "Draft\nIssued\nDone",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "plan_to",
+   "label": "Planned to",
+   "fieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "warehouse",
+   "label": "Outlet warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "material_request",
+   "label": "Material Request",
+   "fieldtype": "Link",
+   "options": "Material Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_lines",
+   "label": "Prep list",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "lines",
+   "label": "Lines",
+   "fieldtype": "Table",
+   "options": "AlphaX POS Prep Plan Line"
+  },
+  {
+   "fieldname": "unrecipe_items",
+   "label": "Items without a recipe",
+   "fieldtype": "Small Text",
+   "read_only": 1,
+   "description": "Sold as-is or missing an AlphaX POS Recipe. Add a recipe to include them in prep."
+  }
+ ],
+ "field_order": [
+  "outlet",
+  "business_date",
+  "demand_forecast",
+  "cb1",
+  "status",
+  "plan_to",
+  "warehouse",
+  "material_request",
+  "sb_lines",
+  "lines",
+  "unrecipe_items"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Kitchen",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "AlphaX POS Supervisor",
+   "read": 1
+  }
+ ],
+ "autoname": "format:PREP-{outlet}-{business_date}",
+ "title_field": "outlet",
+ "sort_field": "business_date",
+ "description": "What each station prepares, by slot, and what must be pulled from store, for one outlet and day."
+}

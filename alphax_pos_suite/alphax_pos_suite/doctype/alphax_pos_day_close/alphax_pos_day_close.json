@@ -1,0 +1,164 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Day Close",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "is_table": 0,
+  "editable_grid": 0,
+  "autoname": "format:APOS-DC-{YYYY}-{#####}",
+  "fields": [
+    {
+      "fieldname": "company",
+      "label": "Company",
+      "fieldtype": "Link",
+      "options": "Company",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "pos_terminal",
+      "label": "POS Terminal",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Terminal",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "data_source",
+      "label": "Data Source",
+      "fieldtype": "Select",
+      "options": "AlphaX POS Order\nSales Invoice",
+      "default": "AlphaX POS Order",
+      "description": "Select the source document for close reports.",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "pos_profile",
+      "label": "POS Profile",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Profile"
+    },
+    {
+      "fieldname": "posting_date",
+      "label": "Posting Date",
+      "fieldtype": "Date",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "from_time",
+      "label": "From Time",
+      "fieldtype": "Datetime"
+    },
+    {
+      "fieldname": "to_time",
+      "label": "To Time",
+      "fieldtype": "Datetime"
+    },
+    {
+      "fieldname": "section_sales",
+      "label": "Sales Summary",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "sales_count",
+      "label": "Sales (Vouchers)",
+      "fieldtype": "Int",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sales_value",
+      "label": "Sales Value",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "return_value",
+      "label": "Return Value",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "net_sales",
+      "label": "Net Sales",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "vat_amount",
+      "label": "VAT Amount",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "discount_amount",
+      "label": "Discount Amount",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "section_pay",
+      "label": "Payment Summary",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "payments",
+      "label": "Payments",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Day Close Payment"
+    },
+    {
+      "fieldname": "section_cash",
+      "label": "Cash Count",
+      "fieldtype": "Section Break"
+    },
+    {
+      "fieldname": "denominations",
+      "label": "Denominations",
+      "fieldtype": "Table",
+      "options": "AlphaX POS Denomination Line"
+    },
+    {
+      "fieldname": "cash_total",
+      "label": "Cash Total",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "variance",
+      "label": "Variance",
+      "fieldtype": "Currency",
+      "read_only": 1
+    },
+    {
+      "fieldname": "notes",
+      "label": "Notes",
+      "fieldtype": "Small Text"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "amend": 1
+    },
+    {
+      "role": "POS Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "submit": 1
+    },
+    {
+      "role": "Accounts Manager",
+      "read": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}

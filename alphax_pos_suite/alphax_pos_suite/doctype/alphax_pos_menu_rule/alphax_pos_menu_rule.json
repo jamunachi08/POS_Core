@@ -1,0 +1,79 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Menu Rule",
+ "module": "AlphaX POS Suite",
+ "istable": 1,
+ "custom": 0,
+ "description": "One inclusion or exclusion line of a menu. Rules are set algebra: includes are unioned, then excludes are subtracted, so 'all Beverages except Alcohol, plus these two specials' is three rows.",
+ "fields": [
+  {
+   "fieldname": "rule_type",
+   "label": "Rule",
+   "fieldtype": "Select",
+   "options": "Include\nExclude",
+   "default": "Include",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "match_on",
+   "label": "Match",
+   "fieldtype": "Select",
+   "options": "Item Group\nItem\nBrand\nItem Attribute",
+   "default": "Item Group",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "item_group",
+   "label": "Item Group",
+   "fieldtype": "Link",
+   "options": "Item Group",
+   "depends_on": "eval:doc.match_on=='Item Group'",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "include_descendants",
+   "label": "Include Sub-groups",
+   "fieldtype": "Check",
+   "default": 1,
+   "depends_on": "eval:doc.match_on=='Item Group'",
+   "in_list_view": 1,
+   "columns": 1,
+   "description": "Nested-set descent. Off means only items filed directly in this group."
+  },
+  {
+   "fieldname": "item",
+   "label": "Item",
+   "fieldtype": "Link",
+   "options": "Item",
+   "depends_on": "eval:doc.match_on=='Item'",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "brand",
+   "label": "Brand",
+   "fieldtype": "Link",
+   "options": "Brand",
+   "depends_on": "eval:doc.match_on=='Brand'"
+  },
+  {
+   "fieldname": "attribute",
+   "label": "Attribute",
+   "fieldtype": "Link",
+   "options": "Item Attribute",
+   "depends_on": "eval:doc.match_on=='Item Attribute'"
+  },
+  {
+   "fieldname": "attribute_value",
+   "label": "Value",
+   "fieldtype": "Data",
+   "depends_on": "eval:doc.match_on=='Item Attribute'"
+  }
+ ],
+ "permissions": []
+}

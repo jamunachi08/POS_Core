@@ -1,0 +1,80 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Receipt Block",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "block_type",
+   "label": "Block",
+   "fieldtype": "Select",
+   "options": "Logo\nTitle\nCompany & VAT\nOutlet & Address\nInvoice Details\nCustomer\nItems\nTotals\nVAT Breakdown\nPayments\nZATCA QR\nLoyalty & Gift Balance\nText\nDivider\nSpacer",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "align",
+   "label": "Align",
+   "fieldtype": "Select",
+   "options": "Center\nStart\nEnd",
+   "default": "Center",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "font_size",
+   "label": "Size (pt)",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "bold",
+   "label": "Bold",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "text_en",
+   "label": "Text (English)",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "columns": 2,
+   "description": "Title, Text and footer blocks. {invoice}, {date}, {outlet}, {cashier} are filled in."
+  },
+  {
+   "fieldname": "text_ar",
+   "label": "Text (Arabic)",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "qr_size_mm",
+   "label": "QR size (mm)",
+   "fieldtype": "Int",
+   "default": "30",
+   "depends_on": "eval:doc.block_type=='ZATCA QR'"
+  },
+  {
+   "fieldname": "hidden",
+   "label": "Hide",
+   "fieldtype": "Check"
+  }
+ ],
+ "field_order": [
+  "block_type",
+  "align",
+  "font_size",
+  "bold",
+  "text_en",
+  "text_ar",
+  "qr_size_mm",
+  "hidden"
+ ],
+ "permissions": [],
+ "istable": 1
+}

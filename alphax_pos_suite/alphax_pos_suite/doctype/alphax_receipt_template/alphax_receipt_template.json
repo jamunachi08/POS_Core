@@ -1,0 +1,106 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX Receipt Template",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 18:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "label": "Template",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "paper_width_mm",
+   "label": "Paper width (mm)",
+   "fieldtype": "Select",
+   "options": "80\n58\n76",
+   "default": "80",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "language",
+   "label": "Language",
+   "fieldtype": "Select",
+   "options": "Arabic and English\nArabic\nEnglish",
+   "default": "Arabic and English",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "base_font_pt",
+   "label": "Base font (pt)",
+   "fieldtype": "Int",
+   "default": "9"
+  },
+  {
+   "fieldname": "cb1",
+   "label": "",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "is_default",
+   "label": "Default for outlets without their own",
+   "fieldtype": "Check"
+  },
+  {
+   "fieldname": "logo",
+   "label": "Logo",
+   "fieldtype": "Attach Image"
+  },
+  {
+   "fieldname": "compliance",
+   "label": "ZATCA check",
+   "fieldtype": "Small Text",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_blocks",
+   "label": "Blocks (top to bottom)",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "blocks",
+   "label": "Blocks",
+   "fieldtype": "Table",
+   "options": "AlphaX Receipt Block"
+  }
+ ],
+ "field_order": [
+  "template_name",
+  "paper_width_mm",
+  "language",
+  "base_font_pt",
+  "cb1",
+  "is_default",
+  "logo",
+  "compliance",
+  "sb_blocks",
+  "blocks"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ],
+ "autoname": "field:template_name",
+ "title_field": "template_name",
+ "description": "Layout of the printed till receipt. Arrange blocks in the Receipt Designer; the ZATCA check lists anything a simplified tax invoice must show."
+}

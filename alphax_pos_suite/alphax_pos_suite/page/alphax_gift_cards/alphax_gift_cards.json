@@ -1,0 +1,9 @@
+{
+  "doctype": "Page",
+  "name": "alphax-gift-cards",
+  "module": "AlphaX POS Suite",
+  "title": "Gift Cards",
+  "icon": "octicon octicon-gift",
+  "standard": "Yes",
+  "roles": [{"role": "AlphaX POS Cashier"}, {"role": "AlphaX POS Supervisor"}, {"role": "AlphaX POS Manager"}, {"role": "Accounts Manager"}, {"role": "System Manager"}]
+}

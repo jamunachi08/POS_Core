@@ -1,0 +1,76 @@
+{% raw %}<!DOCTYPE html>{% endraw %}
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Your order</title>
+<script>window.TRACK = { ref: {{ ref | tojson }} };</script>
+<style>
+:root{--ink:#1d2321;--muted:#6b726f;--line:#e6e2da;--bg:#faf8f4;--card:#fff;--brand:#0f6e6e;--warn:#b4462b}
+@media (prefers-color-scheme:dark){:root{--ink:#eceae5;--muted:#a3a7a4;--line:#2d322f;--bg:#141716;--card:#1c201e;--brand:#3fb3a8;--warn:#ef8a6f}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI","Noto Sans Arabic",sans-serif}
+main{max-width:520px;margin:auto;padding:calc(28px + env(safe-area-inset-top,0px)) 20px 40px}
+.where{color:var(--muted);font-size:14px}
+.no{font-size:88px;font-weight:800;line-height:1;margin:10px 0 4px;font-variant-numeric:tabular-nums;letter-spacing:-2px}
+.state{font-size:22px;font-weight:700}.state.bad{color:var(--warn)}
+.eta{color:var(--muted);margin-top:4px}
+ol{list-style:none;padding:0;margin:26px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+ol li{border-top:4px solid var(--line);padding-top:8px;font-size:12px;color:var(--muted)}
+ol li.on{border-color:var(--brand);color:var(--ink);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.line{display:flex;justify-content:space-between;padding:4px 0;font-variant-numeric:tabular-nums}.total{font-weight:700;border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.lang{float:inline-end;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit}
+</style>
+</head>
+<body>
+<main>
+  <button class="lang" id="lang"></button>
+  <div class="where" id="where"></div>
+  <div class="no" id="no">…</div>
+  <div class="state" id="state"></div>
+  <div class="eta" id="eta"></div>
+  <ol id="steps"></ol>
+  <div class="card" id="items"></div>
+</main>
+<script>
+(() => {
+  const L = {
+    en: { steps: ["Received", "In the kitchen", "Ready", "Done"], New: "We have your order", "In Kitchen": "Being prepared", Ready: "Ready — come to the counter",
+      Completed: "Enjoy your meal", Settled: "Enjoy your meal", Rejected: "Sorry, we could not take this order", Cancelled: "This order was cancelled",
+      eta: "Ready around ", tableAt: "Table order at ", pickupAt: "Pickup at ", total: "Total", lang: "العربية", missing: "We can't find this order." },
+    ar: { steps: ["استلمنا", "في المطبخ", "جاهز", "تم"], New: "وصلنا طلبك", "In Kitchen": "قيد التحضير", Ready: "جاهز — تفضل إلى الكاونتر",
+      Completed: "بالعافية", Settled: "بالعافية", Rejected: "عذراً، لم نتمكن من قبول الطلب", Cancelled: "تم إلغاء الطلب",
+      eta: "جاهز حوالي ", tableAt: "طلب طاولة في ", pickupAt: "استلام من ", total: "الإجمالي", lang: "English", missing: "لم نجد هذا الطلب." },
+  };
+  const q = new URLSearchParams(location.search);
+  let lang = q.get("lang") || ((navigator.language || "").startsWith("ar") ? "ar" : "en"), d = null, timer;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = (v) => new Intl.NumberFormat(lang === "ar" ? "ar-SA" : "en-SA", { style: "currency", currency: "SAR" }).format(v);
+  const idx = { New: 0, "In Kitchen": 1, Ready: 2, Completed: 3, Settled: 3 };
+  function paint() {
+    const t = L[lang]; document.documentElement.lang = lang; document.documentElement.dir = lang === "ar" ? "rtl" : "ltr"; $("lang").textContent = t.lang;
+    if (!d) return;
+    if (!d.ok) { $("no").textContent = "—"; $("state").textContent = t.missing; return; }
+    $("where").textContent = (d.fulfilment === "Pickup" ? t.pickupAt : t.tableAt) + d.outlet;
+    $("no").textContent = d.number; const bad = ["Rejected", "Cancelled"].includes(d.status);
+    $("state").textContent = (t[d.status] || d.status) + (bad && d.reason ? " — " + d.reason : ""); $("state").className = "state" + (bad ? " bad" : "");
+    $("eta").textContent = d.promised_at && ["New", "In Kitchen"].includes(d.status) ? t.eta + new Date(d.promised_at.replace(" ", "T")).toLocaleTimeString(lang === "ar" ? "ar-SA" : "en-GB", { hour: "2-digit", minute: "2-digit" }) : "";
+    const at = bad ? -1 : idx[d.status] ?? 0; $("steps").innerHTML = t.steps.map((s, i) => `<li class="${i <= at ? "on" : ""}">${s}</li>`).join("");
+    $("items").innerHTML = d.items.map((i) => `<div class="line"><span>${esc(i.qty)} × ${esc(i.name)}</span><span>${money(i.amount)}</span></div>`).join("") + `<div class="line total"><span>${t.total}</span><span>${money(d.total)}</span></div>`;
+    document.title = d.number + " · " + (t[d.status] || d.status);
+  }
+  function poll() {
+    fetch("/api/method/alphax_pos_suite.alphax_pos_suite.ordering.public.track?" + new URLSearchParams({ ref: TRACK.ref }), { headers: { Accept: "application/json" } })
+      .then((r) => r.json()).then((j) => {
+        const prev = d && d.status; d = j.message || { ok: false }; paint();
+        if (prev && prev !== "Ready" && d.status === "Ready" && navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        if (d.ok && !["Completed", "Settled", "Rejected", "Cancelled"].includes(d.status)) timer = setTimeout(poll, 10000);
+      }).catch(() => (timer = setTimeout(poll, 15000)));
+  }
+  $("lang").onclick = () => { lang = lang === "ar" ? "en" : "ar"; paint(); };
+  paint(); poll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Calendar Event",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "event_name",
+   "label": "Event",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "event_type",
+   "label": "Type",
+   "fieldtype": "Select",
+   "options": "Ramadan\nLast 10 Nights\nEid al-Fitr\nEid al-Adha\nFounding Day\nNational Day\nPayday\nSchool Holiday\nPromotion\nLocal Event\nClosure",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "in_standard_filter": 1,
+   "description": "Leave blank for every outlet."
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_date",
+   "label": "From",
+   "fieldtype": "Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "to_date",
+   "label": "To",
+   "fieldtype": "Date",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "expected_uplift_pct",
+   "label": "Expected change (%)",
+   "fieldtype": "Float",
+   "description": "Used until the planner has seen this event in your own sales. +60 means 60% busier; -100 means closed. Once history exists, the learned effect takes over."
+  },
+  {
+   "fieldname": "notes",
+   "label": "Notes",
+   "fieldtype": "Small Text"
+  }
+ ],
+ "field_order": [
+  "event_name",
+  "event_type",
+  "outlet",
+  "cb1",
+  "from_date",
+  "to_date",
+  "expected_uplift_pct",
+  "notes"
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Kitchen",
+   "read": 1
+  }
+ ],
+ "autoname": "hash",
+ "title_field": "event_name",
+ "sort_field": "from_date",
+ "description": "Dates that move demand: confirmed Ramadan/Eid dates, promotions, school holidays, local events, closures. These override the built-in calendar."
+}

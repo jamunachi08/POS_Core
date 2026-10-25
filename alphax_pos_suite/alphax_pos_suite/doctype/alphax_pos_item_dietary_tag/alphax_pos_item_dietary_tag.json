@@ -1,0 +1,32 @@
+{
+  "doctype": "DocType",
+  "name": "AlphaX POS Item Dietary Tag",
+  "module": "AlphaX POS Suite",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "description": "Links a dietary tag or allergen to an item.",
+  "field_order": [
+    "dietary_tag",
+    "tag_kind"
+  ],
+  "fields": [
+    {
+      "fieldname": "dietary_tag",
+      "label": "Tag",
+      "fieldtype": "Link",
+      "options": "AlphaX POS Dietary Tag",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "tag_kind",
+      "label": "Kind",
+      "fieldtype": "Data",
+      "fetch_from": "dietary_tag.tag_kind",
+      "read_only": 1,
+      "in_list_view": 1
+    }
+  ],
+  "permissions": []
+}

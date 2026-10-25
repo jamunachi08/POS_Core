@@ -1,0 +1,159 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Forecast Settings",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "modified": "2026-10-25 14:00:00.000000",
+ "fields": [
+  {
+   "fieldname": "enabled",
+   "label": "Enable forecasting",
+   "fieldtype": "Check",
+   "default": "1"
+  },
+  {
+   "fieldname": "horizon_days",
+   "label": "Forecast days ahead",
+   "fieldtype": "Int",
+   "default": "7",
+   "description": "Each nightly run forecasts this many days ahead for every enabled outlet."
+  },
+  {
+   "fieldname": "history_days",
+   "label": "History to learn from (days)",
+   "fieldtype": "Int",
+   "default": "400",
+   "description": "400 days lets the planner learn last year's Ramadan and Eid."
+  },
+  {
+   "fieldname": "min_history_days",
+   "label": "Minimum history before forecasting an item",
+   "fieldtype": "Int",
+   "default": "28"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "plan_to",
+   "label": "Plan prep to",
+   "fieldtype": "Select",
+   "options": "P50\nP80\nP90",
+   "default": "P80",
+   "description": "P80 means prep covers demand on 4 days out of 5. P90 wastes more and runs out less."
+  },
+  {
+   "fieldname": "min_item_qty",
+   "label": "Ignore items forecast below",
+   "fieldtype": "Float",
+   "default": "0.5"
+  },
+  {
+   "fieldname": "material_request_type",
+   "label": "Material Request type for shortfalls",
+   "fieldtype": "Select",
+   "options": "Material Transfer\nPurchase",
+   "default": "Material Transfer"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "label": "Central kitchen / store warehouse",
+   "fieldtype": "Link",
+   "options": "Warehouse",
+   "depends_on": "eval:doc.material_request_type=='Material Transfer'"
+  },
+  {
+   "fieldname": "sb_ai",
+   "label": "Briefing writer (local AI)",
+   "fieldtype": "Section Break",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "ai_enabled",
+   "label": "Write a plain-language briefing with a local model",
+   "fieldtype": "Check",
+   "default": "0",
+   "description": "Numbers always come from the statistical engine. The model only turns them into a short briefing for the kitchen."
+  },
+  {
+   "fieldname": "ai_endpoint",
+   "label": "Model endpoint (OpenAI-compatible)",
+   "fieldtype": "Data",
+   "depends_on": "ai_enabled",
+   "description": "For example http://10.0.0.5:11434/v1 (Ollama) or your NeotecAI gateway. Must be on a private network or in the allowed hosts list."
+  },
+  {
+   "fieldname": "ai_model",
+   "label": "Model name",
+   "fieldtype": "Data",
+   "depends_on": "ai_enabled",
+   "default": "qwen2.5:7b-instruct"
+  },
+  {
+   "fieldname": "ai_api_key",
+   "label": "API key",
+   "fieldtype": "Password",
+   "depends_on": "ai_enabled"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ai_allowed_hosts",
+   "label": "Allowed hosts outside the private network",
+   "fieldtype": "Small Text",
+   "depends_on": "ai_enabled",
+   "description": "One host per line, for a model server you control inside the Kingdom, e.g. ai.neotec.sa. Anything else is refused."
+  },
+  {
+   "fieldname": "ai_timeout",
+   "label": "Timeout (seconds)",
+   "fieldtype": "Int",
+   "default": "30",
+   "depends_on": "ai_enabled"
+  },
+  {
+   "fieldname": "ai_last_check",
+   "label": "Last connection check",
+   "fieldtype": "Small Text",
+   "read_only": 1,
+   "depends_on": "ai_enabled"
+  }
+ ],
+ "field_order": [
+  "enabled",
+  "horizon_days",
+  "history_days",
+  "min_history_days",
+  "cb1",
+  "plan_to",
+  "min_item_qty",
+  "material_request_type",
+  "source_warehouse",
+  "sb_ai",
+  "ai_enabled",
+  "ai_endpoint",
+  "ai_model",
+  "ai_api_key",
+  "cb2",
+  "ai_allowed_hosts",
+  "ai_timeout",
+  "ai_last_check"
+ ],
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1
+  }
+ ],
+ "issingle": 1,
+ "description": "How the demand planner forecasts and plans kitchen prep. All computation runs on this site."
+}

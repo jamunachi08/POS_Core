@@ -1,0 +1,186 @@
+{
+ "doctype": "DocType",
+ "name": "AlphaX POS Order Type",
+ "module": "AlphaX POS Suite",
+ "custom": 0,
+ "autoname": "field:order_type_name",
+ "track_changes": 1,
+ "description": "Service mode. One row per way of serving a guest \u2014 Dine In, Takeaway, Delivery, Room Service, Credit. The register reads these flags at boot and enforces them: whether a table is required, whether a customer or delivery platform must be named, whether a KOT prints, and which price list applies.",
+ "fields": [
+  {
+   "fieldname": "sec_identity",
+   "fieldtype": "Section Break",
+   "label": "Identity"
+  },
+  {
+   "fieldname": "order_type_name",
+   "label": "Order Type",
+   "fieldtype": "Data",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1,
+   "description": "Stored on the invoice as alphax_order_type. Renaming an existing type breaks reporting continuity \u2014 disable and add instead."
+  },
+  {
+   "fieldname": "icon",
+   "label": "Icon",
+   "fieldtype": "Data",
+   "description": "Single emoji or glyph shown on the register button."
+  },
+  {
+   "fieldname": "col_identity",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enabled",
+   "label": "Enabled",
+   "fieldtype": "Check",
+   "default": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "sort_order",
+   "label": "Sort Order",
+   "fieldtype": "Int",
+   "default": 0,
+   "description": "Left-to-right order on the register. Lowest first."
+  },
+  {
+   "fieldname": "is_default",
+   "label": "Default On Open",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "The mode a new sale starts in. If more than one is ticked, the lowest sort order wins."
+  },
+  {
+   "fieldname": "outlet",
+   "label": "Outlet",
+   "fieldtype": "Link",
+   "options": "AlphaX POS Outlet",
+   "description": "Leave blank to offer this mode at every outlet."
+  },
+  {
+   "fieldname": "sec_requirements",
+   "fieldtype": "Section Break",
+   "label": "What the cashier must supply"
+  },
+  {
+   "fieldname": "table_policy",
+   "label": "Table",
+   "fieldtype": "Select",
+   "options": "Not Applicable\nOptional\nMandatory",
+   "default": "Not Applicable",
+   "in_list_view": 1,
+   "description": "Mandatory blocks payment until a table is picked and opens the floor plan as soon as the mode is chosen. Not Applicable hides the table chip entirely and clears any table already held."
+  },
+  {
+   "fieldname": "requires_customer",
+   "label": "Requires Named Customer",
+   "fieldtype": "Check",
+   "default": 0
+  },
+  {
+   "fieldname": "requires_delivery_platform",
+   "label": "Requires Delivery Platform",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "Aggregator modes: the full amount posts to the platform's Mode of Payment."
+  },
+  {
+   "fieldname": "col_requirements",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "room_policy",
+   "label": "Room / Folio",
+   "fieldtype": "Select",
+   "options": "Not Applicable\nOptional\nMandatory",
+   "default": "Not Applicable",
+   "description": "Hospitality. Mandatory asks for an in-house room before payment and posts the charge to that folio instead of tendering cash."
+  },
+  {
+   "fieldname": "requires_cover_count",
+   "label": "Requires Cover Count",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "Ask how many guests are seated. Feeds average-spend-per-cover reporting."
+  },
+  {
+   "fieldname": "requires_manager_pin",
+   "label": "Requires Manager PIN",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "Staff meals, comps, house accounts \u2014 anything that should not be a one-tap choice."
+  },
+  {
+   "fieldname": "sec_behaviour",
+   "fieldtype": "Section Break",
+   "label": "How the order behaves"
+  },
+  {
+   "fieldname": "prints_kot",
+   "label": "Prints Kitchen Ticket",
+   "fieldtype": "Check",
+   "default": 1
+  },
+  {
+   "fieldname": "opens_tab",
+   "label": "Opens A Running Tab",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "The order stays open for more rounds instead of tendering immediately. Dine In and room service behave this way."
+  },
+  {
+   "fieldname": "posts_credit",
+   "label": "Posts On Credit",
+   "fieldtype": "Check",
+   "default": 0,
+   "description": "No tender screen. Posts an outstanding Sales Invoice against the named customer."
+  },
+  {
+   "fieldname": "col_behaviour",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_list",
+   "label": "Price List Override",
+   "fieldtype": "Link",
+   "options": "Price List",
+   "description": "Channel pricing. Aggregator menus usually carry a marked-up list so commission does not eat the margin."
+  },
+  {
+   "fieldname": "service_charge_percent",
+   "label": "Service Charge %",
+   "fieldtype": "Percent",
+   "default": 0,
+   "description": "Applied on top of the order when this mode is active. Dine In often carries one; takeaway rarely does."
+  },
+  {
+   "fieldname": "target_prep_minutes",
+   "label": "Target Prep Minutes",
+   "fieldtype": "Int",
+   "default": 0,
+   "description": "Drives the ageing colour on the kitchen display and the late-order report."
+  }
+ ],
+ "permissions": [
+  {
+   "role": "AlphaX POS Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1
+  },
+  {
+   "role": "AlphaX POS Cashier",
+   "read": 1
+  }
+ ]
+}
